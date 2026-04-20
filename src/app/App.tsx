@@ -179,7 +179,7 @@ export default function App() {
                   icon: <Factory className="w-6 h-6" />,
                   title: "Peças Metálicas",
                   description:
-                    "Produção de componentes em aço, alumínio, bronze, latão e ligas especiais. Capacidade para lotes flexíveis com controle dimensional.",
+                    "Oferecemos soluções na fabricação de componentes em aço carbono, inox, alumínio, bronze, latão e ligas especiais. Unimos um alto controle de qualidade a uma produção versátil, capaz de processar lotes flexíveis sempre garantindo a conformidade por meio de um rigoroso controle dimensional.",
                   features: ["Diversos materiais", "Lotes flexíveis", "Inspeção dimensional"],
                 },
                 {
