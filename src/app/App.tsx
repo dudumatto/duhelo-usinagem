@@ -13,268 +13,301 @@ import {
   Award,
   Headphones,
   Cpu,
+  ArrowRight,
 } from "lucide-react";
 
 const BRAND = "Duhelo Usinagem";
+const WHATSAPP_LINK = "https://wa.me/5519982731890?text=Olá%2C%20gostaria%20de%20solicitar%20um%20orçamento%21";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" as const },
+  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+} as const;
+
+const staggerContainer = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { staggerChildren: 0.1 }
+};
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-zinc-950">
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl md:text-2xl font-bold text-zinc-50 tracking-tight">
-            DUHELO<span className="text-blue-500"> USINAGEM</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#servicos" className="text-zinc-400 hover:text-zinc-50 transition-colors">
-              Serviços
-            </a>
-            <a href="#capacidades" className="text-zinc-400 hover:text-zinc-50 transition-colors">
-              Capacidades
-            </a>
-            <a
-              href="#contato"
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Contato
-            </a>
-          </div>
-        </div>
-      </motion.nav>
-
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="w-full h-full"
-          >
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1713371398485-7bde1bde9def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1920"
-              alt={`${BRAND} — usinagem de precisão`}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/95 to-zinc-950/40" />
-          </motion.div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-6 py-32 md:py-0">
-          <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-4">
-                {BRAND}
-              </p>
-              <h1 className="text-5xl md:text-7xl mb-6 text-zinc-50">Precisão em cada detalhe</h1>
-              <p className="text-xl text-zinc-400 mb-8">
-                Usinagem CNC de alta performance para projetos que exigem excelência técnica e acabamento superior.
-              </p>
-              <motion.a
-                href="#contato"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-block px-8 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Solicitar orçamento
-              </motion.a>
-            </motion.div>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+    <div className="min-h-screen bg-bg-950 selection:bg-primary/30 selection:text-white">
+      {/* HEADER / NAV */}
+      <header>
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="fixed top-0 left-0 right-0 z-50 bg-bg-950/80 backdrop-blur-xl border-b border-white/5"
+          role="navigation"
+          aria-label="Navegação principal"
         >
-          <div className="w-6 h-10 border-2 border-zinc-600 rounded-full flex justify-center p-2">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-zinc-400 rounded-full"
-            />
-          </div>
-        </motion.div>
-      </section>
-
-      <section id="servicos" className="py-32 bg-zinc-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl mb-4 text-zinc-50">Nossos serviços</h2>
-            <p className="text-xl text-zinc-400">Soluções completas em usinagem para a indústria</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                image: "/images/card-usinagem-customizada.png",
-                icon: <Settings className="w-8 h-8" />,
-                title: "Usinagem customizada",
-                description:
-                  "Desenvolvemos peças sob medida de acordo com seu projeto específico. Trabalhamos com desenhos técnicos e especificações personalizadas, garantindo que cada componente atenda exatamente às suas necessidades.",
-                features: ["Projetos personalizados", "Múltiplos materiais", "Prototipagem rápida"],
-              },
-              {
-                image: "/images/card-servicos-cnc.png",
-                icon: <Cog className="w-8 h-8" />,
-                title: "Serviços CNC",
-                description:
-                  "Centros de usinagem CNC de última geração para torneamento, fresamento e furação de alta precisão. Operamos equipamentos 3, 4 e 5 eixos para geometrias complexas e acabamento superior.",
-                features: ["Torneamento CNC", "Fresamento multi-eixos", "Tolerâncias rigorosas"],
-              },
-              {
-                image: "/images/card-fabricacao-metal.png",
-                icon: <Factory className="w-8 h-8" />,
-                title: "Fabricação de peças metálicas",
-                description:
-                  "Produção de componentes metálicos em diversos materiais como aço, alumínio, bronze, latão e ligas especiais. Capacidade para lotes pequenos, médios e grandes com controle dimensional garantido.",
-                features: ["Diversos materiais", "Lotes flexíveis", "Inspeção dimensional"],
-              },
-              {
-                image:
-                  "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
-                icon: <Wrench className="w-8 h-8" />,
-                title: "Manutenção e reparo",
-                description:
-                  "Recuperação e reforma de peças desgastadas ou danificadas. Serviços de retífica, soldagem especializada e recuperação dimensional para prolongar a vida útil de seus componentes industriais.",
-                features: ["Recuperação de peças", "Retífica de precisão", "Soldagem especializada"],
-              },
-            ].map((service, index) => (
-              <motion.article
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="overflow-hidden bg-zinc-800/50 border border-zinc-700 rounded-xl group cursor-pointer flex flex-col"
+          <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div className="text-xl md:text-2xl font-display font-bold text-white tracking-tighter flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <Cog className="text-white w-5 h-5 animate-spin-slow" />
+              </div>
+              <span>DUHELO<span className="text-primary"> USINAGEM</span></span>
+            </div>
+            
+            <div className="hidden md:flex items-center gap-10">
+              <a href="#servicos" className="text-sm font-medium text-text-400 hover:text-white transition-colors uppercase tracking-widest">
+                Serviços
+              </a>
+              <a href="#capacidades" className="text-sm font-medium text-text-400 hover:text-white transition-colors uppercase tracking-widest">
+                Capacidades
+              </a>
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                aria-label="Solicitar orçamento via WhatsApp"
               >
-                <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-zinc-900/90 border-b border-zinc-700/80">
-                  <ImageWithFallback
-                    src={service.image}
-                    alt={`${BRAND} — ${service.title}`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/85 via-zinc-950/20 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600/90 text-white shadow-lg backdrop-blur-sm">
+                Orçamento
+              </a>
+            </div>
+          </div>
+        </motion.nav>
+      </header>
+
+      <main>
+        {/* HERO SECTION - Asymmetric Layout */}
+        <section className="relative min-h-screen flex items-center overflow-hidden pt-20" aria-labelledby="hero-title">
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-mesh opacity-40" />
+            <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+          </div>
+
+          <div className="section-container relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  </span>
+                  Líder em Usinagem de Precisão
+                </div>
+                <h1 id="hero-title" className="text-6xl md:text-8xl mb-8 text-white leading-[0.9] text-gradient">
+                  Precisão em cada <span className="text-primary">detalhe.</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-text-400 mb-10 max-w-xl leading-relaxed">
+                  Usinagem CNC de alta performance para projetos que exigem excelência técnica e acabamento superior.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <motion.a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="btn-primary gap-2"
+                  >
+                    Solicitar orçamento <ArrowRight className="w-5 h-5" />
+                  </motion.a>
+                  <a href="#servicos" className="btn-outline">
+                    Conhecer serviços
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-5 relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 1, delay: 0.4 }}
+                className="relative z-10 aspect-[4/5] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/50"
+              >
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1713371398485-7bde1bde9def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1920"
+                  alt={`${BRAND} — Usinagem de precisão em ação`}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-950 via-transparent to-transparent opacity-60" />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* SERVICES SECTION */}
+        <section id="servicos" className="relative py-24 bg-bg-900 overflow-hidden" aria-labelledby="services-title">
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          
+          <div className="section-container">
+            <motion.div
+              {...fadeInUp}
+              className="max-w-3xl mb-20"
+            >
+              <h2 id="services-title" className="text-4xl md:text-6xl mb-6 text-white text-gradient">
+                Nossas <span className="text-primary">Especialidades</span>
+              </h2>
+              <p className="text-xl text-text-400">
+                Oferecemos soluções completas em usinagem industrial com tecnologia de ponta e rigoroso controle de qualidade.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  image: "/images/card-usinagem-customizada.png",
+                  icon: <Settings className="w-6 h-6" />,
+                  title: "Usinagem Customizada",
+                  description:
+                    "Desenvolvemos peças sob medida de acordo com seu projeto específico. Trabalhamos com desenhos técnicos e especificações personalizadas.",
+                  features: ["Projetos personalizados", "Múltiplos materiais", "Prototipagem rápida"],
+                },
+                {
+                  image: "/images/card-servicos-cnc.png",
+                  icon: <Cog className="w-6 h-6" />,
+                  title: "Serviços CNC",
+                  description:
+                    "Centros de usinagem CNC de última geração para torneamento, fresamento e furação de alta precisão. Geometrias complexas e acabamento superior.",
+                  features: ["Torneamento CNC", "Fresamento multi-eixos", "Tolerâncias rigorosas"],
+                },
+                {
+                  image: "/images/card-fabricacao-metal.png",
+                  icon: <Factory className="w-6 h-6" />,
+                  title: "Peças Metálicas",
+                  description:
+                    "Produção de componentes em aço, alumínio, bronze, latão e ligas especiais. Capacidade para lotes flexíveis com controle dimensional.",
+                  features: ["Diversos materiais", "Lotes flexíveis", "Inspeção dimensional"],
+                },
+                {
+                  image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
+                  icon: <Wrench className="w-6 h-6" />,
+                  title: "Manutenção e Reparo",
+                  description:
+                    "Recuperação de peças desgastadas, reforma dimensional, retífica e soldagem especializada para prolongar a vida útil de seus componentes.",
+                  features: ["Recuperação de peças", "Retífica de precisão", "Soldagem especializada"],
+                },
+              ].map((service, index) => (
+                <motion.article
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group relative overflow-hidden glass-card hover:border-primary/30 transition-all duration-500 flex flex-col"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <ImageWithFallback
+                      src={service.image}
+                      alt={`${BRAND} — ${service.title}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-900 to-transparent opacity-60" />
+                    <div className="absolute top-6 left-6 w-12 h-12 glass-card border-white/20 flex items-center justify-center text-primary shadow-xl">
                       {service.icon}
                     </div>
                   </div>
-                </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <h3 className="text-2xl mb-4 text-zinc-50">{service.title}</h3>
-                  <p className="text-zinc-400 mb-6 flex-1">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm text-zinc-500">
-                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.article>
-            ))}
+                  
+                  <div className="p-8 flex flex-col flex-1">
+                    <h3 className="text-2xl mb-4 text-white group-hover:text-primary transition-colors">{service.title}</h3>
+                    <p className="text-text-400 mb-8 flex-1 leading-relaxed">{service.description}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {service.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-text-500">
+                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-32 bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl mb-4 text-zinc-50">Por que escolher a {BRAND}</h2>
-            <p className="text-xl text-zinc-400">Compromisso com excelência em cada etapa do processo</p>
-          </motion.div>
+        {/* WHY CHOOSE US */}
+        <section className="py-24 bg-bg-950" aria-labelledby="why-title">
+          <div className="section-container">
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-20"
+            >
+              <h2 id="why-title" className="text-4xl md:text-6xl mb-6 text-white text-gradient">
+                Por que a <span className="text-primary">{BRAND}</span>?
+              </h2>
+              <p className="text-xl text-text-400 max-w-2xl mx-auto">
+                Diferenciais que nos tornam o parceiro ideal para sua produção industrial.
+              </p>
+            </motion.div>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                icon: <Award className="w-10 h-10" />,
-                title: "Precisão e controle de qualidade",
-                description:
-                  "Inspeção dimensional rigorosa com equipamentos de medição de última geração e processos alinhados à boas práticas.",
-              },
-              {
-                icon: <Clock className="w-10 h-10" />,
-                title: "Entrega rápida",
-                description:
-                  "Prazos competitivos e cumprimento alinhado graças ao parque de máquinas e processos otimizados.",
-              },
-              {
-                icon: <Headphones className="w-10 h-10" />,
-                title: "Atendimento personalizado",
-                description:
-                  "Equipe técnica dedicada para acompanhar seu projeto desde o orçamento até a entrega final.",
-              },
-              {
-                icon: <Cpu className="w-10 h-10" />,
-                title: "Tecnologia",
-                description:
-                  "Centros de usinagem CNC multi-eixos, software CAM e automação para máxima precisão e eficiência.",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center"
-              >
+            <motion.div 
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="whileInView"
+              className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
+              {[
+                {
+                  icon: <Award className="w-8 h-8" />,
+                  title: "Qualidade Rigorosa",
+                  description: "Inspeção dimensional precisa com equipamentos calibrados.",
+                },
+                {
+                  icon: <Clock className="w-8 h-8" />,
+                  title: "Agilidade na Entrega",
+                  description: "Processos otimizados para prazos curtos e confiáveis.",
+                },
+                {
+                  icon: <Headphones className="w-8 h-8" />,
+                  title: "Suporte Técnico",
+                  description: "Acompanhamento especializado do desenho à peça pronta.",
+                },
+                {
+                  icon: <Cpu className="w-8 h-8" />,
+                  title: "Alta Tecnologia",
+                  description: "Maquinário moderno para máxima eficiência produtiva.",
+                },
+              ].map((item, index) => (
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-blue-600/10 border border-blue-600/20 rounded-lg text-blue-500"
+                  key={index}
+                  variants={fadeInUp}
+                  className="p-8 glass-card border-white/5 hover:bg-white/10 transition-all group"
                 >
-                  {item.icon}
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl mb-3 text-white">{item.title}</h3>
+                  <p className="text-text-400 leading-relaxed text-sm">{item.description}</p>
                 </motion.div>
-                <h3 className="text-xl mb-3 text-zinc-50">{item.title}</h3>
-                <p className="text-zinc-400">{item.description}</p>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="capacidades" className="py-32 bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+        {/* CAPABILITIES */}
+        <section id="capacidades" className="py-24 bg-bg-900 relative overflow-hidden" aria-labelledby="cap-title">
+           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 blur-[150px] rounded-full" />
+           
+           <div className="section-container relative z-10 grid md:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-4xl md:text-5xl mb-8 text-zinc-50">
-                Tecnologia de ponta para resultados superiores
+              <h2 id="cap-title" className="text-4xl md:text-6xl mb-8 text-white leading-tight text-gradient">
+                Tecnologia para resultados <span className="text-primary">superiores.</span>
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-5 mb-10">
                 {[
                   "Centros de usinagem multi-eixos",
                   "Controle dimensional rigoroso",
-                  "Processos e qualidade documentados",
-                  "Prazos de entrega combinados com transparência",
+                  "Processos de qualidade certificados",
+                  "Prazos combinados com transparência",
                   "Suporte técnico especializado",
                 ].map((capability, index) => (
                   <motion.div
@@ -283,97 +316,130 @@ export default function App() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-start gap-4"
+                    className="flex items-center gap-4 group"
                   >
-                    <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-1" />
-                    <span className="text-lg text-zinc-300">{capability}</span>
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <span className="text-lg text-text-400 group-hover:text-white transition-colors">{capability}</span>
                   </motion.div>
                 ))}
               </div>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                Falar com especialista
+              </a>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
               className="relative"
             >
-              <div className="aspect-[4/3] rounded-lg overflow-hidden border border-zinc-800 shadow-2xl shadow-black/40">
+              <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1666618090858-fbcee636bd3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw0fHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt={`Instalações — ${BRAND}`}
+                  alt={`Tecnologia de ponta na ${BRAND}`}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-600/20 rounded-lg blur-3xl" />
+              <div className="absolute inset-0 bg-primary/20 blur-[120px] rounded-full z-0 translate-x-10 translate-y-10" />
             </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="contato" className="py-32 bg-zinc-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl mb-6 text-zinc-50">Vamos desenvolver seu projeto</h2>
-            <p className="text-xl text-zinc-400 mb-12 max-w-2xl mx-auto">
-              Entre em contato e descubra como a {BRAND} pode transformar suas ideias em realidade.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {[
-                {
-                  icon: <Phone className="w-6 h-6" />,
-                  label: "Telefone",
-                  value: "(00) 0000-0000",
-                },
-                {
-                  icon: <Mail className="w-6 h-6" />,
-                  label: "E-mail",
-                  value: "contato@duhelousinagem.com.br",
-                },
-                {
-                  icon: <MapPin className="w-6 h-6" />,
-                  label: "Localização",
-                  value: "São Paulo, SP",
-                },
-              ].map((contact, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex flex-col items-center gap-3"
-                >
-                  <div className="text-blue-500">{contact.icon}</div>
-                  <div className="text-sm text-zinc-500">{contact.label}</div>
-                  <div className="text-zinc-300">{contact.value}</div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.a
-              href="mailto:contato@duhelousinagem.com.br"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block px-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 transition-colors"
+        {/* CTA SECTION */}
+        <section id="contato" className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
+          <div className="absolute inset-0 bg-primary/5" />
+          <div className="section-container relative z-10">
+            <motion.div
+              {...fadeInUp}
+              className="glass-card p-10 md:p-20 text-center border-primary/20 relative overflow-hidden"
             >
-              Solicitar orçamento
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+              <div className="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
+                <Cog className="w-64 h-64 animate-spin-slow" />
+              </div>
+              
+              <h2 id="cta-title" className="text-4xl md:text-7xl mb-8 text-white text-gradient">
+                Vamos desenvolver seu <br className="hidden md:block" /><span className="text-primary">próximo projeto?</span>
+              </h2>
+              <p className="text-xl text-text-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                Entre em contato e descubra como a {BRAND} pode transformar suas necessidades em peças de alta precisão.
+              </p>
 
-      <footer className="py-8 bg-zinc-950 border-t border-zinc-800">
-        <div className="max-w-7xl mx-auto px-6 text-center text-zinc-500">
-          <p>© {new Date().getFullYear()} {BRAND}. Todos os direitos reservados.</p>
+              <div className="grid md:grid-cols-3 gap-10 mb-16 max-w-4xl mx-auto">
+                {[
+                  {
+                    icon: <Phone className="w-6 h-6" />,
+                    label: "Telefone / WhatsApp",
+                    value: "(19) 98273-1890",
+                    href: WHATSAPP_LINK
+                  },
+                  {
+                    icon: <Mail className="w-6 h-6" />,
+                    label: "E-mail",
+                    value: "duhelousinagem@gmail.com",
+                    href: "mailto:duhelousinagem@gmail.com"
+                  },
+                  {
+                    icon: <MapPin className="w-6 h-6" />,
+                    label: "Localização",
+                    value: "Americana, SP",
+                    href: "https://maps.google.com/?q=Americana,SP"
+                  },
+                ].map((contact, index) => (
+                  <motion.a
+                    key={index}
+                    href={contact.href}
+                    target={contact.href.startsWith('http') ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -5 }}
+                    className="flex flex-col items-center gap-4 group"
+                  >
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                      {contact.icon}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-widest text-text-500 mb-1">{contact.label}</div>
+                      <div className="text-text-50 font-medium group-hover:text-primary transition-colors">{contact.value}</div>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+
+              <motion.a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary px-16 py-6 text-xl shadow-2xl shadow-primary/40"
+              >
+                Solicitar orçamento agora
+              </motion.a>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="py-12 bg-bg-950 border-t border-white/5" role="contentinfo">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+            <div className="text-2xl font-display font-bold text-white tracking-tighter">
+              DUHELO<span className="text-primary"> USINAGEM</span>
+            </div>
+            <div className="flex gap-8 text-sm text-text-400">
+              <a href="#servicos" className="hover:text-white transition-colors">Serviços</a>
+              <a href="#capacidades" className="hover:text-white transition-colors">Capacidades</a>
+              <a href="#contato" className="hover:text-white transition-colors">Contato</a>
+            </div>
+          </div>
+          <div className="text-center text-text-500 text-sm border-t border-white/5 pt-8">
+            <p>© {new Date().getFullYear()} {BRAND}. Todos os direitos reservados.</p>
+            <p className="mt-2 text-xs opacity-50">Especialistas em usinagem CNC de alta precisão.</p>
+          </div>
         </div>
       </footer>
     </div>
