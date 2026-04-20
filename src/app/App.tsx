@@ -122,8 +122,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                image:
-                  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80",
+                image: "/images/card-usinagem-customizada.png",
                 icon: <Settings className="w-8 h-8" />,
                 title: "Usinagem customizada",
                 description:
@@ -131,8 +130,7 @@ export default function App() {
                 features: ["Projetos personalizados", "Múltiplos materiais", "Prototipagem rápida"],
               },
               {
-                image:
-                  "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=1200&q=80",
+                image: "/images/card-servicos-cnc.png",
                 icon: <Cog className="w-8 h-8" />,
                 title: "Serviços CNC",
                 description:
@@ -140,8 +138,7 @@ export default function App() {
                 features: ["Torneamento CNC", "Fresamento multi-eixos", "Tolerâncias rigorosas"],
               },
               {
-                image:
-                  "https://images.unsplash.com/photo-1504917595217-5f4d5c8c8b8e?auto=format&fit=crop&w=1200&q=80",
+                image: "/images/card-fabricacao-metal.png",
                 icon: <Factory className="w-8 h-8" />,
                 title: "Fabricação de peças metálicas",
                 description:
