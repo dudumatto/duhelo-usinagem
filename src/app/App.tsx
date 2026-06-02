@@ -1,73 +1,207 @@
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import {
-  Cog,
+  ArrowRight,
+  Award,
   CheckCircle2,
-  Phone,
+  Clock,
+  Cog,
+  Cpu,
+  Drill,
+  Factory,
+  Headphones,
+  Layers3,
   Mail,
   MapPin,
+  Phone,
+  Ruler,
   Settings,
+  ShieldCheck,
   Wrench,
-  Factory,
-  Clock,
-  Award,
-  Headphones,
-  Cpu,
-  ArrowRight,
 } from "lucide-react";
 
 const BRAND = "Duhelo Usinagem";
-const WHATSAPP_LINK = "https://wa.me/5519982731890?text=Olá%2C%20gostaria%20de%20solicitar%20um%20orçamento%21";
+const WHATSAPP_LINK =
+  "https://wa.me/5519982731890?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%21";
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" as const },
-  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  viewport: { once: true, margin: "-80px" as const },
+  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
 } as const;
 
 const staggerContainer = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
-  viewport: { once: true },
-  transition: { staggerChildren: 0.1 }
+  viewport: { once: true, margin: "-60px" },
+  transition: { staggerChildren: 0.08 },
 };
+
+function DuheloLogo({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={compact ? "brand-lockup brand-lockup-compact" : "brand-lockup"} aria-label={BRAND}>
+      <div className={compact ? "brand-mark brand-mark-compact" : "brand-mark"}>
+        <Cog className={compact ? "h-5 w-5" : "h-6 w-6"} />
+      </div>
+      {!compact && (
+        <span className="brand-wordmark">
+          DUHELO <strong>USINAGEM</strong>
+        </span>
+      )}
+    </div>
+  );
+}
+
+const services = [
+  {
+    image: "/images/card-usinagem-customizada.jpg",
+    imagePosition: "50% 50%",
+    icon: <Settings className="w-6 h-6" />,
+    title: "Peça fora de catálogo?",
+    mediaLabel: "Fabricação sob desenho ou amostra",
+    description:
+      "Fabricamos peças sob medida a partir de desenho, amostra ou medida crítica quando a reposição comum não resolve.",
+    features: ["Leitura de desenho", "Peças especiais", "Pequenos lotes", "Controle dimensional"],
+  },
+  {
+    image: "/images/card-servicos-cnc.jpg",
+    imagePosition: "50% 54%",
+    icon: <Cog className="w-6 h-6" />,
+    title: "Produção com repetibilidade?",
+    mediaLabel: "Usinagem CNC para lotes e padrão",
+    description:
+      "Torneamento e fresamento para componentes que precisam manter medidas, acabamento e padrão entre unidades.",
+    features: ["Torno CNC", "Fresamento", "Repetibilidade", "Conferência por lote"],
+  },
+  {
+    image: "/images/card-fabricacao-metal.jpg",
+    imagePosition: "50% 48%",
+    icon: <Factory className="w-6 h-6" />,
+    title: "Componente industrial sob medida?",
+    mediaLabel: "Componentes para máquinas e dispositivos",
+    description:
+      "Produzimos itens mecânicos para máquinas, dispositivos, protótipos e reposição conforme aplicação e material.",
+    features: ["Material adequado", "Aço e inox", "Alumínio", "Bronze e latão"],
+  },
+  {
+    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
+    imagePosition: "50% 58%",
+    mediaClassName: "service-media service-media-maintenance",
+    icon: <Wrench className="w-6 h-6" />,
+    title: "Peça desgastada parando máquina?",
+    mediaLabel: "Recuperação para reduzir parada",
+    description:
+      "Recuperamos, ajustamos ou refazemos componentes desgastados para reduzir parada e devolver função ao conjunto.",
+    features: ["Recuperação", "Ajustes", "Reforma mecânica", "Conferência final"],
+  },
+];
+
+const equipment = [
+  {
+    icon: <Cpu className="w-7 h-7" />,
+    title: "Torno CNC",
+    description: "Produção de eixos, buchas, flanges e componentes com repetibilidade e acabamento técnico.",
+  },
+  {
+    icon: <Drill className="w-7 h-7" />,
+    title: "Fresa",
+    description: "Usinagem de superfícies, rasgos, furos, bases, suportes e geometrias especiais.",
+  },
+  {
+    icon: <Settings className="w-7 h-7" />,
+    title: "Torno convencional",
+    description: "Flexibilidade para manutenção, ajustes dimensionais, peças únicas e pequenos lotes.",
+  },
+];
+
+const differentiators = [
+  {
+    icon: <Ruler className="w-7 h-7" />,
+    title: "Controle dimensional",
+    description: "Leitura criteriosa do desenho, setup controlado e conferência antes da entrega.",
+  },
+  {
+    icon: <Clock className="w-7 h-7" />,
+    title: "Prazo responsável",
+    description: "Planejamento de produção para atender urgências sem comprometer o acabamento.",
+  },
+  {
+    icon: <ShieldCheck className="w-7 h-7" />,
+    title: "Material adequado",
+    description: "Escolha do processo e do material conforme aplicação, desgaste esperado e necessidade da peça.",
+  },
+  {
+    icon: <Headphones className="w-7 h-7" />,
+    title: "Atendimento técnico",
+    description: "Contato direto para entender aplicação, medidas críticas e melhor rota de fabricação.",
+  },
+];
+
+const materials = ["Alumínio", "Aço Carbono", "Aço Inox", "Bronze", "Latão", "Teflon", "UHMW"];
+
+const processSteps = [
+  "Análise do desenho ou amostra",
+  "Definição de material e processo",
+  "Planejamento técnico e usinagem de precisão",
+  "Conferência dimensional antes da entrega",
+];
+
+const quoteSteps = [
+  {
+    title: "Envie a referência",
+    description: "Desenho técnico, foto, amostra, medidas principais ou a descrição objetiva do problema.",
+  },
+  {
+    title: "Informe a aplicação",
+    description: "Material desejado, quantidade, urgência, uso da peça e medidas que não podem variar.",
+  },
+  {
+    title: "Receba orientação técnica",
+    description: "A Duhelo avalia processo, material e conferência necessária antes de retornar o orçamento.",
+  },
+];
+
+const technicalChecks = [
+  "Medidas críticas",
+  "Material adequado",
+  "Tolerância necessária",
+  "Acabamento esperado",
+  "Aplicação da peça",
+  "Conferência antes da entrega",
+];
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-bg-950 selection:bg-primary/30 selection:text-white">
-      {/* HEADER / NAV */}
+    <div className="min-h-screen bg-bg-950 text-text-50 selection:bg-primary/30 selection:text-white">
       <header>
         <motion.nav
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="fixed top-0 left-0 right-0 z-50 bg-bg-950/80 backdrop-blur-xl border-b border-white/5"
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-bg-950/88 backdrop-blur-xl"
           role="navigation"
           aria-label="Navegação principal"
         >
-          <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div className="text-xl md:text-2xl font-display font-bold text-white tracking-tighter flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Cog className="text-white w-5 h-5 animate-spin-slow" />
-              </div>
-              <span>DUHELO<span className="text-primary"> USINAGEM</span></span>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-10">
-              <a href="#servicos" className="text-sm font-medium text-text-400 hover:text-white transition-colors uppercase tracking-widest">
-                Serviços
-              </a>
-              <a href="#capacidades" className="text-sm font-medium text-text-400 hover:text-white transition-colors uppercase tracking-widest">
-                Capacidades
-              </a>
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                aria-label="Solicitar orçamento via WhatsApp"
-              >
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-6">
+            <a href="#topo" className="transition-opacity hover:opacity-90" aria-label="Ir para o início">
+              <DuheloLogo />
+            </a>
+
+            <div className="hidden items-center gap-7 md:flex">
+              {[
+                ["Sobre", "#sobre"],
+                ["Serviços", "#servicos"],
+                ["Orçamento", "#orcamento"],
+                ["Materiais", "#materiais"],
+                ["Estrutura", "#estrutura"],
+                ["Contato", "#contato"],
+              ].map(([label, href]) => (
+                <a key={href} href={href} className="nav-link">
+                  {label}
+                </a>
+              ))}
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary btn-small">
                 Orçamento
               </a>
             </div>
@@ -75,149 +209,145 @@ export default function App() {
         </motion.nav>
       </header>
 
-      <main>
-        {/* HERO SECTION - Asymmetric Layout */}
-        <section className="relative min-h-screen flex items-center overflow-hidden pt-20" aria-labelledby="hero-title">
-          <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-mesh opacity-40" />
-            <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-          </div>
+      <main id="topo">
+        <section className="hero-shell relative flex min-h-screen items-center overflow-hidden pt-24" aria-labelledby="hero-title">
+          <div className="absolute inset-0 bg-mesh opacity-70" />
+          <div className="absolute inset-0 bg-grid-pattern opacity-35" />
+          <div className="absolute left-0 right-0 top-24 h-px steel-line opacity-70" />
 
-          <div className="section-container relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+          <div className="section-container relative z-10 grid items-center gap-12 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                  </span>
-                  Líder em Usinagem de Precisão
+              <motion.div initial={{ opacity: 0, x: -28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.1 }}>
+                <div className="eyebrow mb-6">
+                  <span className="live-dot" />
+                  Usinagem de precisão em Americana - SP
                 </div>
-                <h1 id="hero-title" className="text-6xl md:text-8xl mb-8 text-white leading-[0.9] text-gradient">
-                  Precisão em cada <span className="text-primary">detalhe.</span>
+                <h1 id="hero-title" className="max-w-5xl text-4xl leading-[0.98] text-white sm:text-5xl md:text-7xl xl:text-8xl">
+                  Fabricamos e recuperamos peças industriais com precisão.
                 </h1>
-                <p className="text-xl md:text-2xl text-text-400 mb-10 max-w-xl leading-relaxed">
-                  Usinagem CNC de alta performance para projetos que exigem excelência técnica e acabamento superior.
+                <p className="mt-7 max-w-2xl text-lg leading-relaxed text-text-400 md:text-2xl">
+                  Usinagem, fabricação e recuperação de componentes mecânicos com leitura de desenho, material adequado e conferência antes da entrega.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="btn-primary gap-2"
-                  >
-                    Solicitar orçamento <ArrowRight className="w-5 h-5" />
+
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                  <motion.a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary">
+                    Pedir orçamento técnico <ArrowRight className="h-5 w-5" />
                   </motion.a>
-                  <a href="#servicos" className="btn-outline">
-                    Conhecer serviços
+                  <a href="#orcamento" className="btn-outline">
+                    O que enviar
                   </a>
                 </div>
+
+                <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+                  {[
+                    ["CNC", "Torno e fresa"],
+                    ["Materiais", "Aço, inox, alumínio"],
+                    ["Aplicação", "Indústria e manutenção"],
+                  ].map(([label, value]) => (
+                    <div key={label} className="metric-card">
+                      <span>{label}</span>
+                      <strong>{value}</strong>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             </div>
 
-            <div className="lg:col-span-5 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ duration: 1, delay: 0.4 }}
-                className="relative z-10 aspect-[4/5] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/50"
-              >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, x: 24 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.75, delay: 0.2 }}
+              className="relative lg:col-span-5"
+            >
+              <div className="hero-visual">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1713371398485-7bde1bde9def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1920"
-                  alt={`${BRAND} — Usinagem de precisão em ação`}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                  alt={`${BRAND} - máquina CNC em operação`}
+                  className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-950 via-transparent to-transparent opacity-60" />
-              </motion.div>
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-950 via-bg-950/18 to-transparent" />
+                <div className="scanline" />
+                
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* SERVICES SECTION */}
-        <section id="servicos" className="relative py-24 bg-bg-900 overflow-hidden" aria-labelledby="services-title">
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-          
-          <div className="section-container">
-            <motion.div
-              {...fadeInUp}
-              className="max-w-3xl mb-20"
-            >
-              <h2 id="services-title" className="text-4xl md:text-6xl mb-6 text-white text-gradient">
-                Nossas <span className="text-primary">Especialidades</span>
+        <section id="sobre" className="section-band" aria-labelledby="about-title">
+          <div className="section-container about-grid">
+            <motion.div {...fadeInUp} className="about-heading">
+              <div className="eyebrow mb-4">
+                <Ruler className="h-4 w-4 text-accent" />
+                Quem somos
+              </div>
+              <h2 id="about-title" className="about-title">
+                Fabricação e recuperação de peças industriais
               </h2>
-              <p className="text-xl text-text-400">
-                Oferecemos soluções completas em usinagem industrial com tecnologia de ponta e rigoroso controle de qualidade.
+              <p className="about-lead">
+                A Duhelo transforma desenho, amostra ou peça desgastada em solução técnica para máquinas, dispositivos e linhas industriais.
+              </p>
+            </motion.div>
+            <motion.div {...fadeInUp} className="about-panel">
+              {[
+                ["Entrada técnica", "Desenho, foto, amostra, material, quantidade e aplicação orientam o orçamento."],
+                ["Processo adequado", "Definimos fabricação, ajuste, manutenção ou recuperação conforme a função da peça."],
+                ["Conferência final", "Controle dimensional e verificação antes da entrega reduzem retrabalho e parada."],
+              ].map(([label, text]) => (
+                <div className="about-item" key={label}>
+                  <span>{label}</span>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="servicos" className="relative overflow-hidden bg-bg-900" aria-labelledby="services-title">
+          <div className="absolute inset-x-0 top-0 h-px steel-line opacity-70" />
+          <div className="section-container">
+            <motion.div {...fadeInUp} className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+              <div className="max-w-3xl">
+                <div className="eyebrow mb-4">Capacidades</div>
+                <h2 id="services-title" className="text-4xl leading-tight text-white md:text-6xl">
+                  Serviços para fabricação, repetibilidade e recuperação.
+                </h2>
+              </div>
+              <p className="max-w-md text-base leading-relaxed text-text-400 md:text-lg">
+                Cada card responde a uma situação comum de indústria: peça sem reposição, lote repetido, componente sob medida ou item desgastado parando máquina.
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  image: "/images/card-usinagem-customizada.png",
-                  icon: <Settings className="w-6 h-6" />,
-                  title: "Usinagem Customizada",
-                  description:
-                    "Desenvolvemos peças sob medida de acordo com seu projeto específico. Trabalhamos com desenhos técnicos e especificações personalizadas.",
-                  features: ["Projetos personalizados", "Múltiplos materiais", "Prototipagem rápida"],
-                },
-                {
-                  image: "/images/card-servicos-cnc.png",
-                  icon: <Cog className="w-6 h-6" />,
-                  title: "Serviços CNC",
-                  description:
-                    "Centros de usinagem CNC de última geração para torneamento, fresamento e furação de alta precisão. Geometrias complexas e acabamento superior.",
-                  features: ["Torneamento CNC", "Fresamento multi-eixos", "Tolerâncias rigorosas"],
-                },
-                {
-                  image: "/images/card-fabricacao-metal.png",
-                  icon: <Factory className="w-6 h-6" />,
-                  title: "Peças Metálicas",
-                  description:
-                    "Oferecemos soluções na fabricação de componentes em aço carbono, inox, alumínio, bronze, latão e ligas especiais. Unimos um alto controle de qualidade a uma produção versátil, capaz de processar lotes flexíveis sempre garantindo a conformidade por meio de um rigoroso controle dimensional.",
-                  features: ["Diversos materiais", "Lotes flexíveis", "Inspeção dimensional"],
-                },
-                {
-                  image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
-                  icon: <Wrench className="w-6 h-6" />,
-                  title: "Manutenção e Reparo",
-                  description:
-                    "Recuperação de peças desgastadas, reforma dimensional, retífica e soldagem especializada para prolongar a vida útil de seus componentes.",
-                  features: ["Recuperação de peças", "Retífica de precisão", "Soldagem especializada"],
-                },
-              ].map((service, index) => (
+            <div className="grid gap-6 md:grid-cols-2">
+              {services.map((service, index) => (
                 <motion.article
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                  key={service.title}
+                  initial={{ opacity: 0, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group relative overflow-hidden glass-card hover:border-primary/30 transition-all duration-500 flex flex-col"
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: index * 0.06 }}
+                  className="service-card group"
                 >
-                  <div className="relative h-64 overflow-hidden">
+                  <div className={service.mediaClassName ?? "service-media"}>
                     <ImageWithFallback
                       src={service.image}
-                      alt={`${BRAND} — ${service.title}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      alt={`${BRAND} - ${service.title.replace("?", "")}`}
+                      className="service-image"
+                      style={{ objectPosition: service.imagePosition }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-900 to-transparent opacity-60" />
-                    <div className="absolute top-6 left-6 w-12 h-12 glass-card border-white/20 flex items-center justify-center text-primary shadow-xl">
+                    <div className="service-image-overlay" />
+                    <div className="service-image-frame" />
+                    <div className="service-media-label">{service.mediaLabel}</div>
+                    <div className="service-icon">
                       {service.icon}
                     </div>
                   </div>
-                  
-                  <div className="p-8 flex flex-col flex-1">
-                    <h3 className="text-2xl mb-4 text-white group-hover:text-primary transition-colors">{service.title}</h3>
-                    <p className="text-text-400 mb-8 flex-1 leading-relaxed">{service.description}</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-text-500">
-                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                  <div className="flex flex-1 flex-col p-7">
+                    <h3 className="text-2xl text-white">{service.title}</h3>
+                    <p className="mt-3 flex-1 leading-relaxed text-text-400">{service.description}</p>
+                    <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                      {service.features.map((feature) => (
+                        <div key={feature} className="feature-row">
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
                           {feature}
                         </div>
                       ))}
@@ -229,216 +359,235 @@ export default function App() {
           </div>
         </section>
 
-        {/* WHY CHOOSE US */}
-        <section className="py-24 bg-bg-950" aria-labelledby="why-title">
+        <section id="orcamento" className="section-band" aria-labelledby="quote-title">
           <div className="section-container">
-            <motion.div
-              {...fadeInUp}
-              className="text-center mb-20"
-            >
-              <h2 id="why-title" className="text-4xl md:text-6xl mb-6 text-white text-gradient">
-                Por que a <span className="text-primary">{BRAND}</span>?
-              </h2>
-              <p className="text-xl text-text-400 max-w-2xl mx-auto">
-                Diferenciais que nos tornam o parceiro ideal para sua produção industrial.
+            <motion.div {...fadeInUp} className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+              <div className="max-w-3xl">
+                <div className="eyebrow mb-4">Como solicitar orçamento</div>
+                <h2 id="quote-title" className="text-4xl leading-tight text-white md:text-6xl">
+                  Envie as informações certas para um retorno mais preciso.
+                </h2>
+              </div>
+              <p className="max-w-md text-base leading-relaxed text-text-400 md:text-lg">
+                O caminho de orçamento fica mais rápido quando a Duhelo recebe desenho, foto, amostra, material, quantidade e aplicação da peça.
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-5 md:grid-cols-3">
+              {quoteSteps.map((step, index) => (
+                <motion.article key={step.title} variants={fadeInUp} className="glass-card p-7">
+                  <span className="text-xs font-bold uppercase tracking-[0.24em] text-accent">{String(index + 1).padStart(2, "0")}</span>
+                  <h3 className="mt-5 text-2xl text-white">{step.title}</h3>
+                  <p className="mt-3 leading-relaxed text-text-400">{step.description}</p>
+                </motion.article>
+              ))}
+            </motion.div>
+            <motion.div {...fadeInUp} className="mt-10 flex flex-col items-start justify-between gap-5 rounded-3xl border border-primary/20 bg-bg-800/65 p-6 md:flex-row md:items-center">
+              <p className="max-w-2xl text-base leading-relaxed text-text-400">
+                Para começar, mande pelo WhatsApp o desenho, foto ou amostra da peça, junto com material, quantidade e aplicação. Se faltar alguma informação, a Duhelo confirma antes de produzir.
+              </p>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary shrink-0">
+                Enviar dados da peça <ArrowRight className="h-5 w-5" />
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="materiais" className="section-band" aria-labelledby="materials-title">
+          <div className="section-container">
+            <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-7">
+                <div className="eyebrow mb-4">
+                  <Layers3 className="h-4 w-4 text-accent" />
+                  Materiais trabalhados
+                </div>
+                <h2 id="materials-title" className="text-4xl leading-tight text-white md:text-6xl">
+                  Materiais para diferentes necessidades industriais.
+                </h2>
+              </div>
+              <p className="text-base leading-relaxed text-text-400 md:text-lg lg:col-span-5">
+                Trabalhamos com diversos materiais para atender diferentes necessidades industriais e aplicações específicas.
+              </p>
+            </motion.div>
+
+            <motion.div
               variants={staggerContainer}
               initial="initial"
               whileInView="whileInView"
-              className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+              className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
-              {[
-                {
-                  icon: <Award className="w-8 h-8" />,
-                  title: "Qualidade Rigorosa",
-                  description: "Inspeção dimensional precisa com equipamentos calibrados.",
-                },
-                {
-                  icon: <Clock className="w-8 h-8" />,
-                  title: "Agilidade na Entrega",
-                  description: "Processos otimizados para prazos curtos e confiáveis.",
-                },
-                {
-                  icon: <Headphones className="w-8 h-8" />,
-                  title: "Suporte Técnico",
-                  description: "Acompanhamento especializado do desenho à peça pronta.",
-                },
-                {
-                  icon: <Cpu className="w-8 h-8" />,
-                  title: "Alta Tecnologia",
-                  description: "Maquinário moderno para máxima eficiência produtiva.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  className="p-8 glass-card border-white/5 hover:bg-white/10 transition-all group"
-                >
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                    {item.icon}
+              {materials.map((material) => (
+                <motion.article key={material} variants={fadeInUp} className="material-card">
+                  <span className="material-card-mark" />
+                  <strong>{material}</strong>
+                </motion.article>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="estrutura" className="section-band" aria-labelledby="structure-title">
+          <div className="section-container">
+            <motion.div {...fadeInUp} className="mb-14 max-w-3xl">
+              <div className="eyebrow mb-4">
+                <Cog className="h-4 w-4 text-accent" />
+                Estrutura
+              </div>
+              <h2 id="structure-title" className="text-4xl leading-tight text-white md:text-6xl">
+                Estrutura e processo com controle técnico.
+              </h2>
+            </motion.div>
+
+            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+              <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-4">
+                {equipment.map((item) => (
+                  <motion.article key={item.title} variants={fadeInUp} className="rail-card">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-accent">{item.icon}</div>
+                    <div>
+                      <h3 className="text-xl text-white">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-text-400">{item.description}</p>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+
+              <motion.div {...fadeInUp} className="process-board">
+                <div className="mb-8 flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-[0.24em] text-accent">Fluxo de trabalho</div>
+                    <h3 className="mt-2 text-3xl text-white">Da necessidade à peça pronta</h3>
                   </div>
-                  <h3 className="text-xl mb-3 text-white">{item.title}</h3>
-                  <p className="text-text-400 leading-relaxed text-sm">{item.description}</p>
+                  <Layers3 className="hidden h-10 w-10 text-primary md:block" />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {processSteps.map((step, index) => (
+                    <div key={step} className="process-step">
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <strong>{step}</strong>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-bg-950" aria-labelledby="checks-title">
+          <div className="section-container grid gap-10 lg:grid-cols-12 lg:items-start">
+            <motion.div {...fadeInUp} className="lg:col-span-5">
+              <div className="eyebrow mb-4">
+                <ShieldCheck className="h-4 w-4 text-accent" />
+                Avaliação técnica
+              </div>
+              <h2 id="checks-title" className="text-4xl leading-tight text-white md:text-6xl">
+                O que avaliamos antes de produzir.
+              </h2>
+            </motion.div>
+            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+              {technicalChecks.map((check) => (
+                <motion.div key={check} variants={fadeInUp} className="feature-row">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
+                  {check}
                 </motion.div>
               ))}
             </motion.div>
           </div>
         </section>
 
-        {/* CAPABILITIES */}
-        <section id="capacidades" className="py-24 bg-bg-900 relative overflow-hidden" aria-labelledby="cap-title">
-           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 blur-[150px] rounded-full" />
-           
-           <div className="section-container relative z-10 grid md:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 id="cap-title" className="text-4xl md:text-6xl mb-8 text-white leading-tight text-gradient">
-                Tecnologia para resultados <span className="text-primary">superiores.</span>
+        <section className="bg-bg-900" aria-labelledby="why-title">
+          <div className="section-container">
+            <motion.div {...fadeInUp} className="mb-14 text-center">
+              <div className="eyebrow mx-auto mb-4 w-fit">Diferenciais</div>
+              <h2 id="why-title" className="mx-auto max-w-4xl text-4xl leading-tight text-white md:text-6xl">
+                Método técnico antes de promessa vaga.
               </h2>
-              <div className="space-y-5 mb-10">
-                {[
-                  "Centros de usinagem multi-eixos",
-                  "Controle dimensional rigoroso",
-                  "Processos de qualidade certificados",
-                  "Prazos combinados com transparência",
-                  "Suporte técnico especializado",
-                ].map((capability, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-center gap-4 group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                      <CheckCircle2 className="w-4 h-4" />
-                    </div>
-                    <span className="text-lg text-text-400 group-hover:text-white transition-colors">{capability}</span>
-                  </motion.div>
-                ))}
-              </div>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                Falar com especialista
-              </a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="relative"
-            >
-              <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1666618090858-fbcee636bd3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw0fHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt={`Tecnologia de ponta na ${BRAND}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 bg-primary/20 blur-[120px] rounded-full z-0 translate-x-10 translate-y-10" />
+            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {differentiators.map((item) => (
+                <motion.article key={item.title} variants={fadeInUp} className="glass-card group p-7">
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/12 text-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-3">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-text-400">{item.description}</p>
+                </motion.article>
+              ))}
             </motion.div>
           </div>
         </section>
 
-        {/* CTA SECTION */}
-        <section id="contato" className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-          <div className="absolute inset-0 bg-primary/5" />
+        <section id="contato" className="relative overflow-hidden bg-bg-950" aria-labelledby="cta-title">
+          <div className="absolute inset-0 bg-grid-pattern opacity-25" />
           <div className="section-container relative z-10">
-            <motion.div
-              {...fadeInUp}
-              className="glass-card p-10 md:p-20 text-center border-primary/20 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
-                <Cog className="w-64 h-64 animate-spin-slow" />
+            <motion.div {...fadeInUp} className="cta-panel">
+              <div className="absolute right-8 top-8 opacity-10">
+                <DuheloLogo compact />
               </div>
-              
-              <h2 id="cta-title" className="text-4xl md:text-7xl mb-8 text-white text-gradient">
-                Vamos desenvolver seu <br className="hidden md:block" /><span className="text-primary">próximo projeto?</span>
-              </h2>
-              <p className="text-xl text-text-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Entre em contato e descubra como a {BRAND} pode transformar suas necessidades em peças de alta precisão.
-              </p>
+              <div className="mx-auto max-w-4xl text-center">
+                <div className="eyebrow mx-auto mb-5 w-fit">
+                  <Award className="h-4 w-4 text-accent" />
+                  Solicite uma avaliação técnica
+                </div>
+                <h2 id="cta-title" className="text-4xl leading-tight text-white md:text-6xl">
+                  Envie seu desenho, foto, amostra ou necessidade de manutenção.
+                </h2>
+                <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-400">
+                  A Duhelo avalia material, quantidade, aplicação e medidas críticas para retornar com orientação técnica e orçamento.
+                </p>
+              </div>
 
-              <div className="grid md:grid-cols-3 gap-10 mb-16 max-w-4xl mx-auto">
+              <div className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3">
                 {[
                   {
-                    icon: <Phone className="w-6 h-6" />,
+                    icon: <Phone className="h-6 w-6" />,
                     label: "Telefone / WhatsApp",
                     value: "(19) 98273-1890",
-                    href: WHATSAPP_LINK
+                    href: WHATSAPP_LINK,
                   },
                   {
-                    icon: <Mail className="w-6 h-6" />,
+                    icon: <Mail className="h-6 w-6" />,
                     label: "E-mail",
                     value: "duhelousinagem@gmail.com",
-                    href: "mailto:duhelousinagem@gmail.com"
+                    href: "mailto:duhelousinagem@gmail.com",
                   },
                   {
-                    icon: <MapPin className="w-6 h-6" />,
+                    icon: <MapPin className="h-6 w-6" />,
                     label: "Localização",
-                    value: "Americana, SP",
-                    href: "https://maps.google.com/?q=Americana,SP"
+                    value: "Americana - SP",
+                    href: "https://maps.google.com/?q=Americana,SP",
                   },
-                ].map((contact, index) => (
-                  <motion.a
-                    key={index}
+                ].map((contact) => (
+                  <a
+                    key={contact.label}
                     href={contact.href}
-                    target={contact.href.startsWith('http') ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -5 }}
-                    className="flex flex-col items-center gap-4 group"
+                    target={contact.href.startsWith("http") ? "_blank" : undefined}
+                    rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="contact-card"
                   >
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                      {contact.icon}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-widest text-text-500 mb-1">{contact.label}</div>
-                      <div className="text-text-50 font-medium group-hover:text-primary transition-colors">{contact.value}</div>
-                    </div>
-                  </motion.a>
+                    <div className="text-accent">{contact.icon}</div>
+                    <span>{contact.label}</span>
+                    <strong>{contact.value}</strong>
+                  </a>
                 ))}
               </div>
 
-              <motion.a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary px-16 py-6 text-xl shadow-2xl shadow-primary/40"
-              >
-                Solicitar orçamento agora
-              </motion.a>
+              <div className="mt-12 flex justify-center">
+                <motion.a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary px-10 py-5 text-lg">
+                  Pedir orçamento técnico <ArrowRight className="h-5 w-5" />
+                </motion.a>
+              </div>
             </motion.div>
           </div>
         </section>
       </main>
 
-      {/* FOOTER */}
-      <footer className="py-12 bg-bg-950 border-t border-white/5" role="contentinfo">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
-            <div className="text-2xl font-display font-bold text-white tracking-tighter">
-              DUHELO<span className="text-primary"> USINAGEM</span>
-            </div>
-            <div className="flex gap-8 text-sm text-text-400">
-              <a href="#servicos" className="hover:text-white transition-colors">Serviços</a>
-              <a href="#capacidades" className="hover:text-white transition-colors">Capacidades</a>
-              <a href="#contato" className="hover:text-white transition-colors">Contato</a>
-            </div>
-          </div>
-          <div className="text-center text-text-500 text-sm border-t border-white/5 pt-8">
+      <footer className="border-t border-white/10 bg-bg-950 py-10" role="contentinfo">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
+          <DuheloLogo />
+          <div className="text-center text-sm text-text-500 md:text-right">
             <p>© {new Date().getFullYear()} {BRAND}. Todos os direitos reservados.</p>
-            <p className="mt-2 text-xs opacity-50">Especialistas em usinagem CNC de alta precisão.</p>
+            <p className="mt-1">Usinagem, ferramentaria e recuperação de componentes industriais.</p>
           </div>
         </div>
       </footer>
