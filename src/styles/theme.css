@@ -412,7 +412,7 @@
 
   @media (max-width: 767px) {
     .section-container {
-      @apply py-12;
+      @apply py-10;
     }
 
     .hero-shell {
@@ -421,31 +421,31 @@
     }
 
     .hero-shell .section-container {
-      @apply gap-8 py-10;
+      @apply gap-7 py-9;
     }
 
     .hero-shell h1 {
-      font-size: clamp(2.15rem, 10.5vw, 3.15rem);
-      line-height: 1.02;
+      font-size: clamp(1.95rem, 9.4vw, 2.8rem);
+      line-height: 1.04;
     }
 
     .hero-shell p {
-      font-size: 1rem;
-      line-height: 1.58;
+      font-size: 0.96rem;
+      line-height: 1.55;
     }
 
     .section-container h2 {
-      font-size: clamp(1.8rem, 8.5vw, 2.45rem);
-      line-height: 1.08;
+      font-size: clamp(1.6rem, 7.8vw, 2.15rem);
+      line-height: 1.06;
     }
 
     .section-container .about-title {
-      font-size: clamp(1.75rem, 7.4vw, 2.25rem);
-      max-width: 23rem;
+      font-size: clamp(1.6rem, 7vw, 2rem);
+      max-width: 21rem;
     }
 
     .section-container .mb-14 {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .eyebrow {
@@ -461,11 +461,15 @@
     }
 
     .metric-card {
-      @apply rounded-xl px-3 py-2.5;
+      @apply rounded-xl px-3 py-2;
     }
 
     .service-card {
       @apply rounded-2xl;
+    }
+
+    .service-card > .flex.flex-1.flex-col.p-7 {
+      @apply p-5;
     }
 
     .service-media {
@@ -483,6 +487,44 @@
 
     .service-icon {
       @apply left-4 top-4 h-11 w-11 rounded-xl;
+    }
+
+    .feature-row {
+      @apply px-3 py-2 text-xs;
+    }
+
+    .glass-card.p-7 {
+      @apply p-5;
+    }
+
+    .rail-card {
+      @apply gap-3 p-4;
+    }
+
+    .process-board {
+      @apply p-4;
+    }
+
+    .process-step {
+      min-height: 5.75rem;
+      @apply p-3;
+    }
+
+    .material-card {
+      @apply min-h-24 p-4;
+    }
+
+    .material-card strong {
+      @apply mt-6 text-xl;
+    }
+
+    .contact-card {
+      @apply min-h-28 p-4;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      @apply px-5 py-3 text-sm;
     }
 
     .prose-panel,

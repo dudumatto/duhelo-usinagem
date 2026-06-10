@@ -61,8 +61,8 @@ const services = [
     title: "Peça fora de catálogo?",
     mediaLabel: "Fabricação sob desenho ou amostra",
     description:
-      "Fabricamos peças sob medida a partir de desenho, amostra ou medida crítica quando a reposição comum não resolve.",
-    features: ["Leitura de desenho", "Peças especiais", "Pequenos lotes", "Controle dimensional"],
+      "f�bricamos pe�as sob medidas a partir de desenho t�cnico,amostra ou desenvolvimento interno de acordo com a necessidade",
+    features: ["Pe�as especiais"],
   },
   {
     image: "/images/card-servicos-cnc.jpg",
@@ -71,7 +71,7 @@ const services = [
     title: "Produção com repetibilidade?",
     mediaLabel: "Usinagem CNC para lotes e padrão",
     description:
-      "Torneamento e fresamento para componentes que precisam manter medidas, acabamento e padrão entre unidades.",
+      "torneamneto e fresamento de alta complexidade com alta qualidade e acabamento e padr�o de medidas exigidas",
     features: ["Torno CNC", "Fresamento", "Repetibilidade", "Conferência por lote"],
   },
   {
@@ -190,7 +190,6 @@ export default function App() {
 
             <div className="hidden items-center gap-7 md:flex">
               {[
-                ["Sobre", "#sobre"],
                 ["Serviços", "#servicos"],
                 ["Orçamento", "#orcamento"],
                 ["Materiais", "#materiais"],
@@ -223,10 +222,10 @@ export default function App() {
                   Usinagem de precisão em Americana - SP
                 </div>
                 <h1 id="hero-title" className="max-w-5xl text-4xl leading-[0.98] text-white sm:text-5xl md:text-7xl xl:text-8xl">
-                  Fabricamos e recuperamos peças industriais com precisão.
+                  Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis�o
                 </h1>
                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-text-400 md:text-2xl">
-                  Usinagem, fabricação e recuperação de componentes mecânicos com leitura de desenho, material adequado e conferência antes da entrega.
+                  Usinagem completa, contamos com torno CNC, torno convencional e fresadoras, prezamos por atender a necessidade de cada cliente
                 </p>
 
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -273,50 +272,9 @@ export default function App() {
           </div>
         </section>
 
-        <section id="sobre" className="section-band" aria-labelledby="about-title">
-          <div className="section-container about-grid">
-            <motion.div {...fadeInUp} className="about-heading">
-              <div className="eyebrow mb-4">
-                <Ruler className="h-4 w-4 text-accent" />
-                Quem somos
-              </div>
-              <h2 id="about-title" className="about-title">
-                Fabricação e recuperação de peças industriais
-              </h2>
-              <p className="about-lead">
-                A Duhelo transforma desenho, amostra ou peça desgastada em solução técnica para máquinas, dispositivos e linhas industriais.
-              </p>
-            </motion.div>
-            <motion.div {...fadeInUp} className="about-panel">
-              {[
-                ["Entrada técnica", "Desenho, foto, amostra, material, quantidade e aplicação orientam o orçamento."],
-                ["Processo adequado", "Definimos fabricação, ajuste, manutenção ou recuperação conforme a função da peça."],
-                ["Conferência final", "Controle dimensional e verificação antes da entrega reduzem retrabalho e parada."],
-              ].map(([label, text]) => (
-                <div className="about-item" key={label}>
-                  <span>{label}</span>
-                  <p>{text}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
-        <section id="servicos" className="relative overflow-hidden bg-bg-900" aria-labelledby="services-title">
+        <section id="servicos" className="relative overflow-hidden bg-bg-900">
           <div className="absolute inset-x-0 top-0 h-px steel-line opacity-70" />
           <div className="section-container">
-            <motion.div {...fadeInUp} className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-              <div className="max-w-3xl">
-                <div className="eyebrow mb-4">Capacidades</div>
-                <h2 id="services-title" className="text-4xl leading-tight text-white md:text-6xl">
-                  Serviços para fabricação, repetibilidade e recuperação.
-                </h2>
-              </div>
-              <p className="max-w-md text-base leading-relaxed text-text-400 md:text-lg">
-                Cada card responde a uma situação comum de indústria: peça sem reposição, lote repetido, componente sob medida ou item desgastado parando máquina.
-              </p>
-            </motion.div>
-
             <div className="grid gap-6 md:grid-cols-2">
               {services.map((service, index) => (
                 <motion.article
