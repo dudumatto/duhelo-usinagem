@@ -222,7 +222,7 @@ export default function App() {
                   Usinagem de precis√£o em Americana - SP
                 </div>
                 <h1 id="hero-title" className="max-w-5xl text-4xl leading-[0.98] text-white sm:text-5xl md:text-7xl xl:text-8xl">
-                  Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis„o
+                  {"Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis\u00E3o"}
                 </h1>
                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-text-400 md:text-2xl">
                   Usinagem completa, contamos com torno CNC, torno convencional e fresadoras, prezamos por atender a necessidade de cada cliente
