@@ -138,7 +138,6 @@ const differentiators = [
   },
 ];
 
-const materials = ["Alumínio", "Aço Carbono", "Aço Inox", "Bronze", "Latão", "Teflon", "UHMW"];
 
 const processSteps = [
   "Análise do desenho ou amostra",
@@ -192,7 +191,6 @@ export default function App() {
               {[
                 ["Serviços", "#servicos"],
                 ["Orçamento", "#orcamento"],
-                ["Materiais", "#materiais"],
                 ["Estrutura", "#estrutura"],
                 ["Contato", "#contato"],
               ].map(([label, href]) => (
@@ -351,38 +349,6 @@ export default function App() {
           </div>
         </section>
 
-        <section id="materiais" className="section-band" aria-labelledby="materials-title">
-          <div className="section-container">
-            <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
-                <div className="eyebrow mb-4">
-                  <Layers3 className="h-4 w-4 text-accent" />
-                  Materiais trabalhados
-                </div>
-                <h2 id="materials-title" className="text-4xl leading-tight text-white md:text-6xl">
-                  Materiais para diferentes necessidades industriais.
-                </h2>
-              </div>
-              <p className="text-base leading-relaxed text-text-400 md:text-lg lg:col-span-5">
-                Trabalhamos com diversos materiais para atender diferentes necessidades industriais e aplicações específicas.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={staggerContainer}
-              initial="initial"
-              whileInView="whileInView"
-              className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-            >
-              {materials.map((material) => (
-                <motion.article key={material} variants={fadeInUp} className="material-card">
-                  <span className="material-card-mark" />
-                  <strong>{material}</strong>
-                </motion.article>
-              ))}
-            </motion.div>
-          </div>
-        </section>
 
         <section id="estrutura" className="section-band" aria-labelledby="structure-title">
           <div className="section-container">
