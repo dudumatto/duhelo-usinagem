@@ -61,8 +61,8 @@ const services = [
     title: "Peça fora de catálogo?",
     mediaLabel: "Fabricação sob desenho ou amostra",
     description:
-      "f�bricamos pe�as sob medidas a partir de desenho t�cnico,amostra ou desenvolvimento interno de acordo com a necessidade",
-    features: ["Pe�as especiais"],
+      "Fabricamos peças sob medida a partir de desenho técnico, amostra ou desenvolvimento interno de acordo com a necessidade.",
+    features: ["Peças especiais", "Pequenos lotes", "Controle dimensional", "Leitura de desenho"],
   },
   {
     image: "/images/card-servicos-cnc.jpg",
@@ -71,7 +71,7 @@ const services = [
     title: "Produção com repetibilidade?",
     mediaLabel: "Usinagem CNC para lotes e padrão",
     description:
-      "torneamneto e fresamento de alta complexidade com alta qualidade e acabamento e padr�o de medidas exigidas",
+      "Torneamento e fresamento de alta complexidade, com alta qualidade, acabamento e padrão de medidas exigidas.",
     features: ["Torno CNC", "Fresamento", "Repetibilidade", "Conferência por lote"],
   },
   {
@@ -82,7 +82,7 @@ const services = [
     mediaLabel: "Componentes para máquinas e dispositivos",
     description:
       "Produzimos itens mecânicos para máquinas, dispositivos, protótipos e reposição conforme aplicação e material.",
-    features: ["Material adequado", "Aço e inox", "Alumínio", "Bronze e latão"],
+    features: ["UHMW e nylon", "Aço carbono e inox", "Alumínio", "Bronze e latão"],
   },
   {
     image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
@@ -93,7 +93,7 @@ const services = [
     mediaLabel: "Recuperação para reduzir parada",
     description:
       "Recuperamos, ajustamos ou refazemos componentes desgastados para reduzir parada e devolver função ao conjunto.",
-    features: ["Recuperação", "Ajustes", "Reforma mecânica", "Conferência final"],
+    features: ["Recuperação", "Ajustes", "Reforma mecânica e manutenção"],
   },
 ];
 
@@ -223,7 +223,7 @@ export default function App() {
                   {"Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis\u00E3o"}
                 </h1>
                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-text-400 md:text-2xl">
-                  Usinagem completa, contamos com torno CNC, torno convencional e fresadoras, prezamos por atender a necessidade de cada cliente
+                  Usinagem completa, contamos com torno CNC, torno convencional e fresadoras, prezamos por atender a necessidade de cada cliente na indústria e manutenção.
                 </p>
 
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -235,18 +235,6 @@ export default function App() {
                   </a>
                 </div>
 
-                <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
-                  {[
-                    ["CNC", "Torno e fresa"],
-                    ["Materiais", "Aço, inox, alumínio"],
-                    ["Aplicação", "Indústria e manutenção"],
-                  ].map(([label, value]) => (
-                    <div key={label} className="metric-card">
-                      <span>{label}</span>
-                      <strong>{value}</strong>
-                    </div>
-                  ))}
-                </div>
               </motion.div>
             </div>
 
