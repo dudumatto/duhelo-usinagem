@@ -217,7 +217,7 @@ export default function App() {
               <motion.div initial={{ opacity: 0, x: -28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.1 }}>
                 <div className="eyebrow mb-6">
                   <span className="live-dot" />
-                  Usinagem de precisão em Americana - SP
+                  Usinagem de precisão em Santa Bárbara d'Oeste - SP
                 </div>
                 <h1 id="hero-title" className="max-w-5xl text-4xl leading-[0.98] text-white sm:text-5xl md:text-7xl xl:text-8xl">
                   {"Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis\u00E3o"}
@@ -466,8 +466,8 @@ export default function App() {
                   {
                     icon: <MapPin className="h-6 w-6" />,
                     label: "Localização",
-                    value: "Americana - SP",
-                    href: "https://maps.google.com/?q=Americana,SP",
+                    value: "Santa Bárbara d'Oeste - SP",
+                    href: "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8",
                   },
                 ].map((contact) => (
                   <a
