@@ -93,24 +93,12 @@
     @apply gap-0;
   }
 
-  .brand-mark {
-    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/35 bg-primary/16 text-accent shadow-[0_0_30px_rgba(21,101,255,0.18)];
+  .brand-lockup img {
+    @apply h-14 w-auto object-contain;
   }
 
-  .brand-mark svg {
-    animation: slow-spin 18s linear infinite;
-  }
-
-  .brand-mark-compact {
-    @apply h-10 w-10 rounded-xl;
-  }
-
-  .brand-wordmark {
-    @apply font-display text-xl font-extrabold tracking-tight text-white md:text-2xl;
-  }
-
-  .brand-wordmark strong {
-    @apply text-primary;
+  .brand-lockup-compact img {
+    @apply h-10;
   }
 
   .eyebrow {

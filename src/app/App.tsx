@@ -41,14 +41,11 @@ const staggerContainer = {
 function DuheloLogo({ compact = false }: { compact?: boolean }) {
   return (
     <div className={compact ? "brand-lockup brand-lockup-compact" : "brand-lockup"} aria-label={BRAND}>
-      <div className={compact ? "brand-mark brand-mark-compact" : "brand-mark"}>
-        <Cog className={compact ? "h-5 w-5" : "h-6 w-6"} />
-      </div>
-      {!compact && (
-        <span className="brand-wordmark">
-          DUHELO <strong>USINAGEM</strong>
-        </span>
-      )}
+      <img
+        src="/images/duhelo-logo.png"
+        alt={BRAND}
+        className={compact ? "h-8 w-auto" : "h-10 w-auto"}
+      />
     </div>
   );
 }
@@ -58,27 +55,27 @@ const services = [
     image: "/images/card-usinagem-customizada.jpg",
     imagePosition: "50% 50%",
     icon: <Settings className="w-6 h-6" />,
-    title: "Peça fora de catálogo?",
+    title: "Peça fora de catálogo",
     mediaLabel: "Fabricação sob desenho ou amostra",
     description:
       "Fabricamos peças sob medida a partir de desenho técnico, amostra ou desenvolvimento interno de acordo com a necessidade.",
-    features: ["Peças especiais", "Pequenos lotes", "Controle dimensional", "Leitura de desenho"],
+    features: ["Peças especiais", "Controle dimensional"],
   },
   {
     image: "/images/card-servicos-cnc.jpg",
     imagePosition: "50% 54%",
     icon: <Cog className="w-6 h-6" />,
-    title: "Produção com repetibilidade?",
+    title: "Produção com repetibilidade",
     mediaLabel: "Usinagem CNC para lotes e padrão",
     description:
       "Torneamento e fresamento de alta complexidade, com alta qualidade, acabamento e padrão de medidas exigidas.",
-    features: ["Torno CNC", "Fresamento", "Repetibilidade", "Conferência por lote"],
+    features: ["Torno CNC", "Fresamento"],
   },
   {
     image: "/images/card-fabricacao-metal.jpg",
     imagePosition: "50% 48%",
     icon: <Factory className="w-6 h-6" />,
-    title: "Componente industrial sob medida?",
+    title: "Componente industrial sob medida",
     mediaLabel: "Componentes para máquinas e dispositivos",
     description:
       "Produzimos itens mecânicos para máquinas, dispositivos, protótipos e reposição conforme aplicação e material.",
