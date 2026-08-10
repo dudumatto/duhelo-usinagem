@@ -54,6 +54,7 @@ const services = [
   {
     image: "/images/card-usinagem-customizada.jpg",
     imagePosition: "50% 50%",
+    imageAlt: "Peça metálica usinada sob medida para aplicação industrial",
     icon: <Settings className="w-6 h-6" />,
     title: "Peça fora de catálogo",
     mediaLabel: "Fabricação sob desenho ou amostra",
@@ -64,6 +65,7 @@ const services = [
   {
     image: "/images/card-servicos-cnc.jpg",
     imagePosition: "50% 54%",
+    imageAlt: "Máquina CNC realizando usinagem de precisão em peça metálica",
     icon: <Cog className="w-6 h-6" />,
     title: "Produção com repetibilidade",
     mediaLabel: "Usinagem CNC para lotes e padrão",
@@ -74,6 +76,7 @@ const services = [
   {
     image: "/images/card-fabricacao-metal.jpg",
     imagePosition: "50% 48%",
+    imageAlt: "Fabricação de componente metálico industrial sob medida",
     icon: <Factory className="w-6 h-6" />,
     title: "Componente industrial sob medida",
     mediaLabel: "Componentes para máquinas e dispositivos",
@@ -84,6 +87,7 @@ const services = [
   {
     image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
     imagePosition: "50% 58%",
+    imageAlt: "Manutenção e recuperação de peça industrial em oficina",
     mediaClassName: "service-media service-media-maintenance",
     icon: <Wrench className="w-6 h-6" />,
     title: "Peça desgastada parando máquina?",
@@ -255,9 +259,12 @@ export default function App() {
           </div>
         </section>
 
-        <section id="servicos" className="relative overflow-hidden bg-bg-900">
+        <section id="servicos" className="relative overflow-hidden bg-bg-900" aria-labelledby="services-title">
           <div className="absolute inset-x-0 top-0 h-px steel-line opacity-70" />
           <div className="section-container">
+            <h2 id="services-title" className="sr-only">
+              Serviços de usinagem de precisão
+            </h2>
             <div className="grid gap-6 md:grid-cols-2">
               {services.map((service, index) => (
                 <motion.article
@@ -271,7 +278,7 @@ export default function App() {
                   <div className={service.mediaClassName ?? "service-media"}>
                     <ImageWithFallback
                       src={service.image}
-                      alt={`${BRAND} - ${service.title.replace("?", "")}`}
+                      alt={service.imageAlt}
                       className="service-image"
                       style={{ objectPosition: service.imagePosition }}
                     />
