@@ -1,512 +1,442 @@
-import { motion } from "motion/react";
-import { ImageWithFallback } from "./components/figma/ImageWithFallback";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { FlangeDrawing, ShaftRecoveryDrawing } from "./components/Drawings";
 import {
-  ArrowRight,
-  Award,
-  CheckCircle2,
-  Clock,
-  Cog,
-  Cpu,
-  Drill,
-  Factory,
-  Headphones,
-  Layers3,
-  Mail,
-  MapPin,
-  Phone,
-  Ruler,
-  Settings,
-  ShieldCheck,
-  Wrench,
-} from "lucide-react";
+  BRAND,
+  CITY,
+  EMAIL,
+  MAPS_LINK,
+  MATERIALS,
+  PHONE_DISPLAY,
+  PHONE_E164,
+  WHATSAPP_LINK,
+  differentiators,
+  equipment,
+  faqs,
+  navLinks,
+  processSteps,
+  quoteNotes,
+  services,
+  technicalChecks,
+} from "./content";
 
-const BRAND = "Duhelo Usinagem";
-const WHATSAPP_LINK =
-  "https://wa.me/5519982731890?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%21";
+const YEAR = new Date().getFullYear();
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" as const },
-  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
-} as const;
-
-const staggerContainer = {
-  initial: { opacity: 0 },
-  whileInView: { opacity: 1 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { staggerChildren: 0.08 },
-};
-
-function DuheloLogo({ compact = false }: { compact?: boolean }) {
+function WhatsAppIcon({ className = "icon" }: { className?: string }) {
   return (
-    <div className={compact ? "brand-lockup brand-lockup-compact" : "brand-lockup"} aria-label={BRAND}>
-      <img
-        src="/images/duhelo-logo.png"
-        alt={BRAND}
-        className={compact ? "h-8 w-auto" : "h-10 w-auto"}
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.2 4.24-9.44 9.45-9.44 2.52 0 4.89.99 6.67 2.77a9.37 9.37 0 0 1 2.76 6.68c0 5.2-4.24 9.44-9.44 9.44m8.04-17.48A11.3 11.3 0 0 0 12.05.7C5.78.7.68 5.8.68 12.06c0 2 .52 3.96 1.52 5.68L.58 23.3l5.68-1.49a11.33 11.33 0 0 0 5.78 1.47h.01c6.27 0 11.37-5.1 11.37-11.37 0-3.04-1.18-5.89-3.33-8.04"
       />
-    </div>
+    </svg>
   );
 }
 
-const services = [
-  {
-    image: "/images/card-usinagem-customizada.jpg",
-    imagePosition: "50% 50%",
-    imageAlt: "Peça metálica usinada sob medida para aplicação industrial",
-    icon: <Settings className="w-6 h-6" />,
-    title: "Peça fora de catálogo",
-    mediaLabel: "Fabricação sob desenho ou amostra",
-    description:
-      "Fabricamos peças sob medida a partir de desenho técnico, amostra ou desenvolvimento interno de acordo com a necessidade.",
-    features: ["Peças especiais", "Controle dimensional"],
-  },
-  {
-    image: "/images/card-servicos-cnc.jpg",
-    imagePosition: "50% 54%",
-    imageAlt: "Máquina CNC realizando usinagem de precisão em peça metálica",
-    icon: <Cog className="w-6 h-6" />,
-    title: "Produção com repetibilidade",
-    mediaLabel: "Usinagem CNC para lotes e padrão",
-    description:
-      "Torneamento e fresamento de alta complexidade, com alta qualidade, acabamento e padrão de medidas exigidas.",
-    features: ["Torno CNC", "Fresamento"],
-  },
-  {
-    image: "/images/card-fabricacao-metal.jpg",
-    imagePosition: "50% 48%",
-    imageAlt: "Fabricação de componente metálico industrial sob medida",
-    icon: <Factory className="w-6 h-6" />,
-    title: "Componente industrial sob medida",
-    mediaLabel: "Componentes para máquinas e dispositivos",
-    description:
-      "Produzimos itens mecânicos para máquinas, dispositivos, protótipos e reposição conforme aplicação e material.",
-    features: ["UHMW e nylon", "Aço carbono e inox", "Alumínio", "Bronze e latão"],
-  },
-  {
-    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
-    imagePosition: "50% 58%",
-    imageAlt: "Manutenção e recuperação de peça industrial em oficina",
-    mediaClassName: "service-media service-media-maintenance",
-    icon: <Wrench className="w-6 h-6" />,
-    title: "Peça desgastada parando máquina?",
-    mediaLabel: "Recuperação para reduzir parada",
-    description:
-      "Recuperamos, ajustamos ou refazemos componentes desgastados para reduzir parada e devolver função ao conjunto.",
-    features: ["Recuperação", "Ajustes", "Reforma mecânica e manutenção"],
-  },
-];
+function Photo({
+  name,
+  alt,
+  sizes,
+  priority = false,
+  position,
+  className,
+}: {
+  name: string;
+  alt: string;
+  sizes: string;
+  priority?: boolean;
+  position?: string;
+  className?: string;
+}) {
+  const base = `/images/opt/${name}`;
+  return (
+    <picture className={className}>
+      <source type="image/webp" srcSet={`${base}-480.webp 480w, ${base}-800.webp 800w, ${base}-1200.webp 1200w`} sizes={sizes} />
+      <img
+        src={`/images/${name}.jpg`}
+        alt={alt}
+        width={1200}
+        height={799}
+        loading={priority ? "eager" : "lazy"}
+        decoding={priority ? "sync" : "async"}
+        {...(priority ? { fetchpriority: "high" } : {})}
+        style={position ? { objectPosition: position } : undefined}
+      />
+    </picture>
+  );
+}
 
-const equipment = [
-  {
-    icon: <Cpu className="w-7 h-7" />,
-    title: "Torno CNC",
-    description: "Produção de eixos, buchas, flanges e componentes com repetibilidade e acabamento técnico.",
-  },
-  {
-    icon: <Drill className="w-7 h-7" />,
-    title: "Fresa",
-    description: "Usinagem de superfícies, rasgos, furos, bases, suportes e geometrias especiais.",
-  },
-  {
-    icon: <Settings className="w-7 h-7" />,
-    title: "Torno convencional",
-    description: "Flexibilidade para manutenção, ajustes dimensionais, peças únicas e pequenos lotes.",
-  },
-];
+function Logo({ className = "logo" }: { className?: string }) {
+  return (
+    <picture>
+      <source type="image/webp" srcSet="/images/opt/duhelo-logo.webp" />
+      <img src="/images/opt/duhelo-logo.png" alt={BRAND} width={220} height={160} className={className} />
+    </picture>
+  );
+}
 
-const differentiators = [
-  {
-    icon: <Ruler className="w-7 h-7" />,
-    title: "Controle dimensional",
-    description: "Leitura criteriosa do desenho, setup controlado e conferência antes da entrega.",
-  },
-  {
-    icon: <Clock className="w-7 h-7" />,
-    title: "Prazo responsável",
-    description: "Planejamento de produção para atender urgências sem comprometer o acabamento.",
-  },
-  {
-    icon: <ShieldCheck className="w-7 h-7" />,
-    title: "Material adequado",
-    description: "Escolha do processo e do material conforme aplicação, desgaste esperado e necessidade da peça.",
-  },
-  {
-    icon: <Headphones className="w-7 h-7" />,
-    title: "Atendimento técnico",
-    description: "Contato direto para entender aplicação, medidas críticas e melhor rota de fabricação.",
-  },
-];
+function Zone({ letter }: { letter: string }) {
+  return (
+    <span className="zone" aria-hidden="true">
+      {letter}
+    </span>
+  );
+}
 
-
-const processSteps = [
-  "Análise do desenho ou amostra",
-  "Definição de material e processo",
-  "Planejamento técnico e usinagem de precisão",
-  "Conferência dimensional antes da entrega",
-];
-
-const quoteSteps = [
-  {
-    title: "Envie a referência",
-    description: "Desenho técnico, foto, amostra, medidas principais ou a descrição objetiva do problema.",
-  },
-  {
-    title: "Informe a aplicação",
-    description: "Material desejado, quantidade, urgência, uso da peça e medidas que não podem variar.",
-  },
-  {
-    title: "Receba orientação técnica",
-    description: "A Duhelo avalia processo, material e conferência necessária antes de retornar o orçamento.",
-  },
-];
-
-const technicalChecks = [
-  "Medidas críticas",
-  "Material adequado",
-  "Tolerância necessária",
-  "Acabamento esperado",
-  "Aplicação da peça",
-  "Conferência antes da entrega",
-];
+function TitleBlock() {
+  return (
+    <dl className="title-block" aria-label="Dados da empresa">
+      <div className="tb-cell tb-wide">
+        <dt>Empresa</dt>
+        <dd>{BRAND}</dd>
+      </div>
+      <div className="tb-cell">
+        <dt>Local</dt>
+        <dd>{CITY}</dd>
+      </div>
+      <div className="tb-cell">
+        <dt>Processos</dt>
+        <dd>Torno CNC · Torno convencional · Fresa</dd>
+      </div>
+      <div className="tb-cell tb-wide">
+        <dt>Materiais</dt>
+        <dd>{MATERIALS.join(" · ")}</dd>
+      </div>
+      <div className="tb-cell">
+        <dt>WhatsApp</dt>
+        <dd>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+            {PHONE_DISPLAY}
+          </a>
+        </dd>
+      </div>
+      <div className="tb-cell tb-sheet">
+        <dt>Folha</dt>
+        <dd>01/01</dd>
+      </div>
+    </dl>
+  );
+}
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-bg-950 text-text-50 selection:bg-primary/30 selection:text-white">
-      <header>
-        <motion.nav
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-bg-950/88 backdrop-blur-xl"
-          role="navigation"
-          aria-label="Navegação principal"
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-6">
-            <a href="#topo" className="transition-opacity hover:opacity-90" aria-label="Ir para o início">
-              <DuheloLogo />
-            </a>
+    <>
+      <a className="skip-link" href="#conteudo">
+        Pular para o conteúdo
+      </a>
 
-            <div className="hidden items-center gap-7 md:flex">
-              {[
-                ["Serviços", "#servicos"],
-                ["Orçamento", "#orcamento"],
-                ["Estrutura", "#estrutura"],
-                ["Contato", "#contato"],
-              ].map(([label, href]) => (
-                <a key={href} href={href} className="nav-link">
-                  {label}
-                </a>
+      <header className="site-header">
+        <div className="header-inner">
+          <a href="#topo" className="header-brand" aria-label={`${BRAND} - início`}>
+            <Logo className="logo logo-header" />
+          </a>
+          <nav aria-label="Navegação principal" className="header-nav">
+            <ul>
+              {navLinks.map(([label, href]) => (
+                <li key={href}>
+                  <a href={href}>{label}</a>
+                </li>
               ))}
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary btn-small">
-                Orçamento
-              </a>
-            </div>
-          </div>
-        </motion.nav>
+            </ul>
+          </nav>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+            <WhatsAppIcon />
+            <span>Orçamento</span>
+          </a>
+        </div>
+        <div className="ruler" aria-hidden="true">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+            <span key={n}>{n}</span>
+          ))}
+        </div>
       </header>
 
-      <main id="topo">
-        <section className="hero-shell relative flex min-h-screen items-center overflow-hidden pt-24" aria-labelledby="hero-title">
-          <div className="absolute inset-0 bg-mesh opacity-70" />
-          <div className="absolute inset-0 bg-grid-pattern opacity-35" />
-          <div className="absolute left-0 right-0 top-24 h-px steel-line opacity-70" />
-
-          <div className="section-container relative z-10 grid items-center gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <motion.div initial={{ opacity: 0, x: -28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.1 }}>
-                <div className="eyebrow mb-6">
-                  <span className="live-dot" />
-                  Usinagem de precisão em Santa Bárbara d'Oeste - SP
-                </div>
-                <h1 id="hero-title" className="max-w-5xl text-4xl leading-[0.98] text-white sm:text-5xl md:text-7xl xl:text-8xl">
-                  {"Usinagem de alta complexidade com qualidade total em acabamentos, produtividade e precis\u00E3o"}
+      <div className="sheet">
+        <main id="conteudo">
+          {/* A — Vista principal */}
+          <section id="topo" className="hero zone-section" aria-labelledby="hero-title">
+            <Zone letter="A" />
+            <div className="hero-grid">
+              <div className="hero-copy">
+                <h1 id="hero-title">
+                  Usinagem de precisão sob desenho, amostra ou <span className="hl">peça gasta</span>.
                 </h1>
-                <p className="mt-7 max-w-2xl text-lg leading-relaxed text-text-400 md:text-2xl">
-                  Usinagem completa, contamos com torno CNC, torno convencional e fresadoras, prezamos por atender a necessidade de cada cliente na indústria e manutenção.
+                <p className="hero-lead">
+                  Em {CITY}, com torno CNC, torno convencional e fresadora para fabricar, produzir em lote e recuperar peças industriais. Mande o
+                  desenho ou a foto da peça e receba o orçamento pelo WhatsApp.
                 </p>
-
-                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                  <motion.a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary">
-                    Pedir orçamento técnico <ArrowRight className="h-5 w-5" />
-                  </motion.a>
-                  <a href="#orcamento" className="btn-outline">
-                    O que enviar
+                <div className="hero-actions">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                    <WhatsAppIcon />
+                    Enviar desenho pelo WhatsApp
+                  </a>
+                  <a href="#orcamento" className="btn btn-ghost btn-lg">
+                    Como pedir orçamento
+                    <ArrowRight className="icon" aria-hidden="true" />
                   </a>
                 </div>
+              </div>
 
-              </motion.div>
+              <figure className="hero-figure">
+                <div className="view-panel">
+                  <span className="view-tag" aria-hidden="true">
+                    Desenho
+                  </span>
+                  <FlangeDrawing />
+                </div>
+                <div className="hero-photo">
+                  <Photo
+                    name="card-usinagem-customizada"
+                    alt="Flange de aço usinado com bucha de bronze, fabricado pela Duhelo Usinagem"
+                    sizes="(min-width: 1024px) 26vw, 60vw"
+                    priority
+                  />
+                  <svg className="photo-callout" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <circle cx="232" cy="178" r="4" />
+                    <polyline points="232,178 200,214 186,214" />
+                  </svg>
+                  <span className="photo-plate" aria-hidden="true">
+                    Bucha de bronze
+                  </span>
+                  <span className="view-tag view-tag-photo" aria-hidden="true">
+                    Peça
+                  </span>
+                </div>
+                <figcaption className="sr-only">Do desenho técnico à peça usinada.</figcaption>
+              </figure>
+            </div>
+            <TitleBlock />
+          </section>
+
+          {/* B — Lista de peças / serviços */}
+          <section id="servicos" className="zone-section" aria-labelledby="services-title">
+            <Zone letter="B" />
+            <div className="section-head">
+              <h2 id="services-title">Serviços de usinagem</h2>
+              <p>Do item único fora de catálogo ao lote com padrão de medida, e a manutenção que tira a máquina da parada.</p>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, x: 24 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.75, delay: 0.2 }}
-              className="relative lg:col-span-5"
-            >
-              <div className="hero-visual">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1713371398485-7bde1bde9def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxjbmMlMjBtYWNoaW5pbmclMjBwcmVjaXNpb24lMjBtZXRhbHxlbnwxfHx8fDE3NzU3NzMxNDF8MA&ixlib=rb-4.1.0&q=80&w=1920"
-                  alt={`${BRAND} - máquina CNC em operação`}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-950 via-bg-950/18 to-transparent" />
-                <div className="scanline" />
-                
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section id="servicos" className="relative overflow-hidden bg-bg-900" aria-labelledby="services-title">
-          <div className="absolute inset-x-0 top-0 h-px steel-line opacity-70" />
-          <div className="section-container">
-            <h2 id="services-title" className="sr-only">
-              Serviços de usinagem de precisão
-            </h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {services.map((service, index) => (
-                <motion.article
-                  key={service.title}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: index * 0.06 }}
-                  className="service-card group"
-                >
-                  <div className={service.mediaClassName ?? "service-media"}>
-                    <ImageWithFallback
-                      src={service.image}
-                      alt={service.imageAlt}
-                      className="service-image"
-                      style={{ objectPosition: service.imagePosition }}
-                    />
-                    <div className="service-image-overlay" />
-                    <div className="service-image-frame" />
-                    <div className="service-media-label">{service.mediaLabel}</div>
-                    <div className="service-icon">
-                      {service.icon}
-                    </div>
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <h3 className="text-2xl text-white">{service.title}</h3>
-                    <p className="mt-3 flex-1 leading-relaxed text-text-400">{service.description}</p>
-                    <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                      {service.features.map((feature) => (
-                        <div key={feature} className="feature-row">
-                          <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
-                          {feature}
-                        </div>
+            <ol className="parts-list">
+              {services.map((service) => (
+                <li key={service.item} className={`part-row ${service.photo ? "has-photo" : "no-photo"}`}>
+                  <div className="part-text">
+                    <span className="balloon" aria-hidden="true">
+                      {service.item}
+                    </span>
+                    <h3>{service.title}</h3>
+                    <p className="part-summary">{service.summary}</p>
+                    <p className="part-desc">{service.description}</p>
+                    <ul className="spec-list" aria-label={`Detalhes: ${service.title}`}>
+                      {service.notes.map((note) => (
+                        <li key={note}>{note}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="orcamento" className="section-band" aria-labelledby="quote-title">
-          <div className="section-container">
-            <motion.div {...fadeInUp} className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-              <div className="max-w-3xl">
-                <div className="eyebrow mb-4">Como solicitar orçamento</div>
-                <h2 id="quote-title" className="text-4xl leading-tight text-white md:text-6xl">
-                  Envie as informações certas para um retorno mais preciso.
-                </h2>
-              </div>
-              <p className="max-w-md text-base leading-relaxed text-text-400 md:text-lg">
-                O caminho de orçamento fica mais rápido quando a Duhelo recebe desenho, foto, amostra, material, quantidade e aplicação da peça.
-              </p>
-            </motion.div>
-
-            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-5 md:grid-cols-3">
-              {quoteSteps.map((step, index) => (
-                <motion.article key={step.title} variants={fadeInUp} className="glass-card p-7">
-                  <span className="text-xs font-bold uppercase tracking-[0.24em] text-accent">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="mt-5 text-2xl text-white">{step.title}</h3>
-                  <p className="mt-3 leading-relaxed text-text-400">{step.description}</p>
-                </motion.article>
-              ))}
-            </motion.div>
-            <motion.div {...fadeInUp} className="mt-10 flex flex-col items-start justify-between gap-5 rounded-3xl border border-primary/20 bg-bg-800/65 p-6 md:flex-row md:items-center">
-              <p className="max-w-2xl text-base leading-relaxed text-text-400">
-                Para começar, mande pelo WhatsApp o desenho, foto ou amostra da peça, junto com material, quantidade e aplicação. Se faltar alguma informação, a Duhelo confirma antes de produzir.
-              </p>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary shrink-0">
-                Enviar dados da peça <ArrowRight className="h-5 w-5" />
-              </a>
-            </motion.div>
-          </div>
-        </section>
-
-
-        <section id="estrutura" className="section-band" aria-labelledby="structure-title">
-          <div className="section-container">
-            <motion.div {...fadeInUp} className="mb-14 max-w-3xl">
-              <div className="eyebrow mb-4">
-                <Cog className="h-4 w-4 text-accent" />
-                Estrutura
-              </div>
-              <h2 id="structure-title" className="text-4xl leading-tight text-white md:text-6xl">
-                Estrutura e processo com controle técnico.
-              </h2>
-            </motion.div>
-
-            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-              <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-4">
-                {equipment.map((item) => (
-                  <motion.article key={item.title} variants={fadeInUp} className="rail-card">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-accent">{item.icon}</div>
-                    <div>
-                      <h3 className="text-xl text-white">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-text-400">{item.description}</p>
-                    </div>
-                  </motion.article>
-                ))}
-              </motion.div>
-
-              <motion.div {...fadeInUp} className="process-board">
-                <div className="mb-8 flex items-center justify-between gap-4">
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.24em] text-accent">Fluxo de trabalho</div>
-                    <h3 className="mt-2 text-3xl text-white">Da necessidade à peça pronta</h3>
+                  <div className="part-media">
+                    {service.photo ? (
+                      <Photo name={service.photo.name} alt={service.photo.alt} sizes="(min-width: 1024px) 40vw, 92vw" position={service.photo.position} />
+                    ) : service.item === 4 ? (
+                      <div className="view-panel view-panel-flat">
+                        <ShaftRecoveryDrawing />
+                      </div>
+                    ) : (
+                      <table className="material-table">
+                        <caption>Materiais usinados</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col">Material</th>
+                            <th scope="col">Uso típico</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Aço carbono</td><td>Eixos, flanges, suportes</td></tr>
+                          <tr><td>Aço inox</td><td>Peças expostas a corrosão</td></tr>
+                          <tr><td>Alumínio</td><td>Peças leves, dispositivos</td></tr>
+                          <tr><td>Bronze e latão</td><td>Buchas e mancais</td></tr>
+                          <tr><td>UHMW e nylon</td><td>Guias e peças de desgaste</td></tr>
+                        </tbody>
+                      </table>
+                    )}
                   </div>
-                  <Layers3 className="hidden h-10 w-10 text-primary md:block" />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {processSteps.map((step, index) => (
-                    <div key={step} className="process-step">
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <strong>{step}</strong>
-                    </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* C — Notas gerais / orçamento */}
+          <section id="orcamento" className="zone-section notes-section" aria-labelledby="quote-title">
+            <Zone letter="C" />
+            <div className="notes-grid">
+              <div>
+                <h2 id="quote-title">Como pedir seu orçamento</h2>
+                <p className="section-lead">Quanto mais completa a informação, mais preciso e rápido é o retorno.</p>
+                <ol className="notes">
+                  {quoteNotes.map((note) => (
+                    <li key={note.title}>
+                      <h3>{note.title}</h3>
+                      <p>{note.text}</p>
+                    </li>
                   ))}
-                </div>
-              </motion.div>
+                </ol>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                  <WhatsAppIcon />
+                  Enviar dados da peça
+                </a>
+              </div>
+
+              <aside className="checks" aria-labelledby="checks-title">
+                <h3 id="checks-title">O que avaliamos antes de produzir</h3>
+                <ul>
+                  {technicalChecks.map((check) => (
+                    <li key={check}>
+                      <span className="check-box" aria-hidden="true">
+                        <svg viewBox="0 0 16 16">
+                          <path d="M3 8.5 6.5 12 13 4.5" />
+                        </svg>
+                      </span>
+                      {check}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="bg-bg-950" aria-labelledby="checks-title">
-          <div className="section-container grid gap-10 lg:grid-cols-12 lg:items-start">
-            <motion.div {...fadeInUp} className="lg:col-span-5">
-              <div className="eyebrow mb-4">
-                <ShieldCheck className="h-4 w-4 text-accent" />
-                Avaliação técnica
-              </div>
-              <h2 id="checks-title" className="text-4xl leading-tight text-white md:text-6xl">
-                O que avaliamos antes de produzir.
-              </h2>
-            </motion.div>
-            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-              {technicalChecks.map((check) => (
-                <motion.div key={check} variants={fadeInUp} className="feature-row">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
-                  {check}
-                </motion.div>
+          {/* D — Estrutura e processo */}
+          <section id="estrutura" className="zone-section" aria-labelledby="structure-title">
+            <Zone letter="D" />
+            <div className="section-head">
+              <h2 id="structure-title">Equipamentos e processo</h2>
+              <p>Estrutura para peça única, manutenção e lotes, com o mesmo controle do desenho à entrega.</p>
+            </div>
+
+            <div className="equipment">
+              {equipment.map((item) => (
+                <article key={item.name} className="equipment-item">
+                  <h3>{item.name}</h3>
+                  <p>{item.use}</p>
+                </article>
               ))}
-            </motion.div>
-          </div>
-        </section>
+            </div>
 
-        <section className="bg-bg-900" aria-labelledby="why-title">
-          <div className="section-container">
-            <motion.div {...fadeInUp} className="mb-14 text-center">
-              <div className="eyebrow mx-auto mb-4 w-fit">Diferenciais</div>
-              <h2 id="why-title" className="mx-auto max-w-4xl text-4xl leading-tight text-white md:text-6xl">
-                Método técnico antes de promessa vaga.
-              </h2>
-            </motion.div>
+            <div className="process" aria-labelledby="process-title">
+              <h3 id="process-title">Da necessidade à peça pronta</h3>
+              <ol className="process-line">
+                {processSteps.map((step, index) => (
+                  <li key={step.title}>
+                    <span className="process-step-no" aria-hidden="true">
+                      Etapa {index + 1}
+                    </span>
+                    <strong>{step.title}</strong>
+                    <span className="process-step-text">{step.text}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
 
-            <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {differentiators.map((item) => (
-                <motion.article key={item.title} variants={fadeInUp} className="glass-card group p-7">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/12 text-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-3">
-                    {item.icon}
+          {/* E — Diferenciais */}
+          <section className="zone-section" aria-labelledby="why-title">
+            <Zone letter="E" />
+            <div className="why-grid">
+              <h2 id="why-title">Método técnico antes de promessa</h2>
+              <dl className="why-list">
+                {differentiators.map((item) => (
+                  <div key={item.title}>
+                    <dt>{item.title}</dt>
+                    <dd>{item.text}</dd>
                   </div>
-                  <h3 className="text-xl text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-text-400">{item.description}</p>
-                </motion.article>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+                ))}
+              </dl>
+            </div>
+          </section>
 
-        <section id="contato" className="relative overflow-hidden bg-bg-950" aria-labelledby="cta-title">
-          <div className="absolute inset-0 bg-grid-pattern opacity-25" />
-          <div className="section-container relative z-10">
-            <motion.div {...fadeInUp} className="cta-panel">
-              <div className="absolute right-8 top-8 opacity-10">
-                <DuheloLogo compact />
-              </div>
-              <div className="mx-auto max-w-4xl text-center">
-                <div className="eyebrow mx-auto mb-5 w-fit">
-                  <Award className="h-4 w-4 text-accent" />
-                  Solicite uma avaliação técnica
-                </div>
-                <h2 id="cta-title" className="text-4xl leading-tight text-white md:text-6xl">
-                  Envie seu desenho, foto, amostra ou necessidade de manutenção.
-                </h2>
-                <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-400">
-                  A Duhelo avalia material, quantidade, aplicação e medidas críticas para retornar com orientação técnica e orçamento.
+          {/* F — Dúvidas */}
+          <section id="duvidas" className="zone-section" aria-labelledby="faq-title">
+            <Zone letter="F" />
+            <div className="faq-grid">
+              <div className="section-head section-head-stack">
+                <h2 id="faq-title">Perguntas frequentes</h2>
+                <p>
+                  Não achou sua dúvida?{" "}
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-link">
+                    Pergunte pelo WhatsApp
+                  </a>
+                  .
                 </p>
               </div>
-
-              <div className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3">
-                {[
-                  {
-                    icon: <Phone className="h-6 w-6" />,
-                    label: "Telefone / WhatsApp",
-                    value: "(19) 98273-1890",
-                    href: WHATSAPP_LINK,
-                  },
-                  {
-                    icon: <Mail className="h-6 w-6" />,
-                    label: "E-mail",
-                    value: "duhelousinagem@gmail.com",
-                    href: "mailto:duhelousinagem@gmail.com",
-                  },
-                  {
-                    icon: <MapPin className="h-6 w-6" />,
-                    label: "Localização",
-                    value: "Santa Bárbara d'Oeste - SP",
-                    href: "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8",
-                  },
-                ].map((contact) => (
-                  <a
-                    key={contact.label}
-                    href={contact.href}
-                    target={contact.href.startsWith("http") ? "_blank" : undefined}
-                    rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="contact-card"
-                  >
-                    <div className="text-accent">{contact.icon}</div>
-                    <span>{contact.label}</span>
-                    <strong>{contact.value}</strong>
-                  </a>
+              <div className="faq-list">
+                {faqs.map((faq) => (
+                  <details key={faq.q}>
+                    <summary>
+                      <span>{faq.q}</span>
+                      <span className="faq-mark" aria-hidden="true" />
+                    </summary>
+                    <p>{faq.a}</p>
+                  </details>
                 ))}
               </div>
+            </div>
+          </section>
 
-              <div className="mt-12 flex justify-center">
-                <motion.a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary px-10 py-5 text-lg">
-                  Pedir orçamento técnico <ArrowRight className="h-5 w-5" />
-                </motion.a>
+          {/* G — Contato / carimbo final */}
+          <section id="contato" className="zone-section contact-section" aria-labelledby="cta-title">
+            <Zone letter="G" />
+            <div className="contact-block">
+              <div className="contact-main">
+                <h2 id="cta-title">Envie seu desenho, foto ou amostra</h2>
+                <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-xl">
+                  <WhatsAppIcon />
+                  Pedir orçamento pelo WhatsApp
+                </a>
               </div>
-            </motion.div>
-          </div>
-        </section>
-      </main>
+              <address className="contact-cells">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell">
+                  <span className="cell-label">
+                    <Phone className="icon" aria-hidden="true" /> Telefone / WhatsApp
+                  </span>
+                  <strong>{PHONE_DISPLAY}</strong>
+                  <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
+                </a>
+                <a href={`mailto:${EMAIL}`} className="contact-cell">
+                  <span className="cell-label">
+                    <Mail className="icon" aria-hidden="true" /> E-mail
+                  </span>
+                  <strong>{EMAIL}</strong>
+                  <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
+                </a>
+                <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell">
+                  <span className="cell-label">
+                    <MapPin className="icon" aria-hidden="true" /> Localização
+                  </span>
+                  <strong>{CITY}</strong>
+                  <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
+                </a>
+              </address>
+            </div>
+          </section>
+        </main>
 
-      <footer className="border-t border-white/10 bg-bg-950 py-10" role="contentinfo">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
-          <DuheloLogo />
-          <div className="text-center text-sm text-text-500 md:text-right">
-            <p>© {new Date().getFullYear()} {BRAND}. Todos os direitos reservados.</p>
-            <p className="mt-1">Usinagem, ferramentaria e recuperação de componentes industriais.</p>
+        <footer className="site-footer">
+          <Logo className="logo logo-footer" />
+          <div className="footer-text">
+            <p>
+              <strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.
+            </p>
+            <p>
+              <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            </p>
+            <p className="footer-legal">
+              © {YEAR} {BRAND}. Todos os direitos reservados.
+            </p>
           </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+
+      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="mobile-cta">
+        <WhatsAppIcon />
+        Enviar desenho pelo WhatsApp
+      </a>
+    </>
   );
 }

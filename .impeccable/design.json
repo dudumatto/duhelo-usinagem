@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T23:00:00-03:00",
+  "title": "Design System: Duhelo Usinagem",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#f4f4f0" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#16182b" },
+      "drawing-navy": { "role": "secondary", "displayName": "Drawing Navy", "canonical": "#2b2f8f" },
+      "action-blue": { "role": "primary", "displayName": "Action Blue", "canonical": "#0a68ad", "tonalRamp": ["#0a68ad", "#08548c", "#064474"] },
+      "logo-cyan": { "role": "tertiary", "displayName": "Logo Cyan", "canonical": "#1fa0e0" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "H1 do topo, Archivo 800 condensada." },
+      "data": { "displayName": "Data", "purpose": "Cotas, rótulos de carimbo e tabelas; nunca texto corrido." }
+    },
+    "shadows": [
+      { "name": "edge", "value": "0 1px 0 rgba(6, 68, 116, 0.9), 0 8px 18px -10px rgba(10, 104, 173, 0.7)", "purpose": "Aresta do botão primário." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Traçado do desenho e transições." },
+      { "name": "draw", "value": "1.1s stroke-dashoffset 1 -> 0, escalonado por --d", "purpose": "Único momento autoral: o desenho do topo se traça ao carregar." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "520px" },
+      { "name": "md", "value": "768px" },
+      { "name": "sheet", "value": "900px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação de orçamento pelo WhatsApp.",
+      "html": "<a class=\"ds-btn\">Enviar desenho pelo WhatsApp</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:54px;padding:.9em 1.5em;background:#0a68ad;color:#fff;border-radius:4px;font:700 1.0625rem Archivo,sans-serif;text-decoration:none}.ds-btn:hover{background:#08548c}"
+    },
+    {
+      "name": "Title Block Cell",
+      "kind": "custom",
+      "refersTo": "title-block-cell",
+      "description": "Célula do carimbo: rótulo mono + valor.",
+      "html": "<div class=\"ds-tb\"><span>Local</span><strong>Santa Bárbara d'Oeste - SP</strong></div>",
+      "css": ".ds-tb{padding:10px 14px 12px;border:1.5px solid rgba(22,24,43,.82);background:#fbfbf8}.ds-tb span{display:block;font:500 11px monospace;letter-spacing:.06em;text-transform:uppercase;color:#5d6175}.ds-tb strong{font:650 .9375rem Archivo,sans-serif;color:#16182b}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A folha de desenho técnico",
+    "overview": "O site fala a língua da prancha que o cliente envia: margem com zonas, vistas cotadas, lista de peças, notas e carimbo. Claro, preciso, com azul vivo racionado às ações.",
+    "keyCharacteristics": ["Papel claro e nanquim navy", "Archivo condensada nos títulos", "Martian Mono só para dados", "Fotos reais + SVG geométrico"],
+    "rules": [{ "name": "Azul racionado", "body": "Action Blue só em elementos clicáveis.", "section": "colors" }],
+    "dos": ["Fotos reais com balões e linhas de chamada", "Contato idêntico em todos os canais"],
+    "donts": ["Eyebrows acima de títulos", "Glow e gradientes", "Claims inventados"]
+  }
+}

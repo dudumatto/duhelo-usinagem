@@ -11,3 +11,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+dist-ssr
+.impeccable/review/
