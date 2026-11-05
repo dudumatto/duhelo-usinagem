@@ -13,7 +13,6 @@ export function structuredData() {
         name: BRAND,
         alternateName: "Duhelo Usinagem, Ferramentaria & Manutenção",
         description: `Usinagem de precisão em ${CITY}: peças sob desenho ou amostra, torneamento CNC, fresamento, produção em lote e recuperação de peças industriais.`,
-        additionalType: "https://pt.wikipedia.org/wiki/Usinagem",
         url: SITE_URL,
         logo: `${SITE_URL}images/duhelo-logo.png`,
         image: [
