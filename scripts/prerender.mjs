@@ -1,37 +1,48 @@
-// Pré-renderiza a página em HTML estático: o Google (e qualquer visitante) recebe o conteúdo completo
-// sem depender de JavaScript. Roda depois de `vite build` e `vite build --ssr`.
-import { readFile, writeFile, rm } from "node:fs/promises";
+import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const dist = path.resolve("dist");
 const ssrEntry = path.resolve("dist-ssr/entry-server.js");
+const { render, renderHead, allRoutePaths, routeMeta } = await import(pathToFileURL(ssrEntry).href);
 
-const { render, renderHead } = await import(pathToFileURL(ssrEntry).href);
-const appHtml = render();
-
-let html = await readFile(path.join(dist, "index.html"), "utf8");
-if (!html.includes("<!--app-html-->")) throw new Error("Marcador <!--app-html--> não encontrado em dist/index.html");
-html = html.replace("<!--app-html-->", appHtml).replace("<!--app-head-->", renderHead());
-
-// A página publicada é 100% HTML + CSS: o único JS de produção é o bootstrap do modo dev (vazio no build).
-// Removemos a tag <script> e o arquivo para não custar nenhuma requisição. Se um dia a página ganhar
-// interatividade em JS, troque isto por hidratação (hydrateRoot) em src/main.tsx.
-const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
-const match = html.match(scriptTag);
-if (match) {
-  html = html.replace(scriptTag, "");
-  await rm(path.join(dist, "assets", match[1]));
+// render each route
+const template = await readFile(path.join(dist, "index.html"), "utf8");
+for (const route of allRoutePaths) {
+  const appHtml = render(route);
+  const meta = routeMeta(route);
+  let html = template;
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`);
+  html = html.replace(/(<meta\s+name="description"\s+content=")[^"]*(")/, `$1${meta.description}$2`);
+  html = html.replace("<!--app-html-->", appHtml).replace("<!--app-head-->", renderHead(route));
+  // remove script tag + file
+  const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
+  const match = html.match(scriptTag);
+  if (match) {
+    html = html.replace(scriptTag, "");
+  }
+  // css inline
+  const cssTag = /<link rel="stylesheet" crossorigin href="\/assets\/([^"]+\.css)">/;
+  const cssMatch = html.match(cssTag);
+  if (cssMatch) {
+    const css = await readFile(path.join(dist, "assets", cssMatch[1]), "utf8");
+    html = html.replace(cssTag, () => `<style>${css}</style>`);
+  }
+  const outDir = route === "/" ? dist : path.join(dist, route.replace(/^\//, ""));
+  await mkdir(outDir, { recursive: true });
+  await writeFile(path.join(outDir, "index.html"), html);
 }
 
-// CSS embutido no HTML: elimina a requisição que bloqueia a primeira pintura (~5 KB gzip).
-const cssTag = /<link rel="stylesheet" crossorigin href="\/assets\/([^"]+\.css)">/;
-const cssMatch = html.match(cssTag);
-if (cssMatch) {
-  const css = await readFile(path.join(dist, "assets", cssMatch[1]), "utf8");
-  html = html.replace(cssTag, () => `<style>${css}</style>`);
-}
+// remove assets js/css after inlining (best effort)
+const assetsDir = path.join(dist, "assets");
+try { await rm(assetsDir, { recursive: true, force: true }); } catch {}
 
-await writeFile(path.join(dist, "index.html"), html);
+// generate sitemap.xml
+const base = "https://www.duhelousinagem.com.br";
+const urls = allRoutePaths.map((r) => `  <url>\n    <loc>${base}${r === "/" ? "/" : r}</loc>\n    <lastmod>2026-11-05</lastmod>\n  </url>`).join("\n");
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+await writeFile(path.join(dist, "sitemap.xml"), sitemap);
+
+// cleanup ssr
 await rm(path.resolve("dist-ssr"), { recursive: true, force: true });
-console.log(`prerender ok: ${Math.round(html.length / 1024)} KB de HTML`);
+console.log(`prerender ok: ${allRoutePaths.length} rotas`);

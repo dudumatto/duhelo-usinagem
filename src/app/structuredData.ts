@@ -1,4 +1,5 @@
 import { BRAND, CITY, EMAIL, MAPS_LINK, SITE_URL, faqs, services } from "./content";
+import { posts } from "./blogPosts";
 
 const PHONE_SCHEMA = "+55-19-98273-1890";
 
@@ -89,4 +90,58 @@ export function structuredData() {
       },
     ],
   };
+}
+
+export function structuredDataFor(route: string) {
+  const base = SITE_URL.replace(/\/$/, "");
+  const url = `${base}${route === "/" ? "/" : route}`;
+  const crumbs = (items: { name: string; url: string }[]) => ({
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  });
+
+  if (route === "/") return structuredData();
+
+  if (route.startsWith("/servicos/")) {
+    const slug = route.replace("/servicos/", "");
+    const service = services.find((s) => s.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: service?.title ?? "Serviço", url }]),
+        ...(service ? [{ "@type": "Service", name: service.title, description: service.description, provider: { "@id": `${SITE_URL}#empresa` }, url }] : []),
+      ],
+    };
+  }
+
+  if (route === "/blog") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url }]),
+      ],
+    };
+  }
+
+  if (route.startsWith("/blog/")) {
+    const slug = route.replace("/blog/", "");
+    const post = posts.find((p) => p.slug === slug);
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url: `${base}/blog` }, { name: post?.title ?? "Artigo", url }]),
+        ...(post ? [{ "@type": "Article", headline: post.title, description: post.description, datePublished: post.date, author: { "@type": "Organization", name: BRAND }, publisher: { "@id": `${SITE_URL}#empresa` }, mainEntityOfPage: url }] : []),
+      ],
+    };
+  }
+
+  return structuredData();
 }

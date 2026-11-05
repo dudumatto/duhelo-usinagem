@@ -1,11 +1,6 @@
-import "./styles/index.css";
+import { createRoot } from "react-dom/client";
+import { matchRoute } from "./app/router";
 
-// Em produção a página é pré-renderizada em HTML estático (scripts/prerender.mjs) e não precisa de JavaScript.
-// No modo dev, o React renderiza a página normalmente.
-if (import.meta.env.DEV) {
-  Promise.all([import("react-dom/client"), import("./app/App")]).then(([{ createRoot }, { default: App }]) => {
-    const root = document.getElementById("root");
-    if (!root) throw new Error('Elemento raiz "#root" não encontrado no index.html');
-    createRoot(root).render(<App />);
-  });
-}
+const root = createRoot(document.getElementById("root")!);
+const m = matchRoute(window.location.pathname);
+root.render(m ? m.render() : <p>Página não encontrada.</p>);
