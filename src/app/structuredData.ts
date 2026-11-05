@@ -1,5 +1,6 @@
 import { BRAND, CITY, EMAIL, MAPS_LINK, SITE_URL, faqs, services } from "./content";
 import { posts } from "./blogPosts";
+import { landings } from "./serviceLandings";
 
 const PHONE_SCHEMA = "+55-19-98273-1890";
 
@@ -116,6 +117,19 @@ export function structuredDataFor(route: string) {
         { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: service?.title ?? "Serviço", url }]),
         ...(service ? [{ "@type": "Service", name: service.title, description: service.description, provider: { "@id": `${SITE_URL}#empresa` }, url }] : []),
+      ],
+    };
+  }
+
+  const landing = landings.find((l) => `/${l.slug}` === route);
+  if (landing) {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: landing.h1, url }]),
+        { "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#empresa` }, url },
+        { "@type": "FAQPage", mainEntity: landing.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
       ],
     };
   }

@@ -3,6 +3,7 @@ import { matchRoute, allRoutePaths } from "./app/router";
 import { structuredDataFor } from "./app/structuredData";
 import { services } from "./app/content";
 import { posts } from "./app/blogPosts";
+import { landings } from "./app/serviceLandings";
 
 export { allRoutePaths };
 
@@ -13,6 +14,8 @@ export function routeMeta(route = "/") {
     const s = services.find((x) => x.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
     return { title: `${s?.title ?? "Serviço de usinagem"} | Duhelo Usinagem`, description: s?.description ?? "Serviço de usinagem de precisão em Santa Bárbara d'Oeste - SP." };
   }
+  const landing = landings.find((l) => `/${l.slug}` === route);
+  if (landing) return { title: landing.title, description: landing.description };
   if (route === "/blog") return { title: "Blog de usinagem | Duhelo Usinagem", description: "Artigos técnicos sobre usinagem, processos e manutenção de peças industriais." };
   if (route.startsWith("/blog/")) {
     const slug = route.replace("/blog/", "");
