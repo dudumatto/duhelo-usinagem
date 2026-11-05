@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BRAND, CITY, WHATSAPP_LINK } from "../content";
-import { getPost } from "../blogPosts";
+import { getPost, posts } from "../blogPosts";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
@@ -51,6 +51,19 @@ export function BlogPost({ slug }: { slug: string }) {
                 <p className="section-lead">{post.description}</p>
               </div>
               <div dangerouslySetInnerHTML={{ __html: post.html }} />
+              <p>
+                Precisa usinar uma peça? Veja nossos <a href="/usinagem-de-precisao" className="text-link">serviços de usinagem de precisão</a>.
+              </p>
+            </section>
+            <section className="zone-section" aria-labelledby="related-posts">
+              <h2 id="related-posts">Leia também</h2>
+              <ul>
+                {posts.filter((p) => p.slug !== slug).map((p) => (
+                  <li key={p.slug}>
+                    <a href={`/blog/${p.slug}`} className="text-link">{p.title}</a> — {p.description}
+                  </li>
+                ))}
+              </ul>
             </section>
             <section className="zone-section" aria-labelledby="post-cta">
               <h2 id="post-cta">Precisa usinar uma peça?</h2>

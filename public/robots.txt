@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Para bloquear um robô específico no futuro, adicione:
+# User-agent: NomeDoRobo
+# Disallow: /
+
 Sitemap: https://www.duhelousinagem.com.br/sitemap.xml

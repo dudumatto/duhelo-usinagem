@@ -6,6 +6,7 @@ import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
 import { ConsentBanner } from "../components/ConsentBanner";
 import { track } from "../../lib/track";
+import { posts } from "../blogPosts";
 
 export function ServiceLandingPage({ slug }: { slug: string }) {
   const landing = landings.find((l) => l.slug === slug) ?? landings[0];
@@ -50,6 +51,16 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
                 </details>
               ))}
             </div>
+          </section>
+          <section className="zone-section" aria-labelledby="related-posts">
+            <h2 id="related-posts">Leia também</h2>
+            <ul>
+              {posts.slice(0, 3).map((p) => (
+                <li key={p.slug}>
+                  <a href={`/blog/${p.slug}`} className="text-link">{p.title}</a> — {p.description}
+                </li>
+              ))}
+            </ul>
           </section>
           <section className="zone-section" aria-labelledby="cta-landing">
             <h2 id="cta-landing">Envie seu desenho, foto ou amostra</h2>

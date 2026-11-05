@@ -8,7 +8,7 @@ import { landings } from "./app/serviceLandings";
 export { allRoutePaths };
 
 export function routeMeta(route = "/") {
-  if (route === "/") return { title: "Usinagem de precisão em Santa Bárbara d'Oeste | Duhelo", description: "Usinagem de precisão em Santa Bárbara d'Oeste - SP: peças sob desenho ou amostra, torno CNC, fresamento, lotes e recuperação de peças industriais. Orçamento pelo WhatsApp." };
+  if (route === "/") return { title: "Usinagem de precisão em Santa Bárbara d'Oeste | Duhelo", description: "Usinagem de precisão em Santa Bárbara d'Oeste - SP: peças sob desenho ou amostra, torno CNC, fresamento, lotes e recuperação. Orçamento pelo WhatsApp." };
   if (route.startsWith("/servicos/")) {
     const slug = route.replace("/servicos/", "");
     const s = services.find((x) => x.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
@@ -20,7 +20,8 @@ export function routeMeta(route = "/") {
   if (route.startsWith("/blog/")) {
     const slug = route.replace("/blog/", "");
     const p = posts.find((x) => x.slug === slug);
-    return { title: `${p?.title ?? "Artigo"} | Duhelo Usinagem`, description: p?.description ?? "Artigo sobre usinagem." };
+    const t = `${p?.title ?? "Artigo"} | Duhelo`;
+    return { title: t.length <= 60 ? t : (p?.title ?? "Artigo").slice(0, 60), description: p?.description ?? "Artigo sobre usinagem." };
   }
   return { title: "Duhelo Usinagem", description: "Usinagem de precisão em Santa Bárbara d'Oeste - SP." };
 }
