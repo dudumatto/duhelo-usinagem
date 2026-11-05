@@ -1,3 +1,5 @@
+import { trackEvent } from "./analytics";
+
 export type Utm = { utm_source?: string; utm_medium?: string; utm_campaign?: string };
 
 export function getUtm(): Utm {
@@ -19,11 +21,13 @@ export function getUtm(): Utm {
 }
 
 export function track(event: string, props: Record<string, any> = {}) {
-  const utm = getUtm();
-  const payload = { event, ...props, ...utm };
+  const params: Record<string, any> = {};
+  if (props.page) params.cta_page = props.page;
+  if (props.position) params.cta_position = props.position;
   if (import.meta.env.DEV) {
     // eslint-disable-next-line no-console
-    console.log("[track]", payload);
+    console.log("[track]", event, params);
   }
-  // no-op: sem envio de rede nesta fase. Nenhum dado pessoal é coletado.
+  // UTM não é enviado: o GA4 lê o UTM da URL de chegada.
+  trackEvent(event, params);
 }

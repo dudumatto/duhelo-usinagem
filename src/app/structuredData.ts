@@ -134,6 +134,16 @@ export function structuredDataFor(route: string) {
     };
   }
 
+  if (route === "/politica-de-privacidade") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: "Política de privacidade", url }]),
+      ],
+    };
+  }
+
   if (route === "/blog") {
     return {
       "@context": "https://schema.org",

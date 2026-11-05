@@ -4,6 +4,7 @@ import { getPost } from "../blogPosts";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
+import { ConsentBanner } from "../components/ConsentBanner";
 import { track } from "../../lib/track";
 
 export function BlogPost({ slug }: { slug: string }) {
@@ -55,7 +56,7 @@ export function BlogPost({ slug }: { slug: string }) {
               <h2 id="post-cta">Precisa usinar uma peça?</h2>
               <p>Envie desenho, foto ou amostra pelo WhatsApp e receba orientação técnica e orçamento.</p>
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/blog/${slug}`, position: "post_cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
-              <p><a href="/" className="text-link">Voltar para a home</a></p>
+              <p><a href="/" className="text-link">Voltar para a home</a> · <a href="/politica-de-privacidade" className="text-link">Política de privacidade</a></p>
             </section>
           </article>
         </main>
@@ -67,6 +68,7 @@ export function BlogPost({ slug }: { slug: string }) {
         </footer>
       </div>
       <MobileCtaBar />
+      <ConsentBanner />
     </>
   );
 }

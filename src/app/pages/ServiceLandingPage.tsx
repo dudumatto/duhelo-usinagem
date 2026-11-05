@@ -4,6 +4,7 @@ import { landings } from "../serviceLandings";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
+import { ConsentBanner } from "../components/ConsentBanner";
 import { track } from "../../lib/track";
 
 export function ServiceLandingPage({ slug }: { slug: string }) {
@@ -58,7 +59,7 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
               <a href={`tel:+5519982731890`} className="btn btn-ghost btn-lg" onClick={() => track("call_click", { page: `/${slug}`, position: "cta" })}>Ligar: {PHONE_DISPLAY}</a>
             </div>
             <p>Envie desenho, foto ou amostra também por e-mail: <a href={`mailto:${EMAIL}`} className="text-link" onClick={() => track("email_click", { page: `/${slug}`, position: "cta" })}>{EMAIL}</a></p>
-            <p><a href="/" className="text-link">Voltar para a home</a> · <a href="/blog" className="text-link">Ver blog</a></p>
+            <p><a href="/" className="text-link">Voltar para a home</a> · <a href="/blog" className="text-link">Ver blog</a> · <a href="/politica-de-privacidade" className="text-link">Política de privacidade</a></p>
           </section>
         </main>
         <footer className="site-footer">
@@ -70,6 +71,7 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
         </footer>
       </div>
       <MobileCtaBar whatsappMessage={landing.whatsappMessage} />
+      <ConsentBanner />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { posts } from "../blogPosts";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
+import { ConsentBanner } from "../components/ConsentBanner";
 
 export function BlogIndex() {
   const categories = Array.from(new Set(posts.map((p) => p.category)));
@@ -46,6 +47,7 @@ export function BlogIndex() {
         </footer>
       </div>
       <MobileCtaBar />
+      <ConsentBanner />
     </>
   );
 }

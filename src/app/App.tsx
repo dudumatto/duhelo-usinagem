@@ -3,6 +3,7 @@ import { FlangeDrawing, ShaftRecoveryDrawing } from "./components/Drawings";
 import { Logo } from "./components/Logo";
 import { WhatsAppIcon } from "./components/WhatsAppIcon";
 import { MobileCtaBar } from "./components/MobileCtaBar";
+import { ConsentBanner } from "./components/ConsentBanner";
 import { track } from "../lib/track";
 import {
   BRAND,
@@ -422,13 +423,17 @@ export default function App() {
               <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
             <p className="footer-legal">
-              © {YEAR} {BRAND}. Todos os direitos reservados.
+              © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}
+              <button type="button" className="text-link" onClick={() => window.dispatchEvent(new Event("duhelo-open-consent"))}>
+                Preferências de cookies
+              </button>
             </p>
           </div>
         </footer>
       </div>
 
       <MobileCtaBar />
+      <ConsentBanner />
     </>
   );
 }

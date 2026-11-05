@@ -1,6 +1,7 @@
 import App from "./App";
 import { ServicePage } from "./pages/ServicePage";
 import { ServiceLandingPage } from "./pages/ServiceLandingPage";
+import { PrivacyPage } from "./pages/PrivacyPage";
 import { BlogIndex } from "./pages/BlogIndex";
 import { BlogPost } from "./pages/BlogPost";
 import { services } from "./content";
@@ -18,6 +19,7 @@ export const routes: { path: string; render: () => React.ReactElement }[] = [
   { path: "/pecas-sob-medida", render: () => <ServiceLandingPage slug="pecas-sob-medida" /> },
   { path: "/recuperacao-de-eixos-e-buchas", render: () => <ServiceLandingPage slug="recuperacao-de-eixos-e-buchas" /> },
   { path: "/blog", render: () => <BlogIndex /> },
+  { path: "/politica-de-privacidade", render: () => <PrivacyPage /> },
 ];
 
 export const allRoutePaths: string[] = [
@@ -27,6 +29,7 @@ export const allRoutePaths: string[] = [
   "/pecas-sob-medida",
   "/recuperacao-de-eixos-e-buchas",
   "/blog",
+  "/politica-de-privacidade",
   ...posts.map((p) => `/blog/${p.slug}`),
 ];
 
