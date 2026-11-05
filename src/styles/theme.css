@@ -1609,10 +1609,8 @@ details[open] .faq-mark::after {
 
 /* ---------- Banner de consentimento ---------- */
 .consent-banner {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 60;
   background: var(--paper-sheet);
   border-bottom: 1.5px solid var(--ink);

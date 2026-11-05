@@ -10,8 +10,10 @@ declare global {
 const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
 
 export function isAnalyticsAllowedHost(): boolean {
-  if (!import.meta.env.PROD) return false;
   if (typeof window === "undefined") return false;
+  // Flag explícito para teste local (VITE_GA_DEBUG_LOCAL=true em .env.local)
+  if (import.meta.env.VITE_GA_DEBUG_LOCAL === "true") return true;
+  if (!import.meta.env.PROD) return false;
   return window.location.hostname === "www.duhelousinagem.com.br";
 }
 

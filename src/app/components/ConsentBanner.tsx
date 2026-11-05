@@ -33,7 +33,7 @@ export function ConsentBanner() {
           <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setConsent(false); setVisible(false); }}>
             Recusar
           </button>
-          <button type="button" className="btn btn-primary btn-sm" onClick={() => { setConsent(true); loadAnalytics(); setVisible(false); }}>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setConsent(true); loadAnalytics(); setVisible(false); }}>
             Aceitar
           </button>
         </div>
