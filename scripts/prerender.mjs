@@ -12,8 +12,11 @@ for (const route of allRoutePaths) {
   const appHtml = render(route);
   const meta = routeMeta(route);
   let html = template;
+  const canonical = `https://www.duhelousinagem.com.br${route === "/" ? "/" : route}`;
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`);
   html = html.replace(/(<meta\s+name="description"\s+content=")[^"]*(")/, `$1${meta.description}$2`);
+  html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${canonical}$2`);
+  html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${canonical}$2`);
   html = html.replace("<!--app-html-->", appHtml).replace("<!--app-head-->", renderHead(route));
   // remove script tag + file
   const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
