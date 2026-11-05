@@ -1,4 +1,5 @@
-import { readFile, readdir, stat } from "node:fs/promises";
+import { readFile, readdir, stat, access } from "node:fs/promises";
+async function fileExists(p) { try { await access(p); return true; } catch { return false; } }
 import path from "node:path";
 
 const DIST = path.resolve("dist");
@@ -53,6 +54,15 @@ for (const route of routes) {
   const ogUrlMatch = html.match(/<meta property="og:url" content="([^"]*)"/);
   const ogUrl = ogUrlMatch ? ogUrlMatch[1] : "";
   check(`${route} og:url == canonical`, ogUrl === canon, ogUrl);
+
+  const ogImgMatch = html.match(/<meta property="og:image" content="([^"]*)"/);
+  const ogImg = ogImgMatch ? ogImgMatch[1] : "";
+  const ogImgOk = ogImg.startsWith(HOST + "/") && (await fileExists(path.join(DIST, "..", "public", ogImg.replace(HOST + "/", ""))));
+  check(`${route} og:image absoluto e existente`, ogImgOk, ogImg);
+
+  const twImgMatch = html.match(/<meta name="twitter:image" content="([^"]*)"/);
+  const twImg = twImgMatch ? twImgMatch[1] : "";
+  check(`${route} twitter:image absoluto`, twImg.startsWith(HOST + "/"), twImg);
 
   check(`${route} sem utm_`, !/utm_/.test(html));
 

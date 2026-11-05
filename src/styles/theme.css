@@ -1041,6 +1041,14 @@ address {
   margin-top: 16px;
 }
 
+@media (max-width: 767px) {
+  .notes-section .btn-primary {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+}
+
 .notes {
   counter-reset: note;
   margin: clamp(32px, 4vw, 48px) 0 clamp(32px, 4vw, 44px);

@@ -11,7 +11,7 @@ export function structuredData() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": `${SITE_URL}#empresa`,
+        "@id": `${SITE_URL}#business`,
         name: BRAND,
         alternateName: "Duhelo Usinagem, Ferramentaria & Manutenção",
         description: `Usinagem de precisão em ${CITY}: peças sob desenho ou amostra, torneamento CNC, fresamento, produção em lote e recuperação de peças industriais.`,
@@ -67,7 +67,7 @@ export function structuredData() {
             "@type": "Service",
             name: service.title,
             description: service.description,
-            provider: { "@id": `${SITE_URL}#empresa` },
+            provider: { "@id": `${SITE_URL}#business` },
           },
         })),
       },
@@ -78,7 +78,7 @@ export function structuredData() {
         name: BRAND,
         alternateName: "Duhelo",
         inLanguage: "pt-BR",
-        publisher: { "@id": `${SITE_URL}#empresa` },
+        publisher: { "@id": `${SITE_URL}#business` },
       },
       {
         "@type": "FAQPage",
@@ -114,9 +114,9 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: service?.title ?? "Serviço", url }]),
-        ...(service ? [{ "@type": "Service", name: service.title, description: service.description, provider: { "@id": `${SITE_URL}#empresa` }, url }] : []),
+        ...(service ? [{ "@type": "Service", name: service.title, description: service.description, provider: { "@id": `${SITE_URL}#business` }, url }] : []),
       ],
     };
   }
@@ -126,9 +126,9 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
         crumbs([{ name: "Início", url: `${base}/` }, { name: landing.h1, url }]),
-        { "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#empresa` }, url },
+        { "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#business` }, url },
         { "@type": "FAQPage", mainEntity: landing.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
       ],
     };
@@ -138,7 +138,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Política de privacidade", url }]),
       ],
     };
@@ -148,7 +148,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url }]),
       ],
     };
@@ -160,9 +160,9 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#empresa`, name: BRAND, url: SITE_URL },
+        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url: `${base}/blog` }, { name: post?.title ?? "Artigo", url }]),
-        ...(post ? [{ "@type": "Article", headline: post.title, description: post.description, datePublished: post.date, author: { "@type": "Organization", name: BRAND }, publisher: { "@id": `${SITE_URL}#empresa` }, mainEntityOfPage: url }] : []),
+        ...(post ? [{ "@type": "Article", headline: post.title, description: post.description, datePublished: post.date, author: { "@id": `${SITE_URL}#business` }, publisher: { "@id": `${SITE_URL}#business` }, mainEntityOfPage: url }] : []),
       ],
     };
   }
