@@ -3,6 +3,8 @@ import { BRAND, CITY, EMAIL, PHONE_DISPLAY, WHATSAPP_LINK } from "../content";
 import { landings } from "../serviceLandings";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
+import { MobileCtaBar } from "../components/MobileCtaBar";
+import { track } from "../../lib/track";
 
 export function ServiceLandingPage({ slug }: { slug: string }) {
   const landing = landings.find((l) => l.slug === slug) ?? landings[0];
@@ -26,9 +28,10 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
               <p>{landing.intro}</p>
             </div>
             <div className="hero-actions">
-              <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg"><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
-              <a href={`tel:+5519982731890`} className="btn btn-ghost btn-lg">Ligar: {PHONE_DISPLAY}</a>
+              <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/${slug}`, position: "cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
+              <a href={`tel:+5519982731890`} className="btn btn-ghost btn-lg" onClick={() => track("call_click", { page: `/${slug}`, position: "cta" })}>Ligar: {PHONE_DISPLAY}</a>
             </div>
+            <p>Envie desenho, foto ou amostra também por e-mail: <a href={`mailto:${EMAIL}`} className="text-link" onClick={() => track("email_click", { page: `/${slug}`, position: "cta" })}>{EMAIL}</a></p>
           </section>
           {landing.sections.map((s) => (
             <section key={s.h2} className="zone-section" aria-labelledby={s.h2}>
@@ -51,9 +54,10 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
             <h2 id="cta-landing">Envie seu desenho, foto ou amostra</h2>
             <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
             <div className="hero-actions">
-              <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg"><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
-              <a href={`tel:+5519982731890`} className="btn btn-ghost btn-lg">Ligar: {PHONE_DISPLAY}</a>
+              <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/${slug}`, position: "cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
+              <a href={`tel:+5519982731890`} className="btn btn-ghost btn-lg" onClick={() => track("call_click", { page: `/${slug}`, position: "cta" })}>Ligar: {PHONE_DISPLAY}</a>
             </div>
+            <p>Envie desenho, foto ou amostra também por e-mail: <a href={`mailto:${EMAIL}`} className="text-link" onClick={() => track("email_click", { page: `/${slug}`, position: "cta" })}>{EMAIL}</a></p>
             <p><a href="/" className="text-link">Voltar para a home</a> · <a href="/blog" className="text-link">Ver blog</a></p>
           </section>
         </main>
@@ -65,6 +69,7 @@ export function ServiceLandingPage({ slug }: { slug: string }) {
           </div>
         </footer>
       </div>
+      <MobileCtaBar whatsappMessage={landing.whatsappMessage} />
     </>
   );
 }

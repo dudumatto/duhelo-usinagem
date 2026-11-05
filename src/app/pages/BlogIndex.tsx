@@ -2,6 +2,7 @@ import { BRAND, CITY, WHATSAPP_LINK } from "../content";
 import { posts } from "../blogPosts";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
+import { MobileCtaBar } from "../components/MobileCtaBar";
 
 export function BlogIndex() {
   const categories = Array.from(new Set(posts.map((p) => p.category)));
@@ -44,6 +45,7 @@ export function BlogIndex() {
           </div>
         </footer>
       </div>
+      <MobileCtaBar />
     </>
   );
 }

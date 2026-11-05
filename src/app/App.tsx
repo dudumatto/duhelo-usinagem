@@ -2,6 +2,8 @@ import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { FlangeDrawing, ShaftRecoveryDrawing } from "./components/Drawings";
 import { Logo } from "./components/Logo";
 import { WhatsAppIcon } from "./components/WhatsAppIcon";
+import { MobileCtaBar } from "./components/MobileCtaBar";
+import { track } from "../lib/track";
 import {
   BRAND,
   CITY,
@@ -120,7 +122,7 @@ export default function App() {
               ))}
             </ul>
           </nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" onClick={() => track("whatsapp_click", { page: "/", position: "header" })}>
             <WhatsAppIcon />
             <span>Orçamento</span>
           </a>
@@ -147,7 +149,7 @@ export default function App() {
                   desenho ou a foto da peça e receba o orçamento pelo WhatsApp.
                 </p>
                 <div className="hero-actions">
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: "/", position: "hero" })}>
                     <WhatsAppIcon />
                     Enviar desenho pelo WhatsApp
                   </a>
@@ -242,6 +244,13 @@ export default function App() {
                 </li>
               ))}
             </ol>
+            <p className="section-lead">
+              Páginas dedicadas:{" "}
+              <a href="/usinagem-de-precisao" className="text-link">usinagem de precisão</a> ·{" "}
+              <a href="/usinagem-cnc-torno-fresamento" className="text-link">usinagem CNC</a> ·{" "}
+              <a href="/pecas-sob-medida" className="text-link">peças sob medida</a> ·{" "}
+              <a href="/recuperacao-de-eixos-e-buchas" className="text-link">recuperação de eixos e buchas</a>.
+            </p>
           </section>
 
           {/* C — Notas gerais / orçamento */}
@@ -259,7 +268,7 @@ export default function App() {
                     </li>
                   ))}
                 </ol>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: "/", position: "quote" })}>
                   <WhatsAppIcon />
                   Enviar dados da peça
                 </a>
@@ -367,20 +376,20 @@ export default function App() {
               <div className="contact-main">
                 <h2 id="cta-title">Envie seu desenho, foto ou amostra</h2>
                 <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-xl">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-xl" onClick={() => track("whatsapp_click", { page: "/", position: "contact" })}>
                   <WhatsAppIcon />
                   Pedir orçamento pelo WhatsApp
                 </a>
               </div>
               <address className="contact-cells">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell" onClick={() => track("whatsapp_click", { page: "/", position: "contact_cell" })}>
                   <span className="cell-label">
                     <Phone className="icon" aria-hidden="true" /> Telefone / WhatsApp
                   </span>
                   <strong>{PHONE_DISPLAY}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
-                <a href={`mailto:${EMAIL}`} className="contact-cell">
+                <a href={`mailto:${EMAIL}`} className="contact-cell" onClick={() => track("email_click", { page: "/", position: "contact_cell" })}>
                   <span className="cell-label">
                     <Mail className="icon" aria-hidden="true" /> E-mail
                   </span>
@@ -419,10 +428,7 @@ export default function App() {
         </footer>
       </div>
 
-      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="mobile-cta">
-        <WhatsAppIcon />
-        Enviar desenho pelo WhatsApp
-      </a>
+      <MobileCtaBar />
     </>
   );
 }

@@ -1527,28 +1527,46 @@ details[open] .faq-mark::after {
 
 /* ---------- CTA fixo no celular ---------- */
 
-.mobile-cta {
+.mobile-cta-bar {
   position: fixed;
   left: 12px;
   right: 12px;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   z-index: 50;
   display: flex;
+  gap: 10px;
+}
+
+.mobile-cta-btn {
+  flex: 1;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   min-height: 54px;
   border-radius: var(--radius);
-  background: var(--action);
-  color: #fff;
   font-weight: 700;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   text-decoration: none;
   box-shadow: 0 12px 28px -10px rgba(22, 24, 43, 0.55);
 }
 
-.mobile-cta:active {
+.mobile-cta-wa {
+  background: var(--action);
+  color: #fff;
+}
+
+.mobile-cta-wa:active {
   background: var(--action-press);
+}
+
+.mobile-cta-call {
+  background: var(--ink);
+  color: #fff;
+}
+
+.mobile-cta-call:active {
+  background: var(--ink-2);
 }
 
 @media (max-width: 767px) {
@@ -1562,14 +1580,14 @@ details[open] .faq-mark::after {
 }
 
 @media (min-width: 768px) {
-  .mobile-cta {
+  .mobile-cta-bar {
     display: none;
   }
 }
 
 /* Onde o navegador suporta, o botão fixo só aparece depois que o botão do topo sai da tela */
 @supports (animation-timeline: scroll()) {
-  .mobile-cta {
+  .mobile-cta-bar {
     animation: cta-in linear both;
     animation-timeline: scroll(root);
     animation-range: 420px 560px;

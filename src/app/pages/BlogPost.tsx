@@ -1,9 +1,26 @@
+import { useEffect } from "react";
 import { BRAND, CITY, WHATSAPP_LINK } from "../content";
 import { getPost } from "../blogPosts";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
+import { MobileCtaBar } from "../components/MobileCtaBar";
+import { track } from "../../lib/track";
 
 export function BlogPost({ slug }: { slug: string }) {
+  useEffect(() => {
+    let fired = false;
+    const onScroll = () => {
+      if (fired) return;
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (total > 0 && scrolled / total >= 0.75) {
+        fired = true;
+        track("blog_scroll_75", { page: `/blog/${slug}` });
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [slug]);
   const post = getPost(slug);
   if (!post) {
     return (
@@ -37,7 +54,7 @@ export function BlogPost({ slug }: { slug: string }) {
             <section className="zone-section" aria-labelledby="post-cta">
               <h2 id="post-cta">Precisa usinar uma peça?</h2>
               <p>Envie desenho, foto ou amostra pelo WhatsApp e receba orientação técnica e orçamento.</p>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg"><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/blog/${slug}`, position: "post_cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
               <p><a href="/" className="text-link">Voltar para a home</a></p>
             </section>
           </article>
@@ -49,6 +66,7 @@ export function BlogPost({ slug }: { slug: string }) {
           </div>
         </footer>
       </div>
+      <MobileCtaBar />
     </>
   );
 }
