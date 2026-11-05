@@ -13,6 +13,7 @@ export function structuredData() {
         name: BRAND,
         alternateName: "Duhelo Usinagem, Ferramentaria & Manutenção",
         description: `Usinagem de precisão em ${CITY}: peças sob desenho ou amostra, torneamento CNC, fresamento, produção em lote e recuperação de peças industriais.`,
+        additionalType: "https://pt.wikipedia.org/wiki/Usinagem",
         url: SITE_URL,
         logo: `${SITE_URL}images/duhelo-logo.png`,
         image: [
@@ -59,6 +60,15 @@ export function structuredData() {
             itemOffered: { "@type": "Service", name: service.title, description: service.description },
           })),
         },
+        makesOffer: services.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.title,
+            description: service.description,
+            provider: { "@id": `${SITE_URL}#empresa` },
+          },
+        })),
       },
       {
         "@type": "WebSite",
