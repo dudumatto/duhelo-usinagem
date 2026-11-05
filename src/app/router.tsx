@@ -13,10 +13,6 @@ export type Route = { path: string; component: React.ComponentType<any>; props?:
 
 export const routes: { path: string; render: () => React.ReactElement }[] = [
   { path: "/", render: () => <App /> },
-  { path: "/servicos/pecas-sob-desenho-ou-amostra", render: () => <ServicePage slug="pecas-sob-desenho-ou-amostra" /> },
-  { path: "/servicos/usinagem-cnc-em-lote", render: () => <ServicePage slug="usinagem-cnc-em-lote" /> },
-  { path: "/servicos/componentes-industriais-sob-medida", render: () => <ServicePage slug="componentes-industriais-sob-medida" /> },
-  { path: "/servicos/recuperacao-de-pecas-desgastadas", render: () => <ServicePage slug="recuperacao-de-pecas-desgastadas" /> },
   { path: "/usinagem-de-precisao", render: () => <ServiceLandingPage slug="usinagem-de-precisao" /> },
   { path: "/usinagem-cnc-torno-fresamento", render: () => <ServiceLandingPage slug="usinagem-cnc-torno-fresamento" /> },
   { path: "/pecas-sob-medida", render: () => <ServiceLandingPage slug="pecas-sob-medida" /> },
@@ -26,7 +22,6 @@ export const routes: { path: string; render: () => React.ReactElement }[] = [
 
 export const allRoutePaths: string[] = [
   "/",
-  ...services.map((s) => `/servicos/${slugify(s.title)}`),
   "/usinagem-de-precisao",
   "/usinagem-cnc-torno-fresamento",
   "/pecas-sob-medida",

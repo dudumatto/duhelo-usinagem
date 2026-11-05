@@ -406,6 +406,10 @@ export default function App() {
               <strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.
             </p>
             <p>
+              <a href="/usinagem-de-precisao">Usinagem de precisão</a> · <a href="/usinagem-cnc-torno-fresamento">Usinagem CNC</a> ·{" "}
+              <a href="/pecas-sob-medida">Peças sob medida</a> · <a href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos</a>
+            </p>
+            <p>
               <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
             <p className="footer-legal">
