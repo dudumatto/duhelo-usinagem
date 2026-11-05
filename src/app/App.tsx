@@ -153,7 +153,7 @@ export default function App() {
                     <WhatsAppIcon />
                     Enviar desenho pelo WhatsApp
                   </a>
-                  <a href="#orcamento" className="btn btn-ghost btn-lg">
+                  <a href="#orcamento" className="btn btn-ghost btn-lg" onClick={() => track("cta_click", { page: "/", position: "hero_secondary" })}>
                     Como pedir orçamento
                     <ArrowRight className="icon" aria-hidden="true" />
                   </a>
@@ -247,7 +247,7 @@ export default function App() {
             <p className="section-lead">
               Páginas dedicadas:{" "}
               <a href="/usinagem-de-precisao" className="text-link">usinagem de precisão</a> ·{" "}
-              <a href="/usinagem-cnc-torno-fresamento" className="text-link">usinagem CNC</a> ·{" "}
+              <a href="/usinagem-cnc-torno-fresamento" className="text-link">usinagem CNC: torno e fresamento</a> ·{" "}
               <a href="/pecas-sob-medida" className="text-link">peças sob medida</a> ·{" "}
               <a href="/recuperacao-de-eixos-e-buchas" className="text-link">recuperação de eixos e buchas</a>.
             </p>
@@ -268,7 +268,7 @@ export default function App() {
                     </li>
                   ))}
                 </ol>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: "/", position: "quote" })}>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("drawing_cta_click", { page: "/", position: "quote" })}>
                   <WhatsAppIcon />
                   Enviar dados da peça
                 </a>
