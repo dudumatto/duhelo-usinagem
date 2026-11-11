@@ -1,8 +1,26 @@
-import { BRAND, CITY, EMAIL, MAPS_LINK, SITE_URL, faqs, services } from "./content";
+import { BRAND, CITY, CITY_NAME, CITY_REGION, EMAIL, MAPS_LINK, PHONE_E164, SITE_URL, faqs, services } from "./content";
 import { posts } from "./blogPosts";
 import { landings } from "./serviceLandings";
 
-const PHONE_SCHEMA = "+55-19-98273-1890";
+const business = {
+  "@type": "LocalBusiness",
+  "@id": `${SITE_URL}#business`,
+  name: BRAND,
+  url: SITE_URL,
+  telephone: PHONE_E164,
+  email: EMAIL,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: CITY_NAME,
+    addressRegion: CITY_REGION,
+    addressCountry: "BR",
+  },
+  areaServed: {
+    "@type": "City",
+    name: CITY_NAME,
+    containedInPlace: { "@type": "State", name: "São Paulo" },
+  },
+};
 
 /** JSON-LD para o Google: empresa local + serviços, site e perguntas frequentes. */
 export function structuredData() {
@@ -10,12 +28,9 @@ export function structuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
-        "@id": `${SITE_URL}#business`,
-        name: BRAND,
+        ...business,
         alternateName: "Duhelo Usinagem, Ferramentaria & Manutenção",
-        description: `Usinagem de precisão em ${CITY}: peças sob desenho ou amostra, torneamento CNC, fresamento, produção em lote e recuperação de peças industriais.`,
-        url: SITE_URL,
+        description: `Usinagem de precisão em ${CITY}. Fabricação de peças sob desenho ou amostra e recuperação de componentes desgastados para manutenção industrial.`,
         logo: `${SITE_URL}images/duhelo-logo.png`,
         image: [
           `${SITE_URL}og-image.jpg`,
@@ -23,23 +38,10 @@ export function structuredData() {
           `${SITE_URL}images/card-fabricacao-metal.jpg`,
           `${SITE_URL}images/card-servicos-cnc.jpg`,
         ],
-        telephone: PHONE_SCHEMA,
-        email: EMAIL,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Santa Bárbara d'Oeste",
-          addressRegion: "SP",
-          addressCountry: "BR",
-        },
         hasMap: MAPS_LINK,
-        areaServed: {
-          "@type": "City",
-          name: "Santa Bárbara d'Oeste",
-          containedInPlace: { "@type": "State", name: "São Paulo" },
-        },
         contactPoint: {
           "@type": "ContactPoint",
-          telephone: PHONE_SCHEMA,
+          telephone: PHONE_E164,
           contactType: "sales",
           availableLanguage: "Portuguese",
         },
@@ -114,7 +116,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        business,
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: service?.title ?? "Serviço", url }]),
         ...(service ? [{ "@type": "Service", name: service.title, description: service.description, provider: { "@id": `${SITE_URL}#business` }, url }] : []),
       ],
@@ -126,7 +128,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL, telephone: "+55-19-98273-1890", email: EMAIL, address: { "@type": "PostalAddress", addressLocality: "Santa Bárbara d'Oeste", addressRegion: "SP", addressCountry: "BR" }, areaServed: { "@type": "City", name: "Santa Bárbara d'Oeste", containedInPlace: { "@type": "State", name: "São Paulo" } } },
+        business,
         crumbs([{ name: "Início", url: `${base}/` }, { name: landing.h1, url }]),
         { "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#business` }, url },
         { "@type": "FAQPage", mainEntity: landing.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
@@ -138,7 +140,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
+        business,
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Política de privacidade", url }]),
       ],
     };
@@ -148,7 +150,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
+        business,
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url }]),
       ],
     };
@@ -160,7 +162,7 @@ export function structuredDataFor(route: string) {
     return {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "LocalBusiness", "@id": `${SITE_URL}#business`, name: BRAND, url: SITE_URL },
+        business,
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url: `${base}/blog` }, { name: post?.title ?? "Artigo", url }]),
         ...(post ? [{ "@type": "Article", headline: post.title, description: post.description, datePublished: post.date, author: { "@id": `${SITE_URL}#business` }, publisher: { "@id": `${SITE_URL}#business` }, mainEntityOfPage: url }] : []),
       ],

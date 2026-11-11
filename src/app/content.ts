@@ -3,7 +3,9 @@ export const SITE_URL = "https://www.duhelousinagem.com.br/";
 export const PHONE_DISPLAY = "(19) 98273-1890";
 export const PHONE_E164 = "+5519982731890";
 export const EMAIL = "duhelousinagem@gmail.com";
-export const CITY = "Santa Bárbara d'Oeste - SP";
+export const CITY_NAME = "Santa Bárbara d'Oeste";
+export const CITY_REGION = "SP";
+export const CITY = `${CITY_NAME} - ${CITY_REGION}`;
 export const MAPS_LINK = "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8";
 export const WHATSAPP_LINK =
   "https://wa.me/5519982731890?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20usinagem.";
@@ -22,10 +24,10 @@ export type Service = {
 export const services: Service[] = [
   {
     item: 1,
-    title: "Peças sob desenho ou amostra",
+    title: "Usinagem de precisão sob desenho ou amostra",
     summary: "Peça fora de catálogo",
     description:
-      "Fabricamos a peça a partir do desenho técnico, de uma amostra ou de uma foto com as medidas principais. Se não existe para comprar, a gente usina.",
+      "Fabricamos peças sob medida a partir de desenho técnico ou amostra, inclusive peças únicas fora de catálogo. Para iniciar o orçamento, envie a referência da peça e as medidas disponíveis.",
     notes: ["Peças especiais e únicas", "Controle dimensional"],
     photo: {
       name: "card-servicos-cnc",
@@ -37,7 +39,7 @@ export const services: Service[] = [
     title: "Usinagem CNC em lote",
     summary: "Produção com repetibilidade",
     description:
-      "Torneamento e fresamento CNC para pequenos e médios lotes, com o mesmo padrão de medida e acabamento da primeira à última peça.",
+      "Serviços de torneamento CNC e fresamento para peças industriais. Informe a quantidade, as medidas críticas e o acabamento necessário para o orçamento do lote.",
     notes: ["Torno CNC", "Fresamento", "Lotes com padrão"],
     photo: {
       name: "card-fabricacao-metal",
@@ -54,10 +56,10 @@ export const services: Service[] = [
   },
   {
     item: 4,
-    title: "Recuperação de peças desgastadas",
+    title: "Manutenção e recuperação de peças desgastadas",
     summary: "Manutenção para reduzir parada de máquina",
     description:
-      "Recuperamos, ajustamos ou refazemos eixos, buchas e componentes gastos para devolver a função ao conjunto e tirar a máquina da parada.",
+      "Recuperamos, ajustamos ou refazemos eixos, buchas e outros componentes gastos. A escolha depende do desgaste e da função da peça na máquina.",
     notes: ["Recuperação", "Ajustes dimensionais", "Reforma mecânica"],
   },
 ];
@@ -102,10 +104,10 @@ export const equipment = [
 ];
 
 export const processSteps = [
-  { title: "Análise", text: "Leitura do desenho ou da amostra." },
-  { title: "Definição", text: "Material e rota de fabricação." },
-  { title: "Usinagem", text: "Setup controlado e produção." },
-  { title: "Conferência", text: "Medição antes da entrega." },
+  { title: "Referência", text: "Envie o desenho técnico ou uma foto da amostra ou da peça gasta." },
+  { title: "Aplicação", text: "Informe a função da peça, as medidas críticas e a quantidade." },
+  { title: "Orçamento", text: "Converse com a Duhelo pelo WhatsApp sobre a peça e o serviço." },
+  { title: "Serviço", text: "Fabricação sob medida ou recuperação para manutenção, conforme a peça." },
 ];
 
 export const differentiators = [
@@ -129,8 +131,12 @@ export const differentiators = [
 
 export const faqs = [
   {
-    q: "Vocês fabricam peça a partir de uma amostra, sem desenho?",
-    a: "Sim. Com a amostra ou uma foto com as medidas principais, a Duhelo levanta as dimensões e fabrica a peça. Se houver desenho técnico, melhor ainda.",
+    q: "Onde mandar usinar uma peça sob desenho ou amostra?",
+    a: `A ${BRAND}, em ${CITY}, fabrica peças sob medida a partir de desenho técnico ou amostra, inclusive peças únicas fora de catálogo. Para começar o orçamento, envie o desenho ou fotos com as medidas disponíveis.`,
+  },
+  {
+    q: "Vale a pena recuperar ou refazer um eixo ou uma bucha gasta?",
+    a: "A escolha depende do desgaste e da função da peça. A Duhelo recupera, ajusta ou refaz eixos, buchas e outros componentes. Para avaliar o caso, envie fotos, informe onde a peça trabalha e indique as medidas que afetam o encaixe.",
   },
   {
     q: "Quais materiais vocês usinam?",
@@ -141,16 +147,12 @@ export const faqs = [
     a: "Os dois. O torno convencional atende peças únicas e manutenção; o torno CNC e a fresadora atendem lotes com repetibilidade.",
   },
   {
-    q: "Vocês recuperam peças desgastadas?",
-    a: "Sim. Recuperamos, ajustamos ou refazemos eixos, buchas e outros componentes gastos para reduzir o tempo de máquina parada.",
-  },
-  {
     q: "Como peço um orçamento de usinagem?",
-    a: "Pelo WhatsApp (19) 98273-1890 ou pelo e-mail duhelousinagem@gmail.com. Envie desenho, foto ou amostra, material, quantidade e onde a peça trabalha.",
+    a: `Pelo WhatsApp ${PHONE_DISPLAY} ou pelo e-mail ${EMAIL}. Envie o desenho ou fotos da amostra ou da peça gasta e informe material, quantidade e aplicação, se disponíveis.`,
   },
   {
     q: "Onde fica a Duhelo Usinagem?",
-    a: "Em Santa Bárbara d'Oeste - SP. Para entregas e retiradas em outras cidades, consulte pelo WhatsApp.",
+    a: `Em ${CITY}. Para combinar o envio ou a retirada de uma peça, fale com a Duhelo pelo WhatsApp.`,
   },
 ];
 

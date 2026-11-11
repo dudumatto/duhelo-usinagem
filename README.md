@@ -36,7 +36,7 @@ Ao mudar o conteúdo, atualize `<lastmod>` em `public/sitemap.xml`.
 - Título e meta description com serviço + cidade; canonical; `robots` meta.
 - Open Graph / Twitter com imagem 1200×630 (`public/og-image.jpg`) para links no WhatsApp e redes.
 - JSON-LD: `LocalBusiness` (serviços, telefone, e-mail, cidade, mapa), `WebSite` e `FAQPage`.
-- Seção de perguntas frequentes com conteúdo real (pode gerar resultado expandido no Google).
+- Perguntas frequentes visíveis e correspondentes ao JSON-LD `FAQPage`.
 - `robots.txt`, `sitemap.xml` (com imagens), `site.webmanifest`, favicons 48/96/192/512 e apple-touch-icon.
 - Página 404 com `noindex`; cache longo para fontes e assets; cabeçalhos de segurança (`vercel.json`).
 - Imagens WebP responsivas com largura/altura, `lazy` abaixo da dobra, foto do topo pré-carregada.

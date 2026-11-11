@@ -146,8 +146,8 @@ export default function App() {
                   Usinagem de precisão sob desenho, amostra ou <span className="hl">peça gasta</span>.
                 </h1>
                 <p className="hero-lead">
-                  Em {CITY}, com torno CNC, torno convencional e fresadora para fabricar, produzir em lote e recuperar peças industriais. Mande o
-                  desenho ou a foto da peça e receba o orçamento pelo WhatsApp.
+                  Em {CITY}, a Duhelo fabrica peças sob medida e recupera eixos, buchas e outros componentes para manutenção industrial.
+                  Envie o desenho ou a foto da peça para pedir orçamento pelo WhatsApp.
                 </p>
                 <div className="hero-actions">
                   <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: "/", position: "hero" })}>
@@ -197,7 +197,7 @@ export default function App() {
             <Zone letter="B" />
             <div className="section-head">
               <h2 id="services-title">Serviços de usinagem</h2>
-              <p>Do item único fora de catálogo ao lote com padrão de medida, e a manutenção que tira a máquina da parada.</p>
+              <p>Fabricamos peças únicas e lotes sob desenho ou amostra. Para manutenção, recuperamos ou refazemos componentes desgastados.</p>
             </div>
 
             <ol className="parts-list">
@@ -248,7 +248,7 @@ export default function App() {
             <p className="section-lead">
               Páginas dedicadas:{" "}
               <a href="/usinagem-de-precisao" className="text-link">usinagem de precisão</a> ·{" "}
-              <a href="/usinagem-cnc-torno-fresamento" className="text-link">usinagem CNC: torno e fresamento</a> ·{" "}
+              <a href="/usinagem-cnc-torno-fresamento" className="text-link">torneamento CNC e fresamento</a> ·{" "}
               <a href="/pecas-sob-medida" className="text-link">peças sob medida</a> ·{" "}
               <a href="/recuperacao-de-eixos-e-buchas" className="text-link">recuperação de eixos e buchas</a>.
             </p>
@@ -297,8 +297,8 @@ export default function App() {
           <section id="estrutura" className="zone-section" aria-labelledby="structure-title">
             <Zone letter="D" />
             <div className="section-head">
-              <h2 id="structure-title">Equipamentos e processo</h2>
-              <p>Estrutura para peça única, manutenção e lotes, com o mesmo controle do desenho à entrega.</p>
+              <h2 id="structure-title">Como trabalhamos</h2>
+              <p>Usamos torno CNC, torno convencional e fresadora para fabricar e recuperar peças industriais.</p>
             </div>
 
             <div className="equipment">
@@ -311,7 +311,7 @@ export default function App() {
             </div>
 
             <div className="process" aria-labelledby="process-title">
-              <h3 id="process-title">Da necessidade à peça pronta</h3>
+              <h3 id="process-title">Da referência ao serviço</h3>
               <ol className="process-line">
                 {processSteps.map((step, index) => (
                   <li key={step.title}>
@@ -417,7 +417,8 @@ export default function App() {
             </p>
             <p>
               <a href="/usinagem-de-precisao">Usinagem de precisão</a> · <a href="/usinagem-cnc-torno-fresamento">Usinagem CNC</a> ·{" "}
-              <a href="/pecas-sob-medida">Peças sob medida</a> · <a href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos</a>
+              <a href="/pecas-sob-medida">Peças sob medida</a> · <a href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a> ·{" "}
+              <a href="/blog">Blog de usinagem</a>
             </p>
             <p>
               <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>

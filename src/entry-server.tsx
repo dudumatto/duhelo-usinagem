@@ -8,7 +8,6 @@ import { landings } from "./app/serviceLandings";
 export { allRoutePaths };
 
 export function routeMeta(route = "/") {
-  if (route === "/") return { title: "Usinagem de precisão em Santa Bárbara d'Oeste | Duhelo", description: "Usinagem de precisão em Santa Bárbara d'Oeste - SP: peças sob desenho ou amostra, torno CNC, fresamento, lotes e recuperação. Orçamento pelo WhatsApp." };
   if (route.startsWith("/servicos/")) {
     const slug = route.replace("/servicos/", "");
     const s = services.find((x) => x.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
@@ -17,6 +16,7 @@ export function routeMeta(route = "/") {
   const landing = landings.find((l) => `/${l.slug}` === route);
   if (landing) return { title: landing.title, description: landing.description };
   if (route === "/blog") return { title: "Blog de usinagem | Duhelo Usinagem", description: "Artigos técnicos sobre usinagem, processos e manutenção de peças industriais." };
+  if (route === "/politica-de-privacidade") return { title: "Política de privacidade | Duhelo Usinagem", description: "Saiba como a Duhelo Usinagem trata seus dados pessoais e como exercer seus direitos de privacidade." };
   if (route.startsWith("/blog/")) {
     const slug = route.replace("/blog/", "");
     const p = posts.find((x) => x.slug === slug);
