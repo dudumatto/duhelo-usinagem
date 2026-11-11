@@ -12,12 +12,18 @@ function escapeHtml(text) {
 
 // render each route
 const template = await readFile(path.join(dist, "index.html"), "utf8");
+const indexableUrls = [];
 for (const route of allRoutePaths) {
   const appHtml = render(route);
+  const meta = routeMeta(route);
   let html = template;
   const canonical = `https://www.duhelousinagem.com.br${route === "/" ? "/" : route}`;
+  if (meta.indexable === false) {
+    html = html.replace(/(<meta name="robots" content=")[^"]*/, "$1noindex, follow");
+  } else {
+    indexableUrls.push(canonical);
+  }
   if (route !== "/") {
-    const meta = routeMeta(route);
     const title = escapeHtml(meta.title);
     const description = escapeHtml(meta.description);
     html = html.replace(/<title>[^<]*<\/title>/, () => `<title>${title}</title>`);
@@ -50,8 +56,7 @@ const assetsDir = path.join(dist, "assets");
 try { await rm(assetsDir, { recursive: true, force: true }); } catch {}
 
 // generate sitemap.xml
-const base = "https://www.duhelousinagem.com.br";
-const urls = allRoutePaths.map((r) => `  <url>\n    <loc>${base}${r === "/" ? "/" : r}</loc>\n    <lastmod>2026-11-05</lastmod>\n  </url>`).join("\n");
+const urls = indexableUrls.map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`).join("\n");
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 await writeFile(path.join(dist, "sitemap.xml"), sitemap);
 

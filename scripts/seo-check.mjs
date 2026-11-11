@@ -30,10 +30,13 @@ for (const f of files) {
   routeMap.set(route, f);
 }
 const routes = [...routeMap.keys()];
+const noindexRoutes = new Set();
 
 for (const route of routes) {
   const html = await readFile(routeMap.get(route), "utf8");
   const canonical = route === "/" ? `${HOST}/` : `${HOST}${route}`;
+  const robots = html.match(/<meta\s+name="robots"\s+content="([^"]+)"/i)?.[1] ?? "";
+  if (robots.split(/[\s,]+/).some((directive) => /^(noindex|none)$/i.test(directive))) noindexRoutes.add(route);
 
   const titleMatch = html.match(/<title>([^<]*)<\/title>/);
   const title = titleMatch ? titleMatch[1] : "";
@@ -81,7 +84,7 @@ for (const route of routes) {
 // sitemap
 const sitemap = await readFile(path.join(DIST, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-const indexable = routes.filter((r) => r !== "/404");
+const indexable = routes.filter((r) => r !== "/404" && !noindexRoutes.has(r));
 const expectedUrls = indexable.map((r) => r === "/" ? `${HOST}/` : `${HOST}${r}`);
 const sitemapOk = sitemapUrls.length === expectedUrls.length && expectedUrls.every((u) => sitemapUrls.includes(u));
 check("sitemap lista exatamente as rotas indexáveis", sitemapOk, `${sitemapUrls.length} urls`);
@@ -106,9 +109,9 @@ const llms = await readFile(path.join(DIST, "..", "public", "llms.txt"), "utf8")
 const llmsUrls = [...llms.matchAll(/https:\/\/www\.duhelousinagem\.com\.br\/[^\s)]*/g)].map((m) => m[0].replace(/[.,]$/, ""));
 const llmsOk = llmsUrls.every((u) => {
   const p = u.replace(HOST, "").replace(/\/$/, "") || "/";
-  return routeSet.has(p) || p === "/";
+  return routeSet.has(p) && !noindexRoutes.has(p);
 });
-check("llms.txt só cita URLs existentes", llmsOk, `${llmsUrls.length} urls`);
+check("llms.txt só cita URLs existentes e indexáveis", llmsOk, `${llmsUrls.length} urls`);
 
 console.log(`\n${failures === 0 ? "ALL PASS" : failures + " FAILURES"}`);
 process.exit(failures === 0 ? 0 : 1);

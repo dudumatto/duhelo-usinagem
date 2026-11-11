@@ -28,7 +28,7 @@ npm run build:assets # regenera WebP, favicons, logo sem fundo e og-image.jpg (r
 | Dados estruturados (JSON-LD) | `src/app/structuredData.ts` — gerado a partir de `content.ts` |
 | robots / sitemap / manifest / 404 | `public/` |
 
-Ao mudar o conteúdo, atualize `<lastmod>` em `public/sitemap.xml`.
+O build gera `dist/sitemap.xml` com as rotas canônicas indexáveis. A página de Americana está disponível em `/usinagem-americana/` para revisão e usa `noindex` até a confirmação do atendimento na cidade.
 
 ## SEO incluído
 

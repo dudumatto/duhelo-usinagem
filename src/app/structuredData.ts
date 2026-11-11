@@ -129,8 +129,8 @@ export function structuredDataFor(route: string) {
       "@context": "https://schema.org",
       "@graph": [
         business,
-        crumbs([{ name: "Início", url: `${base}/` }, { name: landing.h1, url }]),
-        { "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#business` }, url },
+        crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: landing.h1, url }]),
+        ...(landing.indexable === false ? [] : [{ "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#business` }, url }]),
         { "@type": "FAQPage", mainEntity: landing.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
       ],
     };
