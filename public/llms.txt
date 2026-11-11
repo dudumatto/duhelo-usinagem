@@ -19,7 +19,7 @@
 
 ## Blog
 - [Blog](https://www.duhelousinagem.com.br/blog): artigos técnicos sobre usinagem, processos e manutenção.
-- [O que é usinagem e como ela funciona](https://www.duhelousinagem.com.br/blog/o-que-e-usinagem-e-como-ela-funciona): fundamentos do processo de usinagem.
+- [O que é usinagem e quando contratar esse serviço](https://www.duhelousinagem.com.br/blog/o-que-e-usinagem-e-como-ela-funciona): fundamentos do processo de usinagem.
 - [Usinagem convencional e CNC: qual a diferença?](https://www.duhelousinagem.com.br/blog/usinagem-convencional-e-cnc-qual-a-diferenca): comparação entre os dois processos.
 - [Recuperação de eixos e buchas desgastados](https://www.duhelousinagem.com.br/blog/recuperacao-de-eixos-e-buchas-desgastados): quando recuperar ou refazer.
 

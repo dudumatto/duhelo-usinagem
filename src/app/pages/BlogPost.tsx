@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { BRAND, CITY, WHATSAPP_LINK } from "../content";
-import { getPost, posts } from "../blogPosts";
-import { Logo } from "../components/Logo";
+import { BRAND, PHONE_E164 } from "../content";
+import { formatPostDate, getPost, getRelatedPosts } from "../blogPosts";
+import { BlogLayout } from "../components/BlogLayout";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
-import { MobileCtaBar } from "../components/MobileCtaBar";
-import { ConsentBanner } from "../components/ConsentBanner";
 import { track } from "../../lib/track";
 
 export function BlogPost({ slug }: { slug: string }) {
@@ -22,66 +20,70 @@ export function BlogPost({ slug }: { slug: string }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [slug]);
+
   const post = getPost(slug);
   if (!post) {
     return (
-      <>
-        <header className="site-header"><div className="header-inner"><a href="/" className="header-brand" aria-label={`${BRAND} - início`}><Logo className="logo logo-header" /></a></div></header>
-        <main id="conteudo"><section className="zone-section"><h1>Artigo não encontrado</h1><p><a href="/blog" className="text-link">Voltar ao blog</a></p></section></main>
-      </>
+      <BlogLayout>
+        <section className="zone-section"><h1>Artigo não encontrado</h1><p><a href="/blog" className="text-link">Voltar ao blog</a></p></section>
+      </BlogLayout>
     );
   }
+
+  const related = getRelatedPosts(post);
+  const whatsappMessage = `Olá, li o artigo “${post.title}” e gostaria de um orçamento de usinagem.`;
+  const whatsappUrl = `https://wa.me/${PHONE_E164.slice(1)}?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
-    <>
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
-      <header className="site-header">
-        <div className="header-inner">
-          <a href="/" className="header-brand" aria-label={`${BRAND} - início`}><Logo className="logo logo-header" /></a>
-          <nav aria-label="Navegação principal" className="header-nav"><ul><li><a href="/">Início</a></li><li><a href="/#servicos">Serviços</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contato">Contato</a></li></ul></nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm"><WhatsAppIcon /><span>Orçamento</span></a>
-        </div>
-      </header>
-      <div className="sheet">
-        <main id="conteudo">
-          <article>
-            <section className="zone-section" aria-labelledby="post-title">
-              <div className="section-head">
-                <p><a href="/blog" className="text-link">← Blog</a> · {post.category} · {post.date}</p>
-                <h1 id="post-title">{post.title}</h1>
-                <p className="section-lead">{post.description}</p>
-              </div>
-              <div dangerouslySetInnerHTML={{ __html: post.html }} />
-              <p>
-                Precisa usinar uma peça? Veja nossos <a href="/usinagem-de-precisao" className="text-link">serviços de usinagem de precisão</a>.
-              </p>
-            </section>
-            <section className="zone-section" aria-labelledby="related-posts">
-              <h2 id="related-posts">Leia também</h2>
-              <ul>
-                {posts.filter((p) => p.slug !== slug).map((p) => (
-                  <li key={p.slug}>
-                    <a href={`/blog/${p.slug}`} className="text-link">{p.title}</a> — {p.description}
+    <BlogLayout>
+      <article aria-labelledby="post-title">
+        <section className="zone-section">
+          <div className="blog-width">
+            <nav className="blog-breadcrumb" aria-label="Caminho da página">
+              <a href="/" className="text-link">Início</a> / <a href="/blog" className="text-link">Blog</a> /{" "}
+              <a href={`/blog#${post.category.slug}`} className="text-link">{post.category.label}</a>
+            </nav>
+            <h1 id="post-title" className="blog-title">{post.title}</h1>
+            <p className="blog-meta blog-byline">
+              {BRAND} · {post.date === post.updated ? (
+                <>Publicado e atualizado em <time dateTime={post.date}>{formatPostDate(post.date)}</time></>
+              ) : (
+                <>Publicado em <time dateTime={post.date}>{formatPostDate(post.date)}</time> · Atualizado em <time dateTime={post.updated}>{formatPostDate(post.updated)}</time></>
+              )} · {post.readingMinutes} min de leitura
+            </p>
+            <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.introHtml }} />
+            <nav className="blog-toc" aria-labelledby="post-toc-title">
+              <h2 id="post-toc-title">Neste artigo</h2>
+              <ol>
+                {post.headings.map(({ id, text }) => <li key={id}><a className="text-link" href={`#${id}`}>{text}</a></li>)}
+              </ol>
+            </nav>
+            <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+          </div>
+        </section>
+        {related.length > 0 && (
+          <section className="zone-section blog-related" aria-labelledby="related-posts">
+            <div className="blog-width">
+              <h2 id="related-posts">Artigos relacionados</h2>
+              <ul className="blog-cards">
+                {related.map((other) => (
+                  <li key={other.slug} className="blog-card">
+                    <h3><a href={`/blog/${other.slug}`} className="text-link">{other.title}</a></h3>
+                    <p>{other.description}</p>
                   </li>
                 ))}
               </ul>
-            </section>
-            <section className="zone-section" aria-labelledby="post-cta">
-              <h2 id="post-cta">Precisa usinar uma peça?</h2>
-              <p>Envie desenho, foto ou amostra pelo WhatsApp e receba orientação técnica e orçamento.</p>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/blog/${slug}`, position: "post_cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
-              <p><a href="/" className="text-link">Voltar para a home</a> · <a href="/politica-de-privacidade" className="text-link">Política de privacidade</a></p>
-            </section>
-          </article>
-        </main>
-        <footer className="site-footer">
-          <Logo className="logo logo-footer" />
-          <div className="footer-text">
-            <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
+            </div>
+          </section>
+        )}
+        <section className="zone-section blog-cta" aria-labelledby="post-cta">
+          <div className="blog-width">
+            <h2 id="post-cta">Precisa usinar ou recuperar uma peça?</h2>
+            <p className="section-lead">Veja os detalhes do serviço <a className="text-link" href={`/${post.service.slug}`}>{post.service.h1}</a>. Envie o desenho ou fotos da amostra para pedir orçamento.</p>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/blog/${slug}`, position: "post_cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
           </div>
-        </footer>
-      </div>
-      <MobileCtaBar />
-      <ConsentBanner />
-    </>
+        </section>
+      </article>
+    </BlogLayout>
   );
 }

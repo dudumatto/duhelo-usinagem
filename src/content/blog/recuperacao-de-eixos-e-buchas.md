@@ -1,24 +1,33 @@
 ---
+slug: "recuperacao-de-eixos-e-buchas-desgastados"
 title: "Recuperação de eixos e buchas desgastados"
+seoTitle: "Recuperação de eixos e buchas desgastados | Duhelo"
 date: "2026-11-05"
-category: "Manutenção"
-description: "Saiba quando vale mais a pena recuperar ou refazer eixos e buchas desgastados, e como uma usinagem avalia a melhor solução."
+updated: "2026-11-11"
+category: "Manutenção e recuperação"
+keyword: "recuperação de eixos e buchas"
+description: "Entenda o que avaliar para decidir entre recuperar ou refazer eixos e buchas desgastados. Veja quais dados enviar para orçamento."
+service: "recuperacao-de-eixos-e-buchas"
 ---
 
-## Recuperar ou refazer?
+A recuperação de eixos e buchas pode fazer sentido quando o desgaste está localizado e existe uma forma viável de restabelecer o encaixe exigido pela máquina. A decisão depende das medidas, do material, da condição do componente e da peça com que ele trabalha.
 
-Depende do desgaste, do material e do custo da peça nova. Quando o desgaste é superficial e a geometria permite, a recuperação (soldagem, usinagem e acabamento) é mais rápida e econômica. Quando o dano é profundo ou o material está comprometido, refazer a peça pode ser a melhor opção.
+Antes de cotar, identifique onde apareceu a folga, em que condições a máquina trabalha e se existe desenho ou peça equivalente em melhor estado. Quando o componente está muito danificado, a fabricação de uma reposição pode ser uma alternativa.
 
-## Como a usinagem avalia
+## Como avaliar o desgaste no conjunto?
 
-A oficina analisa a peça, as medidas críticas, o material e a aplicação. Com isso, indica a rota: recuperação, ajuste dimensional ou refabricação.
+Um eixo pode perder material no apoio de uma bucha ou no assento do rolamento. Examine também a peça que se encaixa nele e registre sintomas como folga, vibração ou marcas de atrito. Um diâmetro desgastado descreve o estado atual e precisa ser comparado à dimensão exigida pelo conjunto.
 
-## Benefícios da recuperação
+## O que pesa na decisão de recuperar ou refazer?
 
-- Reduz tempo de máquina parada.
-- Evita a compra de peça importada ou fora de catálogo.
-- Mantém o conjunto funcionando com o material adequado.
+Compare a possibilidade técnica de restabelecer o encaixe, a disponibilidade da reposição, o custo e a janela de manutenção. A opção precisa considerar as condições de trabalho e o estado do material. Consulte o [serviço de recuperação de eixos e buchas](/recuperacao-de-eixos-e-buchas) para saber quais informações ajudam na avaliação.
 
-## Atendimento
+## Perguntas frequentes
 
-A Duhelo Usinagem recupera, ajusta ou refaz eixos, buchas e outros componentes gastos, em Santa Bárbara d'Oeste - SP e região. Envie foto ou amostra pelo WhatsApp para avaliação.
+### Posso pedir orçamento com uma peça gasta?
+
+Sim. Comece com fotos da peça completa e da região afetada. Informe a função do componente e se você tem um desenho ou outra unidade para referência.
+
+### É importante enviar fotos da montagem?
+
+Sim, quando elas ajudam a localizar o apoio, o encaixe ou a região onde aparece a folga. Combine o envio da amostra física depois do primeiro contato.

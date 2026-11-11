@@ -1,5 +1,5 @@
 import { BRAND, CITY, CITY_NAME, CITY_REGION, EMAIL, MAPS_LINK, PHONE_E164, SITE_URL, faqs, services } from "./content";
-import { posts } from "./blogPosts";
+import { getPost } from "./blogPosts";
 import { landings } from "./serviceLandings";
 
 const business = {
@@ -158,13 +158,27 @@ export function structuredDataFor(route: string) {
 
   if (route.startsWith("/blog/")) {
     const slug = route.replace("/blog/", "");
-    const post = posts.find((p) => p.slug === slug);
+    const post = getPost(slug);
+    const blogCrumbs = [{ name: "Início", url: `${base}/` }, { name: "Blog", url: `${base}/blog` }];
     return {
       "@context": "https://schema.org",
       "@graph": [
         business,
-        crumbs([{ name: "Início", url: `${base}/` }, { name: "Blog", url: `${base}/blog` }, { name: post?.title ?? "Artigo", url }]),
-        ...(post ? [{ "@type": "Article", headline: post.title, description: post.description, datePublished: post.date, author: { "@id": `${SITE_URL}#business` }, publisher: { "@id": `${SITE_URL}#business` }, mainEntityOfPage: url }] : []),
+        crumbs(post ? [...blogCrumbs, { name: post.category.label, url: `${base}/blog#${post.category.slug}` }, { name: post.title, url }] : blogCrumbs),
+        ...(post ? [{
+          "@type": "Article",
+          headline: post.title,
+          description: post.description,
+          datePublished: post.date,
+          dateModified: post.updated,
+          articleSection: post.category.label,
+          keywords: post.keyword,
+          inLanguage: "pt-BR",
+          timeRequired: `PT${post.readingMinutes}M`,
+          author: { "@id": `${SITE_URL}#business` },
+          publisher: { "@id": `${SITE_URL}#business` },
+          mainEntityOfPage: url,
+        }] : []),
       ],
     };
   }

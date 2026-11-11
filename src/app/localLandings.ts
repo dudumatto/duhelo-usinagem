@@ -32,7 +32,7 @@ export const localLandings: Landing[] = [
       { q: "Qual endereço usar para apresentar a amostra?", a: "A localização da oficina está na seção de contato. Fale com a Duhelo antes de se deslocar para combinar a apresentação da peça e informar dimensões ou peso." },
       { q: "O que enviar quando o eixo já está gasto?", a: "Mostre a área gasta, os trechos preservados e, se possível, o alojamento ou a peça que encaixa no eixo. Informe se há outra unidade em melhor estado para referência." },
     ],
-    relatedPostSlugs: ["o-que-e-usinagem-e-como-ela-funciona", "recuperacao-de-eixos-e-buchas-desgastados"],
+    relatedPostSlugs: ["usinagem-perto-de-mim", "recuperacao-de-eixos-e-buchas-desgastados"],
     whatsappMessage: "Olá, preciso de usinagem em Santa Bárbara d'Oeste e gostaria de enviar a referência de uma peça para orçamento.",
   },
   {

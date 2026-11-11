@@ -89,6 +89,12 @@ const expectedUrls = indexable.map((r) => r === "/" ? `${HOST}/` : `${HOST}${r}`
 const sitemapOk = sitemapUrls.length === expectedUrls.length && expectedUrls.every((u) => sitemapUrls.includes(u));
 check("sitemap lista exatamente as rotas indexáveis", sitemapOk, `${sitemapUrls.length} urls`);
 
+const feed = await readFile(path.join(DIST, "blog", "feed.xml"), "utf8").catch(() => "");
+const feedEntries = [...feed.matchAll(/<guid>([^<]+)<\/guid>/g)];
+const feedUrls = new Set(feedEntries.map((match) => match[1]));
+const articleUrls = expectedUrls.filter((url) => url.startsWith(`${HOST}/blog/`));
+check("RSS lista os artigos canônicos", feedEntries.length === articleUrls.length && articleUrls.every((url) => feedUrls.has(url)), `${feedEntries.length} itens`);
+
 // internal links
 const routeSet = new Set(routes);
 let linksOk = true;

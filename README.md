@@ -26,9 +26,12 @@ npm run build:assets # regenera WebP, favicons, logo sem fundo e og-image.jpg (r
 | Visual (cores, fontes, layout) | `src/styles/theme.css` |
 | Título, descrição, Open Graph | `index.html` |
 | Dados estruturados (JSON-LD) | `src/app/structuredData.ts` — gerado a partir de `content.ts` |
+| Artigos e metadados do blog | `src/content/blog/*.md` |
 | robots / sitemap / manifest / 404 | `public/` |
 
 O build gera `dist/sitemap.xml` com as rotas canônicas indexáveis. A página de Americana está disponível em `/usinagem-americana/` para revisão e usa `noindex` até a confirmação do atendimento na cidade.
+
+Os artigos do blog usam `slug`, `title`, `seoTitle`, `description`, `date`, `category`, `keyword` e `service` no cabeçalho YAML. Use datas entre aspas em `AAAA-MM-DD`, preencha `updated` ao revisar um artigo e mantenha o `slug` ao mudar o título. O corpo começa com dois parágrafos e usa `##` para as entradas do índice. A listagem fica em `/blog` e o build gera o RSS em `/blog/feed.xml`.
 
 ## SEO incluído
 

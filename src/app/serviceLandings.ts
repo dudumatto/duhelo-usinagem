@@ -68,7 +68,7 @@ export const landings: Landing[] = [
         a: "A montagem define a necessidade de folga ou interferência. Informe se a peça precisa girar, deslizar ou ficar fixa no conjunto. Quando a aplicação exigir uma tolerância específica, identifique essa exigência no desenho ou no pedido.",
       },
     ],
-    relatedPostSlugs: ["o-que-e-usinagem-e-como-ela-funciona", "usinagem-convencional-e-cnc-qual-a-diferenca"],
+    relatedPostSlugs: ["usinagem-de-precisao", "usinagem-perto-de-mim"],
     whatsappMessage: "Olá, vi a página de usinagem de precisão e gostaria de um orçamento para uma peça.",
   },
   {
@@ -110,7 +110,7 @@ export const landings: Landing[] = [
         a: "Sim. Uma flange pode ter faces e diâmetros torneados e também precisar de um rebaixo fresado. A sequência depende da geometria e das referências de montagem descritas no desenho.",
       },
     ],
-    relatedPostSlugs: ["usinagem-convencional-e-cnc-qual-a-diferenca", "o-que-e-usinagem-e-como-ela-funciona"],
+    relatedPostSlugs: ["usinagem-cnc", "centro-de-usinagem", "usinagem-convencional-e-cnc-qual-a-diferenca"],
     whatsappMessage: "Olá, vi a página de torneamento CNC e fresamento e gostaria de solicitar um orçamento.",
   },
   {
@@ -152,7 +152,7 @@ export const landings: Landing[] = [
         a: "Sim. A Duhelo atende peças únicas de reposição e componentes sob desenho. Indique a quantidade no orçamento e avise se você poderá precisar do mesmo item em outro momento.",
       },
     ],
-    relatedPostSlugs: ["o-que-e-usinagem-e-como-ela-funciona", "recuperacao-de-eixos-e-buchas-desgastados"],
+    relatedPostSlugs: ["o-que-e-usinagem-e-como-ela-funciona", "usinagem-em-aluminio", "como-funciona-oficina-de-usinagem"],
     whatsappMessage: "Olá, vi a página de peças sob medida e gostaria de orçar a fabricação de uma peça.",
   },
   {
@@ -194,7 +194,7 @@ export const landings: Landing[] = [
         a: "Sim, a Duhelo fabrica peças sob medida a partir de desenho ou amostra. Se a amostra estiver muito desgastada, envie também qualquer referência de encaixe, como as medidas do alojamento ou de uma peça equivalente.",
       },
     ],
-    relatedPostSlugs: ["recuperacao-de-eixos-e-buchas-desgastados"],
+    relatedPostSlugs: ["recuperacao-de-eixos-e-buchas-desgastados", "usinagem-industrial"],
     whatsappMessage: "Olá, vi a página de recuperação de eixos e buchas e gostaria de avaliar uma peça desgastada.",
   },
   ...localLandings,

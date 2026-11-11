@@ -1,53 +1,41 @@
-import { BRAND, CITY, WHATSAPP_LINK } from "../content";
-import { posts } from "../blogPosts";
-import { Logo } from "../components/Logo";
-import { WhatsAppIcon } from "../components/WhatsAppIcon";
-import { MobileCtaBar } from "../components/MobileCtaBar";
-import { ConsentBanner } from "../components/ConsentBanner";
+import { blogCategories, blogDescription, formatPostDate, posts } from "../blogPosts";
+import { BlogLayout } from "../components/BlogLayout";
 
 export function BlogIndex() {
-  const categories = Array.from(new Set(posts.map((p) => p.category)));
   return (
-    <>
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
-      <header className="site-header">
-        <div className="header-inner">
-          <a href="/" className="header-brand" aria-label={`${BRAND} - início`}><Logo className="logo logo-header" /></a>
-          <nav aria-label="Navegação principal" className="header-nav"><ul><li><a href="/">Início</a></li><li><a href="/#servicos">Serviços</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contato">Contato</a></li></ul></nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm"><WhatsAppIcon /><span>Orçamento</span></a>
-        </div>
-      </header>
-      <div className="sheet">
-        <main id="conteudo">
-          <section className="zone-section" aria-labelledby="blog-title">
-            <div className="section-head">
-              <h1 id="blog-title">Blog da Duhelo Usinagem</h1>
-              <p>Conteúdo técnico sobre usinagem, processos e manutenção de peças industriais.</p>
-            </div>
-            <p className="section-lead">Categorias: {categories.join(" · ")}</p>
-          </section>
-          <section className="zone-section" aria-labelledby="posts-title">
-            <h2 id="posts-title">Artigos recentes</h2>
+    <BlogLayout index>
+      <section className="zone-section" aria-labelledby="blog-title">
+        <div className="blog-width">
+          <h1 id="blog-title" className="blog-title">Blog da Duhelo Usinagem</h1>
+          <p className="section-lead blog-summary">{blogDescription}</p>
+          <nav className="blog-categories" aria-label="Categorias do blog">
             <ul>
-              {posts.map((p) => (
-                <li key={p.slug}>
-                  <a href={`/blog/${p.slug}`} className="text-link"><strong>{p.title}</strong></a>
-                  <p>{p.description}</p>
-                  <small>{p.date} · {p.category}</small>
+              {blogCategories.map((category) => (
+                <li key={category.slug}><a className="text-link" href={`#${category.slug}`}>{category.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+          <a href="/blog/feed.xml" className="text-link">Acompanhar pelo RSS</a>
+        </div>
+      </section>
+      {blogCategories.map((category) => (
+        <section id={category.slug} className="zone-section blog-category" aria-labelledby={`categoria-${category.slug}`} key={category.slug}>
+          <div className="blog-width">
+            <h2 id={`categoria-${category.slug}`}>{category.label}</h2>
+            <ul className="blog-cards">
+              {posts.filter((post) => post.category === category).map((post) => (
+                <li key={post.slug}>
+                  <article className="blog-card">
+                    <h3><a className="text-link" href={`/blog/${post.slug}`}>{post.title}</a></h3>
+                    <p>{post.description}</p>
+                    <p className="blog-meta"><time dateTime={post.date}>{formatPostDate(post.date)}</time> · {post.readingMinutes} min de leitura</p>
+                  </article>
                 </li>
               ))}
             </ul>
-          </section>
-        </main>
-        <footer className="site-footer">
-          <Logo className="logo logo-footer" />
-          <div className="footer-text">
-            <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
           </div>
-        </footer>
-      </div>
-      <MobileCtaBar />
-      <ConsentBanner />
-    </>
+        </section>
+      ))}
+    </BlogLayout>
   );
 }
