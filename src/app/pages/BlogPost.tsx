@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BRAND, PHONE_E164 } from "../content";
 import { formatPostDate, getPost, getRelatedPosts } from "../blogPosts";
-import { BlogLayout } from "../components/BlogLayout";
+import { ContentLayout } from "../components/ContentLayout";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { track } from "../../lib/track";
 
@@ -24,9 +24,9 @@ export function BlogPost({ slug }: { slug: string }) {
   const post = getPost(slug);
   if (!post) {
     return (
-      <BlogLayout>
+      <ContentLayout>
         <section className="zone-section"><h1>Artigo não encontrado</h1><p><a href="/blog" className="text-link">Voltar ao blog</a></p></section>
-      </BlogLayout>
+      </ContentLayout>
     );
   }
 
@@ -35,7 +35,7 @@ export function BlogPost({ slug }: { slug: string }) {
   const whatsappUrl = `https://wa.me/${PHONE_E164.slice(1)}?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
-    <BlogLayout>
+    <ContentLayout>
       <article aria-labelledby="post-title">
         <section className="zone-section">
           <div className="blog-width">
@@ -84,6 +84,6 @@ export function BlogPost({ slug }: { slug: string }) {
           </div>
         </section>
       </article>
-    </BlogLayout>
+    </ContentLayout>
   );
 }

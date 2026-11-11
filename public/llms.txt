@@ -1,37 +1,31 @@
 # Duhelo Usinagem
 
-> Oficina de usinagem, ferramentaria e manutenção industrial em Santa Bárbara d'Oeste - SP. Peças sob desenho técnico, amostra ou peça desgastada, com torno CNC, torno convencional e fresadora. Orçamento pelo WhatsApp.
+> Oficina de usinagem de precisão, ferramentaria e manutenção industrial em Santa Bárbara d'Oeste, SP.
+> Fabrica peças sob desenho técnico ou amostra e recupera componentes desgastados, como eixos e buchas.
 
-## Dados da empresa
-- Nome: Duhelo Usinagem
-- Site: https://www.duhelousinagem.com.br/
-- Telefone/WhatsApp: (19) 98273-1890
-- E-mail: duhelousinagem@gmail.com
-- Cidade: Santa Bárbara d'Oeste - SP, Brasil
-- Localização: https://maps.app.goo.gl/SHM2J7MtngiJCkLA8
+<!-- https://llmstxt.org/ descreve este formato como uma proposta. A adoção e a citação por sistemas de IA não são garantidas. -->
 
 ## Serviços
-- [Usinagem de precisão](https://www.duhelousinagem.com.br/usinagem-de-precisao): peças sob desenho técnico ou amostra, com torno CNC, fresadora e torno convencional.
-- [Torneamento CNC e fresamento](https://www.duhelousinagem.com.br/usinagem-cnc-torno-fresamento): operações de torno CNC e fresamento para peças industriais.
-- [Peças sob medida](https://www.duhelousinagem.com.br/pecas-sob-medida): eixos, buchas e flanges a partir de amostra ou desenho.
-- [Recuperação de eixos e buchas](https://www.duhelousinagem.com.br/recuperacao-de-eixos-e-buchas): recuperação, ajuste ou refabricação de componentes gastos.
-- [Usinagem em Santa Bárbara d'Oeste](https://www.duhelousinagem.com.br/usinagem-santa-barbara-doeste): orientações para solicitar fabricação ou recuperação na oficina em Santa Bárbara d'Oeste.
+
+- [Usinagem de precisão](https://www.duhelousinagem.com.br/usinagem-de-precisao): fabricação sob desenho ou amostra com requisitos de encaixe e medidas críticas.
+- [Torneamento CNC e fresamento](https://www.duhelousinagem.com.br/usinagem-cnc-torno-fresamento): operações de torno CNC e fresamento em componentes industriais.
+- [Peças sob medida](https://www.duhelousinagem.com.br/pecas-sob-medida): reposição de eixos, buchas, flanges e outros componentes fora de catálogo.
+- [Recuperação de eixos e buchas](https://www.duhelousinagem.com.br/recuperacao-de-eixos-e-buchas): avaliação de desgaste, ajuste, recuperação e refabricação.
+- [Usinagem em Santa Bárbara d'Oeste](https://www.duhelousinagem.com.br/usinagem-santa-barbara-doeste): orientação para cotar peças únicas, lotes ou reposições para manutenção na oficina da cidade.
 
 ## Blog
-- [Blog](https://www.duhelousinagem.com.br/blog): artigos técnicos sobre usinagem, processos e manutenção.
-- [O que é usinagem e quando contratar esse serviço](https://www.duhelousinagem.com.br/blog/o-que-e-usinagem-e-como-ela-funciona): fundamentos do processo de usinagem.
-- [Usinagem convencional e CNC: qual a diferença?](https://www.duhelousinagem.com.br/blog/usinagem-convencional-e-cnc-qual-a-diferenca): comparação entre os dois processos.
-- [Recuperação de eixos e buchas desgastados](https://www.duhelousinagem.com.br/blog/recuperacao-de-eixos-e-buchas-desgastados): quando recuperar ou refazer.
 
-## Outras páginas
-- [Política de privacidade](https://www.duhelousinagem.com.br/politica-de-privacidade): dados tratados, cookies e direitos do titular.
+- [Blog de usinagem](https://www.duhelousinagem.com.br/blog): artigos por categoria sobre precisão, CNC, fresamento e manutenção.
+- [Como escolher uma empresa de usinagem](https://www.duhelousinagem.com.br/blog/usinagem-perto-de-mim): critérios para comparar serviços, conferência dimensional e orçamentos.
+- [O que é usinagem e quando contratar](https://www.duhelousinagem.com.br/blog/o-que-e-usinagem-e-como-ela-funciona): fundamentos de torneamento, fresamento e fabricação sob medida.
+- [Recuperação de eixos e buchas desgastados](https://www.duhelousinagem.com.br/blog/recuperacao-de-eixos-e-buchas-desgastados): critérios para avaliar a recuperação ou a fabricação de uma reposição.
 
-## Contato
-- WhatsApp: (19) 98273-1890
-- E-mail: duhelousinagem@gmail.com
-- Orçamento: envie desenho, foto ou amostra, material, quantidade e aplicação.
+## Empresa, FAQ e contato
 
-## Observações
-- Materiais usinados: aço carbono, aço inox, alumínio, bronze, latão, UHMW e nylon.
-- Equipamentos: torno CNC, fresadora, torno convencional.
-- Tolerâncias, certificações, anos de mercado e clientes: [CONFIRMAR].
+- [Sobre a Duhelo](https://www.duhelousinagem.com.br/sobre): perfil da oficina e serviços de fabricação e manutenção industrial.
+- [Perguntas frequentes](https://www.duhelousinagem.com.br/#duvidas): respostas sobre peças únicas, materiais, recuperação e orçamento.
+- [Contato e orçamento](https://www.duhelousinagem.com.br/#contato): telefone, WhatsApp, e-mail e mapa para combinar o envio do desenho ou da amostra.
+
+## Optional
+
+- [Política de privacidade](https://www.duhelousinagem.com.br/politica-de-privacidade): informações sobre dados, cookies e direitos do titular.

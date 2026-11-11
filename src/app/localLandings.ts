@@ -4,6 +4,7 @@ import type { Landing } from "./serviceLandings";
 export const localLandings: Landing[] = [
   {
     slug: "usinagem-santa-barbara-doeste",
+    lastModified: "2026-11-11",
     title: "Serviços de usinagem em Santa Bárbara d'Oeste | Duhelo",
     description: "Oficina em Santa Bárbara d'Oeste para usinagem sob desenho ou amostra e recuperação de peças para manutenção industrial.",
     h1: "Usinagem em Santa Bárbara d'Oeste",
@@ -37,6 +38,7 @@ export const localLandings: Landing[] = [
   },
   {
     slug: "usinagem-americana",
+    lastModified: "2026-11-11",
     title: "Como cotar usinagem a partir de Americana | Duhelo",
     description: "Está em Americana? Veja como preparar desenho ou amostra e consulte a Duhelo, em Santa Bárbara d'Oeste, sobre atendimento e logística.",
     h1: "Como pedir orçamento de usinagem a partir de Americana",

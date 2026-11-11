@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 
 const dist = path.resolve("dist");
 const ssrEntry = path.resolve("dist-ssr/entry-server.js");
-const { render, renderHead, renderBlogFeed, allRoutePaths, routeMeta } = await import(pathToFileURL(ssrEntry).href);
+const { render, renderHead, renderBlogFeed, allRoutePaths, routeMeta, SITE_URL } = await import(pathToFileURL(ssrEntry).href);
 
 function escapeHtml(text) {
   return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -12,16 +12,16 @@ function escapeHtml(text) {
 
 // render each route
 const template = await readFile(path.join(dist, "index.html"), "utf8");
-const indexableUrls = [];
+const indexablePages = [];
 for (const route of allRoutePaths) {
   const appHtml = render(route);
   const meta = routeMeta(route);
   let html = template;
-  const canonical = `https://www.duhelousinagem.com.br${route === "/" ? "/" : route}`;
+  const canonical = new URL(route, SITE_URL).href;
   if (meta.indexable === false) {
     html = html.replace(/(<meta name="robots" content=")[^"]*/, "$1noindex, follow");
   } else {
-    indexableUrls.push(canonical);
+    indexablePages.push({ canonical, lastModified: meta.lastModified });
   }
   if (route !== "/") {
     html = html.replace(/\s*<link\s+rel="preload"\s+as="image"[^>]*>/, "");
@@ -58,7 +58,10 @@ const assetsDir = path.join(dist, "assets");
 try { await rm(assetsDir, { recursive: true, force: true }); } catch {}
 
 // generate sitemap.xml
-const urls = indexableUrls.map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`).join("\n");
+const urls = indexablePages.map(({ canonical, lastModified }) => {
+  const lastmod = lastModified ? `\n    <lastmod>${lastModified}</lastmod>` : "";
+  return `  <url>\n    <loc>${escapeHtml(canonical)}</loc>${lastmod}\n  </url>`;
+}).join("\n");
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 await writeFile(path.join(dist, "sitemap.xml"), sitemap);
 await writeFile(path.join(dist, "blog", "feed.xml"), renderBlogFeed());

@@ -419,7 +419,7 @@ export default function App() {
             <p>
               <a href="/usinagem-de-precisao">Usinagem de precisão</a> · <a href="/usinagem-cnc-torno-fresamento">Usinagem CNC</a> ·{" "}
               <a href="/pecas-sob-medida">Peças sob medida</a> · <a href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a> ·{" "}
-              <a href="/blog">Blog de usinagem</a>
+              <a href="/blog">Blog de usinagem</a> · <a href="/sobre">Sobre a Duhelo</a>
             </p>
             <p>
               <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>

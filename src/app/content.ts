@@ -7,6 +7,8 @@ export const CITY_NAME = "Santa Bárbara d'Oeste";
 export const CITY_REGION = "SP";
 export const CITY = `${CITY_NAME} - ${CITY_REGION}`;
 export const MAPS_LINK = "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8";
+export const ABOUT_TITLE = `Sobre a ${BRAND}`;
+export const ABOUT_DESCRIPTION = `A ${BRAND}, em ${CITY}, fabrica peças sob desenho ou amostra e recupera componentes para manutenção industrial.`;
 export const WHATSAPP_LINK =
   "https://wa.me/5519982731890?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20usinagem.";
 

@@ -437,7 +437,8 @@ address {
   margin-bottom: clamp(20px, 4vw, 40px);
 }
 
-.service-landing .section-head h1 {
+.service-landing .section-head h1,
+.about-page .section-head h1 {
   font-size: clamp(2.25rem, 5.2vw, 4.25rem);
 }
 
@@ -453,6 +454,64 @@ address {
 
 .service-related li + li {
   margin-top: 0.75rem;
+}
+
+/* ---------- Sobre ---------- */
+
+.about-overview,
+.about-contact-content {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.about-overview {
+  display: grid;
+  gap: clamp(24px, 5vw, 64px);
+  align-items: start;
+}
+
+.about-experience h2,
+.about-contact h2 {
+  font-size: clamp(1.65rem, 3.4vw, 2.65rem);
+}
+
+.about-experience p,
+.about-contact .section-lead {
+  margin-top: 1rem;
+  max-width: 63ch;
+}
+
+.about-photo {
+  margin: 0;
+  border: 1px solid var(--rule-strong);
+  background: #fbfbf8;
+}
+
+.about-photo img {
+  width: 100%;
+}
+
+.about-photo figcaption {
+  padding: 0.65rem 0.9rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-size: 0.9rem;
+}
+
+.about-contact .hero-actions {
+  margin-block: 1.25rem;
+}
+
+.about-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+}
+
+@media (min-width: 850px) {
+  .about-overview {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  }
 }
 
 /* ---------- Blog ---------- */

@@ -5,7 +5,7 @@ import { WhatsAppIcon } from "./WhatsAppIcon";
 import { MobileCtaBar } from "./MobileCtaBar";
 import { ConsentBanner } from "./ConsentBanner";
 
-export function BlogLayout({ children, index = false }: { children: ReactNode; index?: boolean }) {
+export function ContentLayout({ children, activePage }: { children: ReactNode; activePage?: "blog" | "about" }) {
   return (
     <>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -16,7 +16,8 @@ export function BlogLayout({ children, index = false }: { children: ReactNode; i
             <ul>
               <li><a href="/">Início</a></li>
               <li><a href="/#servicos">Serviços</a></li>
-              <li><a href="/blog" aria-current={index ? "page" : undefined}>Blog</a></li>
+              <li><a href="/blog" aria-current={activePage === "blog" ? "page" : undefined}>Blog</a></li>
+              <li><a href="/sobre" aria-current={activePage === "about" ? "page" : undefined}>Sobre</a></li>
               <li><a href="/#contato">Contato</a></li>
             </ul>
           </nav>
@@ -24,12 +25,15 @@ export function BlogLayout({ children, index = false }: { children: ReactNode; i
         </div>
       </header>
       <div className="sheet">
-        <main id="conteudo" className="blog-main">{children}</main>
+        <main id="conteudo">{children}</main>
         <footer className="site-footer">
           <Logo className="logo logo-footer" />
           <div className="footer-text">
             <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
-            <p><a href="/#contato">Contato</a> · <a href="/politica-de-privacidade">Política de privacidade</a></p>
+            <p>
+              {activePage !== "about" && <><a href="/sobre">Sobre a Duhelo</a> · </>}
+              <a href="/#contato">Contato</a> · <a href="/politica-de-privacidade">Política de privacidade</a>
+            </p>
           </div>
         </footer>
       </div>

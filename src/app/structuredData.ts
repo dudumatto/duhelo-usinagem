@@ -1,4 +1,4 @@
-import { BRAND, CITY, CITY_NAME, CITY_REGION, EMAIL, MAPS_LINK, PHONE_E164, SITE_URL, faqs, services } from "./content";
+import { ABOUT_DESCRIPTION, ABOUT_TITLE, BRAND, CITY, CITY_NAME, CITY_REGION, EMAIL, MAPS_LINK, PHONE_E164, SITE_URL, faqs, services } from "./content";
 import { getPost } from "./blogPosts";
 import { landings } from "./serviceLandings";
 
@@ -132,6 +132,25 @@ export function structuredDataFor(route: string) {
         crumbs([{ name: "Início", url: `${base}/` }, { name: "Serviços", url: `${base}/#servicos` }, { name: landing.h1, url }]),
         ...(landing.indexable === false ? [] : [{ "@type": "Service", name: landing.h1, description: landing.description, provider: { "@id": `${SITE_URL}#business` }, url }]),
         { "@type": "FAQPage", mainEntity: landing.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+      ],
+    };
+  }
+
+  if (route === "/sobre") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        business,
+        crumbs([{ name: "Início", url: SITE_URL }, { name: ABOUT_TITLE, url }]),
+        {
+          "@type": "AboutPage",
+          "@id": `${url}#page`,
+          url,
+          name: ABOUT_TITLE,
+          description: ABOUT_DESCRIPTION,
+          inLanguage: "pt-BR",
+          about: { "@id": business["@id"] },
+        },
       ],
     };
   }

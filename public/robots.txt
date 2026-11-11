@@ -1,8 +1,42 @@
+# Busca e respostas com fontes
+# Googlebot (inclui AI Overviews)
+# https://developers.google.com/search/docs/appearance/ai-features
+# Bingbot
+# https://www.bing.com/webmasters/help/which-crawlers-does-bing-use-8c184ec0
+# OAI-SearchBot. O ChatGPT-User pode consultar páginas sem aplicar robots.txt.
+# https://developers.openai.com/api/docs/bots
+# PerplexityBot. Consultas com Perplexity-User geralmente ignoram robots.txt.
+# https://docs.perplexity.ai/docs/resources/perplexity-crawlers
+# Claude-SearchBot e Claude-User
+# https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler
+# DuckAssistBot
+# https://duckduckgo.com/duckduckgo-help-pages/results/duckassistbot
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: DuckAssistBot
+Allow: /
+
+# Regra padrão para os demais crawlers, inclusive de treinamento.
 User-agent: *
 Allow: /
 
-# Para bloquear um robô específico no futuro, adicione:
-# User-agent: NomeDoRobo
+# Exemplo opcional para recusar uso futuro por GPTBot e ClaudeBot.
+# User-agent: GPTBot
+# User-agent: ClaudeBot
 # Disallow: /
+
+# O Google-Extended também controla o uso como fonte no Gemini.
+# https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended
+# User-agent: Google-Extended
+# Disallow: /
+
+# Controles de treinamento e uso como fonte no Bing
+# https://blogs.bing.com/search/2026/10/your-content-your-choice-clearer-preferences-for-training-and-grounding/
 
 Sitemap: https://www.duhelousinagem.com.br/sitemap.xml

@@ -1,4 +1,4 @@
-import { readFile, readdir, stat, access } from "node:fs/promises";
+import { readFile, readdir, access } from "node:fs/promises";
 async function fileExists(p) { try { await access(p); return true; } catch { return false; } }
 import path from "node:path";
 
@@ -31,9 +31,12 @@ for (const f of files) {
 }
 const routes = [...routeMap.keys()];
 const noindexRoutes = new Set();
+const idsByRoute = new Map();
+const articleDates = new Map();
 
 for (const route of routes) {
   const html = await readFile(routeMap.get(route), "utf8");
+  idsByRoute.set(route, new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1])));
   const canonical = route === "/" ? `${HOST}/` : `${HOST}${route}`;
   const robots = html.match(/<meta\s+name="robots"\s+content="([^"]+)"/i)?.[1] ?? "";
   if (robots.split(/[\s,]+/).some((directive) => /^(noindex|none)$/i.test(directive))) noindexRoutes.add(route);
@@ -74,7 +77,11 @@ for (const route of routes) {
   let ldOk = ldMatches.length > 0;
   for (const m of ldMatches) {
     const json = m.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, "");
-    try { JSON.parse(json); } catch { ldOk = false; }
+    try {
+      const data = JSON.parse(json);
+      const article = data["@graph"]?.find((item) => item["@type"] === "Article");
+      if (article) articleDates.set(canonical, article.dateModified);
+    } catch { ldOk = false; }
   }
   check(`${route} JSON-LD parseável`, ldOk, `${ldMatches.length} blocos`);
 
@@ -83,11 +90,22 @@ for (const route of routes) {
 
 // sitemap
 const sitemap = await readFile(path.join(DIST, "sitemap.xml"), "utf8");
-const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const indexable = routes.filter((r) => r !== "/404" && !noindexRoutes.has(r));
 const expectedUrls = indexable.map((r) => r === "/" ? `${HOST}/` : `${HOST}${r}`);
 const sitemapOk = sitemapUrls.length === expectedUrls.length && expectedUrls.every((u) => sitemapUrls.includes(u));
 check("sitemap lista exatamente as rotas indexáveis", sitemapOk, `${sitemapUrls.length} urls`);
+const sitemapEntries = [...sitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>\s*)?<\/url>/g)];
+const validLastmod = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value))
+  && new Date(value).toISOString().slice(0, 10) === value;
+const lastmodOk = sitemapEntries.length === sitemapUrls.length && sitemapEntries.every(([, url, lastmod]) => (
+  (lastmod === undefined || validLastmod(lastmod)) && (!articleDates.has(url) || articleDates.get(url) === lastmod)
+));
+check("sitemap usa datas válidas e coerentes com Article", lastmodOk, `${sitemapEntries.filter(([, , lastmod]) => lastmod).length} com lastmod`);
+
+const robotsTxt = await readFile(path.join(DIST, "robots.txt"), "utf8");
+const sitemapDirectives = [...robotsTxt.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map((match) => match[1]);
+check("robots.txt aponta ao sitemap canônico", sitemapDirectives.length === 1 && sitemapDirectives[0] === `${HOST}/sitemap.xml`);
 
 const feed = await readFile(path.join(DIST, "blog", "feed.xml"), "utf8").catch(() => "");
 const feedEntries = [...feed.matchAll(/<guid>([^<]+)<\/guid>/g)];
@@ -111,13 +129,16 @@ for (const route of routes) {
 check("links internos apontam para rotas existentes", linksOk);
 
 // llms.txt urls
-const llms = await readFile(path.join(DIST, "..", "public", "llms.txt"), "utf8").catch(() => "");
-const llmsUrls = [...llms.matchAll(/https:\/\/www\.duhelousinagem\.com\.br\/[^\s)]*/g)].map((m) => m[0].replace(/[.,]$/, ""));
-const llmsOk = llmsUrls.every((u) => {
-  const p = u.replace(HOST, "").replace(/\/$/, "") || "/";
-  return routeSet.has(p) && !noindexRoutes.has(p);
+const llms = await readFile(path.join(DIST, "llms.txt"), "utf8");
+const llmsLinks = llms.split(/\r?\n/).filter((line) => line.startsWith("- "));
+const llmsOk = llmsLinks.length > 0 && llmsLinks.every((line) => {
+  const match = line.match(/^- \[[^\]]+\]\((\S+)\): \S/);
+  if (!match || !URL.canParse(match[1])) return false;
+  const url = new URL(match[1]);
+  if (url.origin !== HOST || url.search || !expectedUrls.includes(`${url.origin}${url.pathname}`)) return false;
+  return !url.hash || idsByRoute.get(url.pathname)?.has(url.hash.slice(1));
 });
-check("llms.txt só cita URLs existentes e indexáveis", llmsOk, `${llmsUrls.length} urls`);
+check("llms.txt descreve URLs canônicas e âncoras existentes", llmsOk, `${llmsLinks.length} links`);
 
 console.log(`\n${failures === 0 ? "ALL PASS" : failures + " FAILURES"}`);
 process.exit(failures === 0 ? 0 : 1);

@@ -1,9 +1,9 @@
 import { blogCategories, blogDescription, formatPostDate, posts } from "../blogPosts";
-import { BlogLayout } from "../components/BlogLayout";
+import { ContentLayout } from "../components/ContentLayout";
 
 export function BlogIndex() {
   return (
-    <BlogLayout index>
+    <ContentLayout activePage="blog">
       <section className="zone-section" aria-labelledby="blog-title">
         <div className="blog-width">
           <h1 id="blog-title" className="blog-title">Blog da Duhelo Usinagem</h1>
@@ -36,6 +36,6 @@ export function BlogIndex() {
           </div>
         </section>
       ))}
-    </BlogLayout>
+    </ContentLayout>
   );
 }

@@ -4,6 +4,7 @@ import { localLandings } from "./localLandings";
 export type Faq = { q: string; a: string };
 export type Landing = {
   slug: string;
+  lastModified: string;
   title: string;
   description: string;
   h1: string;
@@ -31,6 +32,7 @@ const recoveryHowToSend =
 export const landings: Landing[] = [
   {
     slug: "usinagem-de-precisao",
+    lastModified: "2026-11-11",
     title: "Usinagem de precisão sob desenho ou amostra | Duhelo",
     description: "Usinagem de precisão em Santa Bárbara d'Oeste para fabricar peças sob desenho ou amostra, com atenção às medidas de encaixe.",
     h1: "Usinagem de precisão sob desenho técnico ou amostra",
@@ -73,6 +75,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "usinagem-cnc-torno-fresamento",
+    lastModified: "2026-11-11",
     title: "Torneamento CNC e fresamento | Duhelo Usinagem",
     description: "Serviços de torneamento CNC e fresamento em Santa Bárbara d'Oeste para componentes industriais sob desenho, peça única ou lote.",
     h1: "Torneamento CNC e fresamento de peças industriais",
@@ -115,6 +118,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "pecas-sob-medida",
+    lastModified: "2026-11-11",
     title: "Peças sob medida e peça única | Duhelo Usinagem",
     description: "Fabricação de eixos, buchas, flanges e peças sob medida em Santa Bárbara d'Oeste, a partir de desenho técnico ou amostra.",
     h1: "Peças sob medida a partir de desenho ou amostra",
@@ -157,6 +161,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "recuperacao-de-eixos-e-buchas",
+    lastModified: "2026-11-11",
     title: "Recuperação de eixos e buchas | Duhelo Usinagem",
     description: "Recuperação, ajuste ou refabricação de eixos e buchas desgastados para manutenção industrial em Santa Bárbara d'Oeste.",
     h1: "Recuperação de eixos e buchas desgastados",
