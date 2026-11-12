@@ -8,6 +8,10 @@
     ["cartao", ["offline", "qr_code"]],
   ]);
   const events = new Set(["whatsapp_click", "call_click", "email_click", "cta_click"]);
+  const positions = new Set([
+    "header", "hero", "hero_secondary", "title_block", "middle", "end", "faq",
+    "contact", "contact_cell", "footer", "mobile_bar",
+  ]);
 
   function knownAttribution(values) {
     const source = values?.utm_source;
@@ -48,7 +52,36 @@
   }
 
   const canonical = document.querySelector('link[rel="canonical"]');
-  const page = canonical ? new URL(canonical.href).pathname : "/";
+  const canonicalUrl = canonical ? new URL(canonical.href) : null;
+  const page = canonicalUrl?.pathname ?? "/";
+  const analyticsDomain = document.querySelector('meta[name="duhelo-analytics-domain"]')?.content;
+  const measurementEnabled = canonicalUrl?.protocol === "https:" && location.origin === canonicalUrl.origin
+    && analyticsDomain === canonicalUrl.hostname.replace(/^www\./, "");
+
+  function attribution() {
+    const stored = useStoredAttribution ? readAttribution() : null;
+    return stored ?? initialAttribution;
+  }
+
+  function measure(name, source, position) {
+    if (!measurementEnabled) return;
+
+    const props = position ? { ...source, cta_position: position } : source;
+    void fetch("https://plausible.io/api/event", {
+      method: "POST",
+      mode: "no-cors",
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({
+        name,
+        domain: analyticsDomain,
+        url: canonicalUrl.origin + page,
+        ...(Object.keys(props).length ? { props } : {}),
+      }),
+    }).catch(() => {});
+  }
 
   function recordClick(event) {
     if (event.type === "auxclick" && event.button !== 1) return;
@@ -56,19 +89,34 @@
     if (!link) return;
 
     const { ctaEvent, ctaPosition } = link.dataset;
-    if (!events.has(ctaEvent) || !ctaPosition) return;
+    if (!events.has(ctaEvent) || !positions.has(ctaPosition)) return;
 
-    const stored = useStoredAttribution ? readAttribution() : null;
+    const source = attribution();
+    measure(ctaEvent, source, ctaPosition);
     window.dispatchEvent(new CustomEvent("duhelo:cta", {
       detail: {
         event: ctaEvent,
         cta_page: page,
         cta_position: ctaPosition,
-        ...(stored ?? initialAttribution),
+        ...source,
       },
     }));
   }
 
   document.addEventListener("click", recordClick);
   document.addEventListener("auxclick", recordClick);
+
+  if (measurementEnabled) {
+    measure("pageview", attribution());
+    const articleBody = document.querySelector("[data-measure-scroll]");
+    if (articleBody) {
+      function measureArticleScroll() {
+        const { top, height } = articleBody.getBoundingClientRect();
+        if (height <= 0 || innerHeight < top + height * 0.75) return;
+        window.removeEventListener("scroll", measureArticleScroll);
+        measure("blog_scroll_75", attribution());
+      }
+      window.addEventListener("scroll", measureArticleScroll, { passive: true });
+    }
+  }
 })();

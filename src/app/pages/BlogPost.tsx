@@ -1,26 +1,9 @@
-import { useEffect } from "react";
 import { BRAND } from "../content";
 import { formatPostDate, getPost, getRelatedPosts } from "../blogPosts";
 import { ContentLayout } from "../components/ContentLayout";
 import { ContactActions } from "../components/ContactActions";
-import { track } from "../../lib/track";
 
 export function BlogPost({ slug }: { slug: string }) {
-  useEffect(() => {
-    let fired = false;
-    const onScroll = () => {
-      if (fired) return;
-      const scrolled = window.scrollY + window.innerHeight;
-      const total = document.documentElement.scrollHeight;
-      if (total > 0 && scrolled / total >= 0.75) {
-        fired = true;
-        track("blog_scroll_75", { page: `/blog/${slug}` });
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [slug]);
-
   const post = getPost(slug);
   if (!post) {
     return (
@@ -36,7 +19,7 @@ export function BlogPost({ slug }: { slug: string }) {
   return (
     <ContentLayout whatsappMessage={whatsappMessage}>
       <article aria-labelledby="post-title">
-        <section className="zone-section">
+        <section className="zone-section" data-measure-scroll="">
           <div className="blog-width">
             <nav className="blog-breadcrumb" aria-label="Caminho da página">
               <a href="/" className="text-link">Início</a> / <a href="/blog" className="text-link">Blog</a> /{" "}

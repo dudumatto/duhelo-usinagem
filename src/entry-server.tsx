@@ -7,6 +7,12 @@ import { landings } from "./app/serviceLandings";
 
 export { allRoutePaths, SITE_URL };
 
+const analyticsDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
+const expectedDomain = new URL(SITE_URL).hostname.replace(/^www\./, "");
+if (analyticsDomain && analyticsDomain !== expectedDomain) {
+  throw new Error(`VITE_PLAUSIBLE_DOMAIN deve ser ${expectedDomain} para ativar a medição.`);
+}
+
 const pageDates: Record<string, string> = {
   "/": "2026-11-11",
   "/blog": "2026-11-11",
@@ -52,7 +58,8 @@ export function renderHead(route = "/") {
   const feed = route === "/blog" || route.startsWith("/blog/")
     ? '<link rel="alternate" type="application/rss+xml" title="Blog da Duhelo Usinagem" href="/blog/feed.xml">'
     : "";
-  return `<link rel="describedby" href="/llms.txt">${feed}<script type="application/ld+json">${json}</script>`;
+  const analytics = analyticsDomain ? `<meta name="duhelo-analytics-domain" content="${expectedDomain}">` : "";
+  return `<link rel="describedby" href="/llms.txt">${feed}${analytics}<script type="application/ld+json">${json}</script>`;
 }
 
 export function renderBlogFeed() {

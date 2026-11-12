@@ -3,7 +3,6 @@ import { FlangeDrawing, ShaftRecoveryDrawing } from "./components/Drawings";
 import { Logo } from "./components/Logo";
 import { WhatsAppIcon } from "./components/WhatsAppIcon";
 import { MobileCtaBar } from "./components/MobileCtaBar";
-import { ConsentBanner } from "./components/ConsentBanner";
 import { ContactActions } from "./components/ContactActions";
 import {
   BRAND,
@@ -421,16 +420,13 @@ export default function App() {
             </p>
             <p className="footer-legal">
               © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}
-              <button type="button" className="text-link" onClick={() => window.dispatchEvent(new Event("duhelo-open-consent"))}>
-                Preferências de cookies
-              </button>
+              <a href="/politica-de-privacidade" className="text-link">Política de privacidade</a>
             </p>
           </div>
         </footer>
       </div>
 
       <MobileCtaBar />
-      <ConsentBanner />
     </>
   );
 }

@@ -4,6 +4,8 @@ Site: https://www.duhelousinagem.com.br/
 
 Vite e React geram HTML estático no build (`scripts/prerender.mjs`). O conteúdo e os links de contato funcionam diretamente no HTML. Um script local pequeno registra a origem de campanha e os cliques dos CTAs no navegador. Veja a [convenção de UTM](docs/utm.md).
 
+A [medição opcional com Plausible](docs/analytics.md) é habilitada no build de produção pela variável `VITE_PLAUSIBLE_DOMAIN`. Confira a política de privacidade em `/politica-de-privacidade` antes da ativação.
+
 ## Comandos
 
 ```bash
@@ -11,6 +13,7 @@ npm install
 npm run dev          # desenvolvimento em http://localhost:5173
 npm run build        # gera dist/ (HTML pré-renderizado + CSS embutido)
 npm run preview      # serve dist/ em http://localhost:4173
+npm run analytics:check # testa o contrato dos eventos sem tráfego externo
 npm run build:assets # regenera WebP, favicons, logo sem fundo e og-image.jpg (requer sharp)
 ```
 

@@ -18,7 +18,7 @@ Links prontos:
 
 Na abertura da página, `public/cta.js` lê a URL. A última origem cadastrada fica no `sessionStorage` da aba e acompanha a navegação interna sem acrescentar parâmetros aos links. Uma nova chegada com origem cadastrada substitui a anterior. Entradas sem origem cadastrada preservam a atribuição da aba. O script aceita `utm_source` cadastrado isoladamente e inclui meio e campanha quando correspondem ao canal da tabela. Para adicionar um canal, atualize a tabela e o mapa `campaigns` em `public/cta.js`.
 
-O clique emite `duhelo:cta` no navegador, com `event`, `cta_page` (caminho canônico), `cta_position` e os valores UTM reconhecidos, quando presentes. Essa emissão é local, usa armazenamento de sessão para a origem e dispensa cookies e chamadas de medição. A integração com um provedor pertence à fase de métricas.
+O clique emite `duhelo:cta` no navegador, com `event`, `cta_page` (caminho canônico), `cta_position` e os valores UTM reconhecidos, quando presentes. Com a medição ativa em produção, os rótulos reconhecidos também seguem nas propriedades do evento do Plausible. Veja a [configuração de métricas](analytics.md).
 
 ## Teste no preview
 

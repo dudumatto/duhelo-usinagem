@@ -1,6 +1,6 @@
 import "./styles/index.css";
 
-// Em produção a página é pré-renderizada em HTML estático (scripts/prerender.mjs) e não precisa de JavaScript.
+// O build pré-renderiza o conteúdo. O script estático public/cta.js cuida dos eventos no navegador.
 // No modo dev, o React renderiza a página normalmente.
 if (import.meta.env.DEV) {
   (async () => {

@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { BRAND, CITY, EMAIL, PHONE_DISPLAY, WHATSAPP_LINK, services } from "../content";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";

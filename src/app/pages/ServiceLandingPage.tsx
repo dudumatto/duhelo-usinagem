@@ -4,7 +4,6 @@ import { ContactActions } from "../components/ContactActions";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
-import { ConsentBanner } from "../components/ConsentBanner";
 import { getPost } from "../blogPosts";
 
 export function ServiceLandingPage({ landing }: { landing: Landing }) {
@@ -88,7 +87,6 @@ export function ServiceLandingPage({ landing }: { landing: Landing }) {
         </footer>
       </div>
       <MobileCtaBar whatsappMessage={whatsappMessage} />
-      <ConsentBanner />
     </>
   );
 }

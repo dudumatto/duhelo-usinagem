@@ -3,7 +3,6 @@ import { BRAND, CITY, whatsappUrl } from "../content";
 import { Logo } from "./Logo";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { MobileCtaBar } from "./MobileCtaBar";
-import { ConsentBanner } from "./ConsentBanner";
 
 export function ContentLayout({ children, activePage, whatsappMessage }: { children: ReactNode; activePage?: "blog" | "about"; whatsappMessage?: string }) {
   return (
@@ -38,7 +37,6 @@ export function ContentLayout({ children, activePage, whatsappMessage }: { child
         </footer>
       </div>
       <MobileCtaBar whatsappMessage={whatsappMessage} />
-      <ConsentBanner />
     </>
   );
 }
