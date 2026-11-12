@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { BRAND, PHONE_E164 } from "../content";
+import { BRAND } from "../content";
 import { formatPostDate, getPost, getRelatedPosts } from "../blogPosts";
 import { ContentLayout } from "../components/ContentLayout";
-import { WhatsAppIcon } from "../components/WhatsAppIcon";
+import { ContactActions } from "../components/ContactActions";
 import { track } from "../../lib/track";
 
 export function BlogPost({ slug }: { slug: string }) {
@@ -32,10 +32,9 @@ export function BlogPost({ slug }: { slug: string }) {
 
   const related = getRelatedPosts(post);
   const whatsappMessage = `Olá, li o artigo “${post.title}” e gostaria de um orçamento de usinagem.`;
-  const whatsappUrl = `https://wa.me/${PHONE_E164.slice(1)}?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
-    <ContentLayout>
+    <ContentLayout whatsappMessage={whatsappMessage}>
       <article aria-labelledby="post-title">
         <section className="zone-section">
           <div className="blog-width">
@@ -58,7 +57,11 @@ export function BlogPost({ slug }: { slug: string }) {
                 {post.headings.map(({ id, text }) => <li key={id}><a className="text-link" href={`#${id}`}>{text}</a></li>)}
               </ol>
             </nav>
-            <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+            <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.bodyStartHtml }} />
+            <aside className="blog-prose cta-inline" aria-label="Orçamento de usinagem">
+              <ContactActions message={whatsappMessage} position="middle" />
+            </aside>
+            <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.bodyEndHtml }} />
           </div>
         </section>
         {related.length > 0 && (
@@ -79,8 +82,8 @@ export function BlogPost({ slug }: { slug: string }) {
         <section className="zone-section blog-cta" aria-labelledby="post-cta">
           <div className="blog-width">
             <h2 id="post-cta">Precisa usinar ou recuperar uma peça?</h2>
-            <p className="section-lead">Veja os detalhes do serviço <a className="text-link" href={`/${post.service.slug}`}>{post.service.h1}</a>. Envie o desenho ou fotos da amostra para pedir orçamento.</p>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: `/blog/${slug}`, position: "post_cta" })}><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
+            <p className="section-lead">Veja os detalhes do serviço <a className="text-link" href={`/${post.service.slug}`}>{post.service.h1}</a>. Para pedir orçamento, envie o desenho ou fotos da amostra.</p>
+            <ContactActions message={whatsappMessage} position="end" />
           </div>
         </section>
       </article>

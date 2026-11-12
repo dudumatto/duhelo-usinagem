@@ -9,8 +9,13 @@ export const CITY = `${CITY_NAME} - ${CITY_REGION}`;
 export const MAPS_LINK = "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8";
 export const ABOUT_TITLE = `Sobre a ${BRAND}`;
 export const ABOUT_DESCRIPTION = `A ${BRAND}, em ${CITY}, fabrica peças sob desenho ou amostra e recupera componentes para manutenção industrial.`;
-export const WHATSAPP_LINK =
-  "https://wa.me/5519982731890?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20usinagem.";
+export const HOME_WHATSAPP_MESSAGE = "Olá, vi a página inicial da Duhelo e gostaria de enviar a referência de uma peça para orçamento de usinagem.";
+
+export function whatsappUrl(message = HOME_WHATSAPP_MESSAGE) {
+  return `https://wa.me/${PHONE_E164.slice(1)}?text=${encodeURIComponent(message)}`;
+}
+
+export const WHATSAPP_LINK = whatsappUrl();
 
 export const MATERIALS = ["Aço carbono", "Aço inox", "Alumínio", "Bronze", "Latão", "UHMW", "Nylon"];
 

@@ -702,6 +702,16 @@ address {
   margin-top: clamp(28px, 3vw, 40px);
 }
 
+.cta-inline {
+  margin-block: 1.75rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--rule);
+}
+
+.cta-inline .hero-actions {
+  margin-top: 0;
+}
+
 @media (max-width: 520px) {
   .hero-actions .btn {
     width: 100%;
@@ -1631,6 +1641,16 @@ details[open] .faq-mark::after {
   background: #4cb6ea;
 }
 
+.contact-section .btn-ghost {
+  color: var(--paper);
+  border-color: var(--paper);
+}
+
+.contact-section .btn-ghost:hover {
+  color: var(--ink);
+  background: var(--paper);
+}
+
 .contact-cells {
   display: grid;
   border: 1.5px solid rgba(244, 244, 240, 0.55);
@@ -1775,6 +1795,10 @@ details[open] .faq-mark::after {
 }
 
 @media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+  }
+
   body {
     padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
   }
@@ -1787,28 +1811,6 @@ details[open] .faq-mark::after {
 @media (min-width: 768px) {
   .mobile-cta-bar {
     display: none;
-  }
-}
-
-/* Onde o navegador suporta, o botão fixo só aparece depois que o botão do topo sai da tela */
-@supports (animation-timeline: scroll()) {
-  .mobile-cta-bar {
-    animation: cta-in linear both;
-    animation-timeline: scroll(root);
-    animation-range: 420px 560px;
-  }
-
-  @keyframes cta-in {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-      visibility: hidden;
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-      visibility: visible;
-    }
   }
 }
 

@@ -4,11 +4,12 @@ import { Logo } from "./components/Logo";
 import { WhatsAppIcon } from "./components/WhatsAppIcon";
 import { MobileCtaBar } from "./components/MobileCtaBar";
 import { ConsentBanner } from "./components/ConsentBanner";
-import { track } from "../lib/track";
+import { ContactActions } from "./components/ContactActions";
 import {
   BRAND,
   CITY,
   EMAIL,
+  HOME_WHATSAPP_MESSAGE,
   MAPS_LINK,
   MATERIALS,
   PHONE_DISPLAY,
@@ -89,7 +90,7 @@ function TitleBlock() {
       <div className="tb-cell">
         <dt>WhatsApp</dt>
         <dd>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" data-cta-event="whatsapp_click" data-cta-position="title_block">
             {PHONE_DISPLAY}
           </a>
         </dd>
@@ -123,7 +124,7 @@ export default function App() {
               ))}
             </ul>
           </nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" onClick={() => track("whatsapp_click", { page: "/", position: "header" })}>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header">
             <WhatsAppIcon />
             <span>Orçamento</span>
           </a>
@@ -150,11 +151,11 @@ export default function App() {
                   Envie o desenho ou a foto da peça para pedir orçamento pelo WhatsApp.
                 </p>
                 <div className="hero-actions">
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("whatsapp_click", { page: "/", position: "hero" })}>
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" data-cta-event="whatsapp_click" data-cta-position="hero">
                     <WhatsAppIcon />
                     Enviar desenho pelo WhatsApp
                   </a>
-                  <a href="#orcamento" className="btn btn-ghost btn-lg" onClick={() => track("cta_click", { page: "/", position: "hero_secondary" })}>
+                  <a href="#orcamento" className="btn btn-ghost btn-lg" data-cta-event="cta_click" data-cta-position="hero_secondary">
                     Como pedir orçamento
                     <ArrowRight className="icon" aria-hidden="true" />
                   </a>
@@ -270,10 +271,7 @@ export default function App() {
                     </li>
                   ))}
                 </ol>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => track("drawing_cta_click", { page: "/", position: "quote" })}>
-                  <WhatsAppIcon />
-                  Enviar dados da peça
-                </a>
+                <ContactActions message={HOME_WHATSAPP_MESSAGE} position="middle" />
               </div>
 
               <aside className="checks" aria-labelledby="checks-title">
@@ -351,7 +349,7 @@ export default function App() {
                 <h2 id="faq-title">Perguntas frequentes</h2>
                 <p>
                   Não achou sua dúvida?{" "}
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-link">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-link" data-cta-event="whatsapp_click" data-cta-position="faq">
                     Pergunte pelo WhatsApp
                   </a>
                   .
@@ -378,20 +376,17 @@ export default function App() {
               <div className="contact-main">
                 <h2 id="cta-title">Envie seu desenho, foto ou amostra</h2>
                 <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-xl" onClick={() => track("whatsapp_click", { page: "/", position: "contact" })}>
-                  <WhatsAppIcon />
-                  Pedir orçamento pelo WhatsApp
-                </a>
+                <ContactActions message={HOME_WHATSAPP_MESSAGE} position="end" />
               </div>
               <address className="contact-cells">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell" onClick={() => track("whatsapp_click", { page: "/", position: "contact_cell" })}>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell" data-cta-event="whatsapp_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Phone className="icon" aria-hidden="true" /> Telefone / WhatsApp
                   </span>
                   <strong>{PHONE_DISPLAY}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
-                <a href={`mailto:${EMAIL}`} className="contact-cell" onClick={() => track("email_click", { page: "/", position: "contact_cell" })}>
+                <a href={`mailto:${EMAIL}`} className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Mail className="icon" aria-hidden="true" /> E-mail
                   </span>
@@ -422,7 +417,7 @@ export default function App() {
               <a href="/blog">Blog de usinagem</a> · <a href="/sobre">Sobre a Duhelo</a>
             </p>
             <p>
-              <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`} data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
             </p>
             <p className="footer-legal">
               © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}

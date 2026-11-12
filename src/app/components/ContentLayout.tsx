@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
-import { BRAND, CITY, WHATSAPP_LINK } from "../content";
+import { BRAND, CITY, whatsappUrl } from "../content";
 import { Logo } from "./Logo";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { MobileCtaBar } from "./MobileCtaBar";
 import { ConsentBanner } from "./ConsentBanner";
 
-export function ContentLayout({ children, activePage }: { children: ReactNode; activePage?: "blog" | "about" }) {
+export function ContentLayout({ children, activePage, whatsappMessage }: { children: ReactNode; activePage?: "blog" | "about"; whatsappMessage?: string }) {
   return (
     <>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -21,7 +21,7 @@ export function ContentLayout({ children, activePage }: { children: ReactNode; a
               <li><a href="/#contato">Contato</a></li>
             </ul>
           </nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm"><WhatsAppIcon /><span>Orçamento</span></a>
+          <a href={whatsappUrl(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header"><WhatsAppIcon /><span>Orçamento</span></a>
         </div>
       </header>
       <div className="sheet">
@@ -37,7 +37,7 @@ export function ContentLayout({ children, activePage }: { children: ReactNode; a
           </div>
         </footer>
       </div>
-      <MobileCtaBar />
+      <MobileCtaBar whatsappMessage={whatsappMessage} />
       <ConsentBanner />
     </>
   );

@@ -1,10 +1,12 @@
-import { ABOUT_DESCRIPTION, ABOUT_TITLE, EMAIL, MAPS_LINK, PHONE_DISPLAY, PHONE_E164, WHATSAPP_LINK } from "../content";
+import { ABOUT_DESCRIPTION, ABOUT_TITLE, EMAIL, MAPS_LINK, PHONE_DISPLAY, PHONE_E164 } from "../content";
+import { ContactActions } from "../components/ContactActions";
 import { ContentLayout } from "../components/ContentLayout";
-import { WhatsAppIcon } from "../components/WhatsAppIcon";
+
+const whatsappMessage = "Olá, conheci a oficina na página Sobre a Duhelo e gostaria de um orçamento de usinagem.";
 
 export function AboutPage() {
   return (
-    <ContentLayout activePage="about">
+    <ContentLayout activePage="about" whatsappMessage={whatsappMessage}>
       <article className="about-page" aria-labelledby="about-title">
         <section className="zone-section">
           <div className="section-head section-head-stack">
@@ -19,6 +21,7 @@ export function AboutPage() {
               <p>Quando a referência é uma peça gasta, a aplicação e as medidas de encaixe ajudam a decidir entre ajustar, recuperar ou fabricar uma reposição.</p>
               <p><a className="text-link" href="/usinagem-de-precisao">Usinagem de precisão sob desenho ou amostra</a><br />
                 <a className="text-link" href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a></p>
+              <ContactActions message={whatsappMessage} position="middle" className="hero-actions" />
             </div>
             <figure className="about-photo">
               <img
@@ -38,12 +41,10 @@ export function AboutPage() {
           <div className="about-contact-content">
             <h2 id="about-contact-title">Orçamento e localização</h2>
             <p className="section-lead">Envie o desenho ou fotos da amostra ou da peça gasta. Informe a aplicação, a quantidade e as medidas disponíveis.</p>
-            <div className="hero-actions">
-              <a className="btn btn-primary btn-lg" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Pedir orçamento pelo WhatsApp</a>
-            </div>
+            <ContactActions message={whatsappMessage} position="end" className="hero-actions" />
             <address className="about-details">
-              <a className="text-link" href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a>
-              <a className="text-link" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a className="text-link" href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="contact">{PHONE_DISPLAY}</a>
+              <a className="text-link" href={`mailto:${EMAIL}`} data-cta-event="email_click" data-cta-position="contact">{EMAIL}</a>
               <a className="text-link" href={MAPS_LINK} target="_blank" rel="noopener noreferrer">Localização da oficina no mapa</a>
             </address>
           </div>

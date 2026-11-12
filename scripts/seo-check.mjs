@@ -30,6 +30,7 @@ for (const f of files) {
   routeMap.set(route, f);
 }
 const routes = [...routeMap.keys()];
+const hasCtaScript = await fileExists(path.join(DIST, "cta.js"));
 const noindexRoutes = new Set();
 const idsByRoute = new Map();
 const articleDates = new Map();
@@ -71,6 +72,7 @@ for (const route of routes) {
   check(`${route} twitter:image absoluto`, twImg.startsWith(HOST + "/"), twImg);
 
   check(`${route} sem utm_`, !/utm_/.test(html));
+  check(`${route} script de CTA local`, hasCtaScript && (html.match(/<script\b[^>]*src="\/cta\.js"/g) ?? []).length === 1);
 
   // JSON-LD parseable
   const ldMatches = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];

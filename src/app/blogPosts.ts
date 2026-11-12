@@ -26,7 +26,8 @@ export type Post = {
   headings: PostHeading[];
   readingMinutes: number;
   introHtml: string;
-  html: string;
+  bodyStartHtml: string;
+  bodyEndHtml: string;
 };
 
 const rawPosts = import.meta.glob<MarkdownPost>("../content/blog/*.md", {
@@ -103,13 +104,17 @@ function parsePost(filename: string, { data, content }: MarkdownPost): Post {
     throw new Error(`${filename}: abra o artigo com dois parágrafos antes do primeiro H2.`);
   }
   const introHtml = markdown.parser(intro);
-  const bodyHtml = markdown.parser(tokens.slice(firstHeading));
-  const html = introHtml + bodyHtml;
+  const body = tokens.slice(firstHeading);
+  const sectionStarts = body.flatMap((token, index) => token.type === "heading" && token.depth === 2 ? [index] : []);
+  const middle = sectionStarts[Math.ceil(sectionStarts.length / 2)] ?? body.length;
+  const bodyStartHtml = markdown.parser(body.slice(0, middle));
+  const bodyEndHtml = markdown.parser(body.slice(middle));
+  const html = introHtml + bodyStartHtml + bodyEndHtml;
   const text = html.replace(/<[^>]+>/g, " ").replace(/&(?:#x27|#39|apos);/g, "'").replace(/&[#a-z\d]+;/gi, " ");
   const wordCount = [...words.segment(text)].filter((segment) => segment.isWordLike).length;
 
   return {
-    slug, date, updated, category, service, headings, introHtml, html: bodyHtml,
+    slug, date, updated, category, service, headings, introHtml, bodyStartHtml, bodyEndHtml,
     title: field("title"),
     seoTitle: field("seoTitle", 60),
     description: field("description", 155),

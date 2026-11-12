@@ -1,10 +1,13 @@
-import { BRAND, CITY, EMAIL, PHONE_DISPLAY, WHATSAPP_LINK } from "../content";
+import { BRAND, CITY, EMAIL, PHONE_DISPLAY, PHONE_E164, whatsappUrl } from "../content";
 import { Logo } from "../components/Logo";
+import { ContactActions } from "../components/ContactActions";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { MobileCtaBar } from "../components/MobileCtaBar";
 import { ConsentBanner } from "../components/ConsentBanner";
 
 export function PrivacyPage() {
+  const whatsappMessage = "Olá, encontrei o contato na página de política de privacidade da Duhelo e gostaria de solicitar um orçamento de usinagem.";
+
   return (
     <>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -12,7 +15,7 @@ export function PrivacyPage() {
         <div className="header-inner">
           <a href="/" className="header-brand" aria-label={`${BRAND} - início`}><Logo className="logo logo-header" /></a>
           <nav aria-label="Navegação principal" className="header-nav"><ul><li><a href="/">Início</a></li><li><a href="/#servicos">Serviços</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contato">Contato</a></li></ul></nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm"><WhatsAppIcon /><span>Orçamento</span></a>
+          <a href={whatsappUrl(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header"><WhatsAppIcon /><span>Orçamento</span></a>
         </div>
       </header>
       <div className="sheet">
@@ -33,6 +36,9 @@ export function PrivacyPage() {
             <p>[CONFIRMAR com advogado] (LGPD art. 7, I/IX ou outra aplicável).</p>
             <h2>Operador e transferência internacional</h2>
             <p>O Google atua como operador da medição. Pode haver transferência internacional de dados. [CONFIRMAR com advogado].</p>
+            <aside className="blog-prose cta-inline" aria-label="Orçamento de usinagem">
+              <ContactActions message={whatsappMessage} position="middle" />
+            </aside>
             <h2>Retenção</h2>
             <p>[CONFIRMAR] (período de retenção dos dados no Google Analytics).</p>
             <h2>Direitos do titular (art. 18 da LGPD)</h2>
@@ -42,17 +48,21 @@ export function PrivacyPage() {
             <h2>Canal de contato</h2>
             <p>WhatsApp {PHONE_DISPLAY} ou e-mail {EMAIL}.</p>
           </section>
+          <section className="zone-section blog-cta" aria-labelledby="privacy-cta">
+            <h2 id="privacy-cta">Orçamento de usinagem</h2>
+            <ContactActions message={whatsappMessage} position="end" />
+          </section>
         </main>
         <footer className="site-footer">
           <Logo className="logo logo-footer" />
           <div className="footer-text">
             <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
-            <p><a href={`tel:+5519982731890`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`} data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a></p>
             <p><a href="/politica-de-privacidade" className="text-link">Política de privacidade</a> · <button type="button" className="text-link" onClick={() => window.dispatchEvent(new Event("duhelo-open-consent"))}>Preferências de cookies</button></p>
           </div>
         </footer>
       </div>
-      <MobileCtaBar />
+      <MobileCtaBar whatsappMessage={whatsappMessage} />
       <ConsentBanner />
     </>
   );

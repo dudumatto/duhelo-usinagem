@@ -2,9 +2,7 @@
 
 Site: https://www.duhelousinagem.com.br/
 
-Vite + React usados só para **gerar** a página: no build, o React é renderizado em HTML estático
-(`scripts/prerender.mjs`). O site publicado é HTML + CSS puro, sem JavaScript — carrega rápido e o
-Google lê todo o conteúdo direto do HTML.
+Vite e React geram HTML estático no build (`scripts/prerender.mjs`). O conteúdo e os links de contato funcionam diretamente no HTML. Um script local pequeno registra a origem de campanha e os cliques dos CTAs no navegador. Veja a [convenção de UTM](docs/utm.md).
 
 ## Comandos
 
