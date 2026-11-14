@@ -1,37 +1,78 @@
-// Pré-renderiza a página em HTML estático: o Google (e qualquer visitante) recebe o conteúdo completo
-// sem depender de JavaScript. Roda depois de `vite build` e `vite build --ssr`.
-import { readFile, writeFile, rm } from "node:fs/promises";
+import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const dist = path.resolve("dist");
 const ssrEntry = path.resolve("dist-ssr/entry-server.js");
+const { render, renderHead, renderBlogFeed, allRoutePaths, routeMeta, SITE_URL } = await import(pathToFileURL(ssrEntry).href);
 
-const { render, renderHead } = await import(pathToFileURL(ssrEntry).href);
-const appHtml = render();
-
-let html = await readFile(path.join(dist, "index.html"), "utf8");
-if (!html.includes("<!--app-html-->")) throw new Error("Marcador <!--app-html--> não encontrado em dist/index.html");
-html = html.replace("<!--app-html-->", appHtml).replace("<!--app-head-->", renderHead());
-
-// A página publicada é 100% HTML + CSS: o único JS de produção é o bootstrap do modo dev (vazio no build).
-// Removemos a tag <script> e o arquivo para não custar nenhuma requisição. Se um dia a página ganhar
-// interatividade em JS, troque isto por hidratação (hydrateRoot) em src/main.tsx.
-const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
-const match = html.match(scriptTag);
-if (match) {
-  html = html.replace(scriptTag, "");
-  await rm(path.join(dist, "assets", match[1]));
+function escapeHtml(text) {
+  return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
-// CSS embutido no HTML: elimina a requisição que bloqueia a primeira pintura (~5 KB gzip).
-const cssTag = /<link rel="stylesheet" crossorigin href="\/assets\/([^"]+\.css)">/;
-const cssMatch = html.match(cssTag);
-if (cssMatch) {
-  const css = await readFile(path.join(dist, "assets", cssMatch[1]), "utf8");
-  html = html.replace(cssTag, () => `<style>${css}</style>`);
+// render each route
+const template = await readFile(path.join(dist, "index.html"), "utf8");
+const indexablePages = [];
+for (const route of allRoutePaths) {
+  const appHtml = render(route);
+  const meta = routeMeta(route);
+  let html = template;
+  const canonical = new URL(route, SITE_URL).href;
+  if (meta.indexable === false) {
+    html = html.replace(/(<meta name="robots" content=")[^"]*/, "$1noindex, follow");
+  } else {
+    indexablePages.push({ canonical, lastModified: meta.lastModified });
+  }
+  if (route !== "/") {
+    html = html.replace(/\s*<link\s+rel="preload"\s+as="image"[^>]*>/, "");
+    const title = escapeHtml(meta.title);
+    const description = escapeHtml(meta.description);
+    if (meta.article) html = html.replace('<meta property="og:type" content="website"', '<meta property="og:type" content="article"');
+    html = html.replace(/<title>[^<]*<\/title>/, () => `<title>${title}</title>`);
+    html = html.replace(/(<meta\s+(?:name="description"|property="og:description"|name="twitter:description")\s+content=")[^"]*/g, (_, prefix) => prefix + description);
+    html = html.replace(/(<meta\s+(?:property="og:title"|name="twitter:title")\s+content=")[^"]*/g, (_, prefix) => prefix + title);
+  }
+  html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${canonical}$2`);
+  html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${canonical}$2`);
+  html = html.replace("<!--app-html-->", () => appHtml).replace("<!--app-head-->", () => renderHead(route));
+  if (route === "/404") {
+    html = html.replace(/\s*<link rel="canonical"[^>]*>/, "").replace(/\s*<meta property="og:url"[^>]*>/, "");
+  }
+  // remove script tag + file
+  const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
+  const match = html.match(scriptTag);
+  if (match) {
+    html = html.replace(scriptTag, "");
+  }
+  // css inline
+  const cssTag = /<link rel="stylesheet" crossorigin href="\/assets\/([^"]+\.css)">/;
+  const cssMatch = html.match(cssTag);
+  if (cssMatch) {
+    const css = await readFile(path.join(dist, "assets", cssMatch[1]), "utf8");
+    html = html.replace(cssTag, () => `<style>${css}</style>`);
+  }
+  if (route === "/404") {
+    await writeFile(path.join(dist, "404.html"), html);
+    continue;
+  }
+  const outDir = route === "/" ? dist : path.join(dist, route.replace(/^\//, ""));
+  await mkdir(outDir, { recursive: true });
+  await writeFile(path.join(outDir, "index.html"), html);
 }
 
-await writeFile(path.join(dist, "index.html"), html);
+// remove assets js/css after inlining (best effort)
+const assetsDir = path.join(dist, "assets");
+try { await rm(assetsDir, { recursive: true, force: true }); } catch {}
+
+// generate sitemap.xml
+const urls = indexablePages.map(({ canonical, lastModified }) => {
+  const lastmod = lastModified ? `\n    <lastmod>${lastModified}</lastmod>` : "";
+  return `  <url>\n    <loc>${escapeHtml(canonical)}</loc>${lastmod}\n  </url>`;
+}).join("\n");
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+await writeFile(path.join(dist, "sitemap.xml"), sitemap);
+await writeFile(path.join(dist, "blog", "feed.xml"), renderBlogFeed());
+
+// cleanup ssr
 await rm(path.resolve("dist-ssr"), { recursive: true, force: true });
-console.log(`prerender ok: ${Math.round(html.length / 1024)} KB de HTML`);
+console.log(`prerender ok: ${allRoutePaths.length} rotas`);

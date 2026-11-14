@@ -1,9 +1,21 @@
 import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { FlangeDrawing, ShaftRecoveryDrawing } from "./components/Drawings";
+import { Logo } from "./components/Logo";
+import { WhatsAppIcon } from "./components/WhatsAppIcon";
+import { MobileCtaBar } from "./components/MobileCtaBar";
+import { ContactActions } from "./components/ContactActions";
+import { PostCards } from "./components/PostCards";
+import { ServiceCards } from "./components/ServiceCards";
+import { featuredPosts } from "./blogPosts";
+import { Photo } from "./components/Photo";
+import { landings } from "./serviceLandings";
 import {
   BRAND,
   CITY,
   EMAIL,
+  EMAIL_COMPOSE_URL,
+  FULL_ADDRESS,
+  HOME_WHATSAPP_MESSAGE,
   MAPS_LINK,
   MATERIALS,
   PHONE_DISPLAY,
@@ -20,59 +32,6 @@ import {
 } from "./content";
 
 const YEAR = new Date().getFullYear();
-
-function WhatsAppIcon({ className = "icon" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        fill="currentColor"
-        d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.2 4.24-9.44 9.45-9.44 2.52 0 4.89.99 6.67 2.77a9.37 9.37 0 0 1 2.76 6.68c0 5.2-4.24 9.44-9.44 9.44m8.04-17.48A11.3 11.3 0 0 0 12.05.7C5.78.7.68 5.8.68 12.06c0 2 .52 3.96 1.52 5.68L.58 23.3l5.68-1.49a11.33 11.33 0 0 0 5.78 1.47h.01c6.27 0 11.37-5.1 11.37-11.37 0-3.04-1.18-5.89-3.33-8.04"
-      />
-    </svg>
-  );
-}
-
-function Photo({
-  name,
-  alt,
-  sizes,
-  priority = false,
-  position,
-  className,
-}: {
-  name: string;
-  alt: string;
-  sizes: string;
-  priority?: boolean;
-  position?: string;
-  className?: string;
-}) {
-  const base = `/images/opt/${name}`;
-  return (
-    <picture className={className}>
-      <source type="image/webp" srcSet={`${base}-480.webp 480w, ${base}-800.webp 800w, ${base}-1200.webp 1200w`} sizes={sizes} />
-      <img
-        src={`/images/${name}.jpg`}
-        alt={alt}
-        width={1200}
-        height={799}
-        loading={priority ? "eager" : "lazy"}
-        decoding={priority ? "sync" : "async"}
-        {...(priority ? { fetchpriority: "high" } : {})}
-        style={position ? { objectPosition: position } : undefined}
-      />
-    </picture>
-  );
-}
-
-function Logo({ className = "logo" }: { className?: string }) {
-  return (
-    <picture>
-      <source type="image/webp" srcSet="/images/opt/duhelo-logo.webp" />
-      <img src="/images/opt/duhelo-logo.png" alt={BRAND} width={220} height={160} className={className} />
-    </picture>
-  );
-}
 
 function Zone({ letter }: { letter: string }) {
   return (
@@ -104,7 +63,7 @@ function TitleBlock() {
       <div className="tb-cell">
         <dt>WhatsApp</dt>
         <dd>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" data-cta-event="whatsapp_click" data-cta-position="title_block">
             {PHONE_DISPLAY}
           </a>
         </dd>
@@ -138,7 +97,7 @@ export default function App() {
               ))}
             </ul>
           </nav>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header">
             <WhatsAppIcon />
             <span>Orçamento</span>
           </a>
@@ -161,15 +120,15 @@ export default function App() {
                   Usinagem de precisão sob desenho, amostra ou <span className="hl">peça gasta</span>.
                 </h1>
                 <p className="hero-lead">
-                  Em {CITY}, com torno CNC, torno convencional e fresadora para fabricar, produzir em lote e recuperar peças industriais. Mande o
-                  desenho ou a foto da peça e receba o orçamento pelo WhatsApp.
+                  Em {CITY}, a Duhelo fabrica peças sob medida e recupera eixos, buchas e outros componentes para manutenção industrial.
+                  Envie o desenho ou a foto da peça para pedir orçamento pelo WhatsApp.
                 </p>
                 <div className="hero-actions">
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" data-cta-event="whatsapp_click" data-cta-position="hero" data-drawing-cta="">
                     <WhatsAppIcon />
                     Enviar desenho pelo WhatsApp
                   </a>
-                  <a href="#orcamento" className="btn btn-ghost btn-lg">
+                  <a href="#orcamento" className="btn btn-ghost btn-lg" data-cta-event="cta_click" data-cta-position="hero_secondary">
                     Como pedir orçamento
                     <ArrowRight className="icon" aria-hidden="true" />
                   </a>
@@ -212,7 +171,7 @@ export default function App() {
             <Zone letter="B" />
             <div className="section-head">
               <h2 id="services-title">Serviços de usinagem</h2>
-              <p>Do item único fora de catálogo ao lote com padrão de medida, e a manutenção que tira a máquina da parada.</p>
+              <p>Fabricamos peças únicas e lotes sob desenho ou amostra. Para manutenção, recuperamos ou refazemos componentes desgastados.</p>
             </div>
 
             <ol className="parts-list">
@@ -260,6 +219,25 @@ export default function App() {
                 </li>
               ))}
             </ol>
+            <section id="paginas-dedicadas" className="content-width dedicated-pages" aria-labelledby="dedicated-title">
+              <h2 id="dedicated-title">Explore nossos serviços</h2>
+              <p>Conheça os processos, as aplicações e o que preparar para pedir um orçamento.</p>
+              <ServiceCards items={landings.filter((landing) => landing.indexable !== false)} />
+              <a className="btn btn-index catalog-action" href="/blog#servicos">
+                Conheça todos os serviços<ArrowRight className="icon" aria-hidden="true" />
+              </a>
+            </section>
+          </section>
+
+          <section id="blog" className="zone-section home-blog" aria-labelledby="home-blog-title">
+            <div className="content-width">
+              <h2 id="home-blog-title">Blog de usinagem</h2>
+              <p className="section-lead">Guias para escolher uma oficina, especificar uma peça e planejar a recuperação.</p>
+              <PostCards posts={featuredPosts} showCover />
+              <a className="btn btn-primary catalog-action" href="/blog">
+                Ver blog e serviços<ArrowRight className="icon" aria-hidden="true" />
+              </a>
+            </div>
           </section>
 
           {/* C — Notas gerais / orçamento */}
@@ -277,10 +255,7 @@ export default function App() {
                     </li>
                   ))}
                 </ol>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-                  <WhatsAppIcon />
-                  Enviar dados da peça
-                </a>
+                <ContactActions message={HOME_WHATSAPP_MESSAGE} position="middle" />
               </div>
 
               <aside className="checks" aria-labelledby="checks-title">
@@ -305,8 +280,8 @@ export default function App() {
           <section id="estrutura" className="zone-section" aria-labelledby="structure-title">
             <Zone letter="D" />
             <div className="section-head">
-              <h2 id="structure-title">Equipamentos e processo</h2>
-              <p>Estrutura para peça única, manutenção e lotes, com o mesmo controle do desenho à entrega.</p>
+              <h2 id="structure-title">Como trabalhamos</h2>
+              <p>Usamos torno CNC, torno convencional e fresadora para fabricar e recuperar peças industriais.</p>
             </div>
 
             <div className="equipment">
@@ -319,7 +294,7 @@ export default function App() {
             </div>
 
             <div className="process" aria-labelledby="process-title">
-              <h3 id="process-title">Da necessidade à peça pronta</h3>
+              <h3 id="process-title">Da referência ao serviço</h3>
               <ol className="process-line">
                 {processSteps.map((step, index) => (
                   <li key={step.title}>
@@ -358,7 +333,7 @@ export default function App() {
                 <h2 id="faq-title">Perguntas frequentes</h2>
                 <p>
                   Não achou sua dúvida?{" "}
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-link">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-link" data-cta-event="whatsapp_click" data-cta-position="faq">
                     Pergunte pelo WhatsApp
                   </a>
                   .
@@ -385,20 +360,18 @@ export default function App() {
               <div className="contact-main">
                 <h2 id="cta-title">Envie seu desenho, foto ou amostra</h2>
                 <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-xl">
-                  <WhatsAppIcon />
-                  Pedir orçamento pelo WhatsApp
-                </a>
+                <p>Atendemos <a className="text-link" href="/usinagem-santa-barbara-doeste">Santa Bárbara d'Oeste</a>, <a className="text-link" href="/usinagem-americana">Americana</a> e região. Para outras cidades do estado de São Paulo, combine a logística no orçamento.</p>
+                <ContactActions message={HOME_WHATSAPP_MESSAGE} position="end" />
               </div>
               <address className="contact-cells">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contact-cell" data-cta-event="whatsapp_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Phone className="icon" aria-hidden="true" /> Telefone / WhatsApp
                   </span>
                   <strong>{PHONE_DISPLAY}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
-                <a href={`mailto:${EMAIL}`} className="contact-cell">
+                <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Mail className="icon" aria-hidden="true" /> E-mail
                   </span>
@@ -409,7 +382,7 @@ export default function App() {
                   <span className="cell-label">
                     <MapPin className="icon" aria-hidden="true" /> Localização
                   </span>
-                  <strong>{CITY}</strong>
+                  <strong>{FULL_ADDRESS}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
               </address>
@@ -424,19 +397,22 @@ export default function App() {
               <strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.
             </p>
             <p>
-              <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a href="/usinagem-de-precisao">Usinagem de precisão</a> · <a href="/usinagem-cnc-torno-fresamento">Usinagem CNC</a> ·{" "}
+              <a href="/pecas-sob-medida">Peças sob medida</a> · <a href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a> ·{" "}
+              <a href="/blog">Blog de usinagem</a> · <a href="/sobre">Sobre a Duhelo</a>
+            </p>
+            <p>
+              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
             </p>
             <p className="footer-legal">
-              © {YEAR} {BRAND}. Todos os direitos reservados.
+              © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}
+              <a href="/politica-de-privacidade" className="text-link">Política de privacidade</a>
             </p>
           </div>
         </footer>
       </div>
 
-      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="mobile-cta">
-        <WhatsAppIcon />
-        Enviar desenho pelo WhatsApp
-      </a>
+      <MobileCtaBar />
     </>
   );
 }
