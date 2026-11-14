@@ -7,11 +7,12 @@ description: "Entenda como a usinagem CNC funciona, quando o torno CNC faz senti
 category: "CNC e fresamento"
 keyword: "usinagem CNC"
 service: "usinagem-cnc-torno-fresamento"
+coverAlt: "Lote de peças torneadas com canais e faces usinadas"
 ---
 
 Usinagem CNC é a remoção de material em uma máquina cujo comando numérico computadorizado executa movimentos e operações programados. Um torno CNC, por exemplo, pode usinar diâmetros, faces, canais e roscas de uma peça que gira. A programação permite repetir a sequência de corte em outras unidades, o que ajuda a produzir peças com a mesma geometria em um lote.
 
-O CNC faz sentido quando a peça exige várias operações programáveis, quando o pedido vai se repetir ou quando a geometria exige movimentos coordenados. Eixos escalonados, buchas, pinos e flanges são exemplos de peças que podem passar pelo torno CNC. Para cotar, informe as medidas de encaixe, o material e a quantidade. A oficina pode avaliar se a peça também exige fresamento, furação ou outra operação.
+O CNC faz sentido quando a peça exige várias operações programáveis, quando o pedido vai se repetir ou quando a geometria exige movimentos coordenados. Eixos escalonados, buchas, pinos e flanges são exemplos de peças que podem passar pelo torno CNC, com fresamento ou furação conforme os detalhes de cada componente.
 
 ## Como funciona uma operação CNC?
 
@@ -31,7 +32,7 @@ O orçamento inclui tempo de preparação, programação e conferência, além d
 
 Um eixo com três diâmetros de encaixe e um canal pode ser candidato ao torno CNC. Uma flange pode ter faces e diâmetros torneados e depois receber um conjunto de furos. Uma bucha com rasgo lateral ou um eixo com face plana podem combinar operações de torno e fresa. A posição relativa entre essas características precisa aparecer na referência para que a oficina avalie como executar e conferir a peça.
 
-Na Duhelo Usinagem, em Santa Bárbara d’Oeste, a página de [torneamento CNC e fresamento](/usinagem-cnc-torno-fresamento) apresenta os serviços para peças industriais. Envie o desenho ou a amostra com a função da peça. Se houver desgaste, indique as superfícies gastas e forneça, quando possível, a referência do encaixe original. Isso permite discutir fabricação, recuperação e escolha do processo a partir do caso concreto.
+Na Duhelo Usinagem, em Santa Bárbara d’Oeste, a escolha entre [torneamento CNC e fresamento](/usinagem-cnc-torno-fresamento) considera a geometria e as referências de montagem da peça.
 
 ## O que precisa constar no orçamento de um lote?
 

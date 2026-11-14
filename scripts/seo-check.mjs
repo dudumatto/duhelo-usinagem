@@ -1,9 +1,34 @@
+import { createHash } from "node:crypto";
 import { readFile, readdir, access } from "node:fs/promises";
-async function fileExists(p) { try { await access(p); return true; } catch { return false; } }
 import path from "node:path";
+import sharp from "sharp";
 
 const DIST = path.resolve("dist");
 const HOST = "https://www.duhelousinagem.com.br";
+const BUSINESS_ID = `${HOST}/#business`;
+
+async function fileExists(p) { try { await access(p); return true; } catch { return false; } }
+
+const imageDimensions = new Map();
+async function checkSocialImage(route, name, value) {
+  const url = URL.canParse(value) ? new URL(value) : null;
+  const canonicalHost = url?.origin === HOST && !url.search && !url.hash && !url.username && !url.password;
+  if (!canonicalHost) {
+    check(`${route} ${name} usa URL absoluta no host canônico`, false, value);
+    return;
+  }
+
+  if (!imageDimensions.has(value)) {
+    const file = path.join(DIST, url.pathname);
+    imageDimensions.set(value, await sharp(file).metadata().catch(() => null));
+  }
+  const dimensions = imageDimensions.get(value);
+  check(
+    `${route} ${name} absoluto e imagem existente de 1200x630`,
+    dimensions?.width === 1200 && dimensions?.height === 630,
+    dimensions ? `${value} (${dimensions.width}x${dimensions.height})` : `${value} (imagem ausente ou inválida)`,
+  );
+}
 
 let failures = 0;
 function check(label, ok, detail = "") {
@@ -64,12 +89,11 @@ for (const route of routes) {
 
   const ogImgMatch = html.match(/<meta property="og:image" content="([^"]*)"/);
   const ogImg = ogImgMatch ? ogImgMatch[1] : "";
-  const ogImgOk = ogImg.startsWith(HOST + "/") && (await fileExists(path.join(DIST, "..", "public", ogImg.replace(HOST + "/", ""))));
-  check(`${route} og:image absoluto e existente`, ogImgOk, ogImg);
+  await checkSocialImage(route, "og:image", ogImg);
 
   const twImgMatch = html.match(/<meta name="twitter:image" content="([^"]*)"/);
   const twImg = twImgMatch ? twImgMatch[1] : "";
-  check(`${route} twitter:image absoluto`, twImg.startsWith(HOST + "/"), twImg);
+  await checkSocialImage(route, "twitter:image", twImg);
 
   check(`${route} sem utm_`, !/utm_/.test(html));
   check(`${route} script de CTA local`, hasCtaScript && (html.match(/<script\b[^>]*src="\/cta\.js"/g) ?? []).length === 1);
@@ -77,15 +101,32 @@ for (const route of routes) {
   // JSON-LD parseable
   const ldMatches = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
   let ldOk = ldMatches.length > 0;
+  const nodes = [];
   for (const m of ldMatches) {
     const json = m.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, "");
     try {
       const data = JSON.parse(json);
+      nodes.push(...(data["@graph"] ?? [data]));
       const article = data["@graph"]?.find((item) => item["@type"] === "Article");
       if (article) articleDates.set(canonical, article.dateModified);
     } catch { ldOk = false; }
   }
   check(`${route} JSON-LD parseável`, ldOk, `${ldMatches.length} blocos`);
+  const businesses = nodes.filter((node) => node["@type"] === "LocalBusiness");
+  check(`${route} LocalBusiness com @id único`, businesses.length === 1 && businesses[0]["@id"] === BUSINESS_ID, BUSINESS_ID);
+  const serviceNodes = [
+    ...nodes.filter((node) => node["@type"] === "Service"),
+    ...(businesses[0]?.makesOffer ?? []).map((offer) => offer.itemOffered),
+  ];
+  const businessRef = (node) => node?.["@id"] === BUSINESS_ID && Object.keys(node).length === 1;
+  if (serviceNodes.length) {
+    check(`${route} Service.provider referencia LocalBusiness`, serviceNodes.every((service) => businessRef(service?.provider)));
+  }
+  if (route.startsWith("/blog/")) {
+    const articles = nodes.filter((node) => node["@type"] === "Article");
+    check(`${route} Article.author e Article.publisher referenciam LocalBusiness`, articles.length === 1 &&
+      businessRef(articles[0].author) && businessRef(articles[0].publisher));
+  }
 
   check(`${route} sem gtag no HTML`, !/googletagmanager|gtag\(/.test(html));
 }
@@ -109,11 +150,35 @@ const robotsTxt = await readFile(path.join(DIST, "robots.txt"), "utf8");
 const sitemapDirectives = [...robotsTxt.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map((match) => match[1]);
 check("robots.txt aponta ao sitemap canônico", sitemapDirectives.length === 1 && sitemapDirectives[0] === `${HOST}/sitemap.xml`);
 
+const notFoundHtml = await readFile(path.join(DIST, "404.html"), "utf8").catch(() => "");
+const notFoundRobots = notFoundHtml.match(/<meta\s+name="robots"\s+content="([^"]+)"/i)?.[1] ?? "";
+check("404.html existe e pede exclusão do índice", /(?:^|[\s,])noindex(?:$|[\s,])/i.test(notFoundRobots));
+
 const feed = await readFile(path.join(DIST, "blog", "feed.xml"), "utf8").catch(() => "");
 const feedEntries = [...feed.matchAll(/<guid>([^<]+)<\/guid>/g)];
 const feedUrls = new Set(feedEntries.map((match) => match[1]));
 const articleUrls = expectedUrls.filter((url) => url.startsWith(`${HOST}/blog/`));
 check("RSS lista os artigos canônicos", feedEntries.length === articleUrls.length && articleUrls.every((url) => feedUrls.has(url)), `${feedEntries.length} itens`);
+
+const catalog = await readFile(routeMap.get("/blog"), "utf8");
+const catalogCovers = [...catalog.matchAll(/<img\b[^>]*\bsrc="(\/images\/blog\/[^"]+)"/g)].map((match) => match[1]);
+const coverHashes = new Set();
+let coversOk = catalogCovers.length === articleUrls.length;
+for (const url of articleUrls) {
+  const route = new URL(url).pathname;
+  const cover = `/images/blog/${route.slice("/blog/".length)}.webp`;
+  const html = await readFile(routeMap.get(route), "utf8");
+  const image = await readFile(path.join(DIST, cover.slice(1))).catch(() => null);
+  if (!image?.length || !catalogCovers.includes(cover) || !html.includes(`src="${cover}"`)) {
+    coversOk = false;
+    console.log(`  capa ausente no catálogo ou artigo: ${route}`);
+    continue;
+  }
+  const hash = createHash("sha256").update(image).digest("hex");
+  if (coverHashes.has(hash)) console.log(`  imagem repetida: ${cover}`);
+  coverHashes.add(hash);
+}
+check("cada artigo tem uma capa exclusiva", coversOk && coverHashes.size === articleUrls.length, `${coverHashes.size} imagens`);
 
 // internal links
 const routeSet = new Set(routes);

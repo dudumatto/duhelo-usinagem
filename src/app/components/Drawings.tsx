@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 /* Desenhos técnicos ilustrativos em SVG (geometria pura, sem imagens). */
 
 function Defs({ id }: { id: string }) {
@@ -14,8 +16,8 @@ function Defs({ id }: { id: string }) {
 }
 
 /** Flange em duas vistas (frontal + corte A-A) com cotas. As linhas se desenham ao carregar. */
-export function FlangeDrawing() {
-  const id = "flange";
+export function FlangeDrawing({ animated = true }: { animated?: boolean }) {
+  const id = `flange-${useId()}`;
   const holes = [
     [218, 92],
     [82, 92],
@@ -23,8 +25,8 @@ export function FlangeDrawing() {
     [218, 228],
   ];
   return (
-    <svg className="drawing drawing-animated" viewBox="0 0 520 330" role="img" aria-labelledby="flange-title">
-      <title id="flange-title">Desenho técnico ilustrativo de um flange em vista frontal e corte, com cotas de diâmetro e espessura</title>
+    <svg className={animated ? "drawing drawing-animated" : "drawing"} viewBox="0 0 520 330" role="img" aria-labelledby={`${id}-title`}>
+      <title id={`${id}-title`}>Desenho técnico ilustrativo de um flange em vista frontal e corte, com cotas de diâmetro e espessura</title>
       <Defs id={id} />
 
       {/* Linhas de centro */}
@@ -89,10 +91,10 @@ export function FlangeDrawing() {
 
 /** Eixo escalonado com zona desgastada a recuperar. */
 export function ShaftRecoveryDrawing() {
-  const id = "shaft";
+  const id = `shaft-${useId()}`;
   return (
-    <svg className="drawing" viewBox="0 0 530 230" role="img" aria-labelledby="shaft-title">
-      <title id="shaft-title">Desenho ilustrativo de um eixo com zona desgastada marcada para recuperação ao diâmetro original</title>
+    <svg className="drawing" viewBox="0 0 530 230" role="img" aria-labelledby={`${id}-title`}>
+      <title id={`${id}-title`}>Desenho ilustrativo de um eixo com zona desgastada marcada para recuperação ao diâmetro original</title>
       <Defs id={id} />
 
       <g className="dw-center">

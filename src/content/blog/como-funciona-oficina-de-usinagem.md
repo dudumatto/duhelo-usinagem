@@ -7,6 +7,7 @@ description: "Entenda o caminho do desenho, da amostra ou da peça gasta até o 
 category: "Guias"
 keyword: "como funciona uma oficina de usinagem"
 service: pecas-sob-medida
+coverAlt: "Peças usinadas e desenho técnico sobre bancada"
 ---
 
 Uma oficina de usinagem interpreta o desenho ou a amostra, define como fabricar ou recuperar o componente, remove material com ferramentas de corte e confere as características combinadas para o serviço. É onde uma barra, um bloco ou uma peça já usada pode se transformar em um componente com a forma e os encaixes exigidos pela máquina.

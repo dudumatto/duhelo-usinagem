@@ -1,55 +1,51 @@
-import { ABOUT_DESCRIPTION, ABOUT_TITLE, EMAIL, MAPS_LINK, PHONE_DISPLAY, PHONE_E164 } from "../content";
-import { ContactActions } from "../components/ContactActions";
+import { ABOUT_DESCRIPTION, ABOUT_TITLE, MAPS_LINK } from "../content";
 import { ContentLayout } from "../components/ContentLayout";
+import { ContentQuote } from "../components/ContentQuote";
+import { Cover, flangePhoto, HERO_COVER_SIZES } from "../components/Cover";
 
 const whatsappMessage = "Olá, conheci a oficina na página Sobre a Duhelo e gostaria de um orçamento de usinagem.";
 
 export function AboutPage() {
   return (
     <ContentLayout activePage="about" whatsappMessage={whatsappMessage}>
-      <article className="about-page" aria-labelledby="about-title">
-        <section className="zone-section">
-          <div className="section-head section-head-stack">
-            <h1 id="about-title">{ABOUT_TITLE}</h1>
-            <p>{ABOUT_DESCRIPTION}</p>
-          </div>
-          <div className="about-overview">
-            <div className="about-experience">
-              <h2>Peças sob medida e manutenção industrial</h2>
-              {/* [CONFIRMAR: ano de início, histórico da oficina e exemplos de trabalhos autorizados para publicação.] */}
-              <p>Trabalhamos com torno CNC, torno convencional e fresadora na fabricação de peças únicas e lotes. Entre os componentes estão eixos, buchas, flanges e suportes de máquinas.</p>
-              <p>Quando a referência é uma peça gasta, a aplicação e as medidas de encaixe ajudam a decidir entre ajustar, recuperar ou fabricar uma reposição.</p>
-              <p><a className="text-link" href="/usinagem-de-precisao">Usinagem de precisão sob desenho ou amostra</a><br />
-                <a className="text-link" href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a></p>
-              <ContactActions message={whatsappMessage} position="middle" className="hero-actions" />
+      <header className="content-section content-hero">
+        <div className="content-width">
+          <nav className="content-breadcrumb" aria-label="Caminho da página">
+            <a href="/" className="text-link">Início</a><span aria-hidden="true">/</span><span>Sobre</span>
+          </nav>
+          <div className="content-hero-grid">
+            <div>
+              <h1>{ABOUT_TITLE}</h1>
+              <p className="section-lead">{ABOUT_DESCRIPTION}</p>
+              <a className="btn btn-ghost content-hero-action" href={MAPS_LINK} target="_blank" rel="noopener noreferrer">Localizar a oficina</a>
             </div>
-            <figure className="about-photo">
-              <img
-                src="/images/opt/card-usinagem-customizada-800.webp"
-                srcSet="/images/opt/card-usinagem-customizada-480.webp 480w, /images/opt/card-usinagem-customizada-800.webp 800w"
-                sizes="(min-width: 850px) 400px, 90vw"
-                width={800}
-                height={533}
-                alt="Flange de aço usinado com bucha de bronze"
-                decoding="async"
-              />
+            <figure className="content-figure">
+              <Cover source={flangePhoto} sizes={HERO_COVER_SIZES} priority />
               <figcaption>Flange com bucha de bronze fabricado pela Duhelo.</figcaption>
             </figure>
           </div>
-        </section>
-        <section className="zone-section about-contact" aria-labelledby="about-contact-title">
-          <div className="about-contact-content">
-            <h2 id="about-contact-title">Orçamento e localização</h2>
-            <p className="section-lead">Envie o desenho ou fotos da amostra ou da peça gasta. Informe a aplicação, a quantidade e as medidas disponíveis.</p>
-            <ContactActions message={whatsappMessage} position="end" className="hero-actions" />
-            <address className="about-details">
-              <a className="text-link" href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="contact">{PHONE_DISPLAY}</a>
-              <a className="text-link" href={`mailto:${EMAIL}`} data-cta-event="email_click" data-cta-position="contact">{EMAIL}</a>
-              <a className="text-link" href={MAPS_LINK} target="_blank" rel="noopener noreferrer">Localização da oficina no mapa</a>
-            </address>
+        </div>
+      </header>
+      <section className="content-section" aria-labelledby="about-work">
+        <div className="content-width">
+          <h2 id="about-work">Fabricação e manutenção industrial</h2>
+          <div className="service-topics">
+            <div className="service-topic">
+              <h3>Peças únicas e lotes</h3>
+              <p>Trabalhamos com torno CNC, torno convencional e fresadora para fabricar eixos, buchas, flanges e suportes de máquinas.</p>
+              <a className="text-link" href="/usinagem-de-precisao">Usinagem de precisão</a>
+            </div>
+            <div className="service-topic">
+              <h3>Recuperação de componentes</h3>
+              <p>A aplicação e as medidas de encaixe de uma peça gasta ajudam a decidir entre ajustar, recuperar ou fabricar uma reposição.</p>
+              <a className="text-link" href="/recuperacao-de-eixos-e-buchas">Recuperação de eixos e buchas</a>
+            </div>
           </div>
-        </section>
-      </article>
+        </div>
+      </section>
+      <ContentQuote title="Orçamento de usinagem" message={whatsappMessage}>
+        <p>Envie o desenho ou fotos da peça e informe a aplicação, a quantidade e as medidas disponíveis.</p>
+      </ContentQuote>
     </ContentLayout>
   );
 }

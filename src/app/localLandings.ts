@@ -8,7 +8,10 @@ export const localLandings: Landing[] = [
     title: "Serviços de usinagem em Santa Bárbara d'Oeste | Duhelo",
     description: "Oficina em Santa Bárbara d'Oeste para usinagem sob desenho ou amostra e recuperação de peças para manutenção industrial.",
     h1: "Usinagem em Santa Bárbara d'Oeste",
-    intro: `A ${BRAND} é uma oficina em ${CITY} que fabrica peças sob desenho técnico ou amostra e recupera componentes desgastados para manutenção industrial. Atendemos pedidos de peça única e de lotes. Envie a referência para orçar o serviço.`,
+    cardTitle: "Usinagem em Santa Bárbara d'Oeste",
+    cardDescription: "Atendimento para fabricação e manutenção industrial com avaliação de amostras na oficina.",
+    cover: "flange",
+    intro: `A ${BRAND} fabrica peças sob desenho técnico ou amostra e recupera componentes para manutenção industrial em ${CITY}. A oficina atende peças únicas e lotes.`,
     sections: [
       {
         h2: "Quando procurar uma oficina na cidade",
@@ -27,23 +30,29 @@ export const localLandings: Landing[] = [
         body: "Aço carbono, aço inox, alumínio, bronze e latão são opções trabalhadas pela Duhelo, assim como UHMW e nylon. Informe a especificação já usada pela máquina, se houver. Se a peça estiver exposta à umidade, ao atrito ou a esforços repetidos, descreva essas condições antes de discutir uma substituição de material.",
       },
     ],
-    howToSend: "Envie pelo WhatsApp o desenho técnico em arquivo ou fotos da peça junto de uma escala. Acrescente quantidade, aplicação e a medida que mais afeta a montagem. Se a avaliação depender da amostra física, combine o envio ou a apresentação da peça antes de se deslocar.",
+    quoteDetails: [
+      "Separe o desenho técnico ou fotos da peça com uma referência de escala.",
+      "Informe a quantidade, a aplicação e a medida que mais afeta a montagem.",
+      "Combine a apresentação da amostra antes de se deslocar até a oficina.",
+    ],
     faqs: [
-      { q: "Onde fazer uma peça sob desenho em Santa Bárbara d'Oeste?", a: "A Duhelo fabrica peças industriais sob desenho ou amostra em Santa Bárbara d'Oeste. Envie a referência e informe se precisa de uma peça ou de um lote." },
+      { q: "Onde fazer uma peça sob desenho em Santa Bárbara d'Oeste?", a: "A Duhelo fabrica peças industriais sob desenho ou amostra em Santa Bárbara d'Oeste, de peças únicas a lotes." },
       { q: "Qual endereço usar para apresentar a amostra?", a: "A localização da oficina está na seção de contato. Fale com a Duhelo antes de se deslocar para combinar a apresentação da peça e informar dimensões ou peso." },
       { q: "O que enviar quando o eixo já está gasto?", a: "Mostre a área gasta, os trechos preservados e, se possível, o alojamento ou a peça que encaixa no eixo. Informe se há outra unidade em melhor estado para referência." },
     ],
-    relatedPostSlugs: ["usinagem-perto-de-mim", "recuperacao-de-eixos-e-buchas-desgastados"],
+    relatedPostSlugs: ["usinagem-perto-de-mim", "usinagem-distrito-industrial-cillo", "usinagem-regiao-santa-barbara-americana"],
     whatsappMessage: "Olá, preciso de usinagem em Santa Bárbara d'Oeste e gostaria de enviar a referência de uma peça para orçamento.",
   },
   {
     slug: "usinagem-americana",
-    lastModified: "2026-11-11",
-    title: "Como cotar usinagem a partir de Americana | Duhelo",
+    lastModified: "2026-11-14",
+    title: "Usinagem para empresas de Americana | Duhelo",
     description: "Está em Americana? Veja como preparar desenho ou amostra e consulte a Duhelo, em Santa Bárbara d'Oeste, sobre atendimento e logística.",
     h1: "Como pedir orçamento de usinagem a partir de Americana",
-    intro: `Se a sua empresa está em Americana, consulte a ${BRAND}, oficina em ${CITY}, sobre fabricação sob desenho ou amostra e recuperação de componentes. Informe o local de origem e confirme as condições de atendimento antes de organizar o transporte da peça.`,
-    indexable: false,
+    cardTitle: "Usinagem para empresas de Americana",
+    cardDescription: "Consulte a oficina sobre fabricação, recuperação de peças e logística de atendimento.",
+    cover: "shaft",
+    intro: `A ${BRAND} atende empresas de Americana com fabricação sob desenho ou amostra e recuperação de componentes. A oficina fica em ${CITY}. Informe a origem, as dimensões e o peso da peça para combinar a logística no orçamento.`,
     sections: [
       {
         h2: "Quando cotar a recuperação de um componente",
@@ -62,13 +71,17 @@ export const localLandings: Landing[] = [
         body: "Informe de onde a peça sai em Americana, o peso aproximado, as dimensões externas e se há superfícies que precisam de proteção durante o transporte. Combine previamente a forma de entrega e devolução. Para conjuntos com várias peças, identifique cada componente e guarde um registro da ordem de montagem. Se o equipamento está parado, informe o prazo necessário logo na consulta para verificar a viabilidade do serviço.",
       },
     ],
-    howToSend: "Comece pelo WhatsApp com fotos gerais e de detalhe, identificação da máquina e desenho, se houver. Indique se o objetivo é recuperar a peça ou fabricar reposição. Aguarde a confirmação do atendimento e da logística antes de enviar a amostra física.",
+    quoteDetails: [
+      "Separe fotos gerais e de detalhe, a identificação da máquina e o desenho, se disponível.",
+      "Indique se o objetivo é recuperar a peça ou fabricar uma reposição.",
+      "Confirme o atendimento e a logística com a oficina antes de despachar a amostra.",
+    ],
     faqs: [
       { q: "Posso consultar a Duhelo se minha empresa fica em Americana?", a: "Sim. Informe a cidade e o serviço necessário no primeiro contato. A oficina fica em Santa Bárbara d'Oeste e as condições de atendimento e transporte precisam ser combinadas para o pedido." },
       { q: "Preciso enviar um rolete inteiro para pedir orçamento?", a: "Comece com fotos do conjunto, medidas disponíveis e indicação da área afetada. Confirme com a oficina quais componentes precisam ser apresentados para avaliar o caso." },
       { q: "Como saber se a medida da bucha usada ainda serve de referência?", a: "Registre a folga, identifique marcas de desgaste e procure o desenho ou uma bucha equivalente em melhor estado. A medida interna de uma bucha gasta pode diferir da medida que a montagem exige." },
     ],
-    relatedPostSlugs: ["recuperacao-de-eixos-e-buchas-desgastados", "usinagem-convencional-e-cnc-qual-a-diferenca"],
+    relatedPostSlugs: ["usinagem-para-empresas-de-americana", "roletes-industriais-reposicao", "usinagem-regiao-santa-barbara-americana"],
     whatsappMessage: "Olá, estou em Americana e gostaria de consultar atendimento e logística para uma peça de usinagem.",
   },
 ];

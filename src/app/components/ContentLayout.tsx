@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { BRAND, CITY, whatsappUrl } from "../content";
+import { BRAND, CITY, EMAIL, EMAIL_COMPOSE_URL, PHONE_DISPLAY, PHONE_E164, whatsappUrl } from "../content";
 import { Logo } from "./Logo";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { MobileCtaBar } from "./MobileCtaBar";
@@ -23,15 +23,19 @@ export function ContentLayout({ children, activePage, whatsappMessage }: { child
           <a href={whatsappUrl(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header"><WhatsAppIcon /><span>Orçamento</span></a>
         </div>
       </header>
-      <div className="sheet">
-        <main id="conteudo">{children}</main>
+      <div className="sheet content-sheet">
+        <main id="conteudo" className="content-main">{children}</main>
         <footer className="site-footer">
           <Logo className="logo logo-footer" />
           <div className="footer-text">
             <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
             <p>
-              {activePage !== "about" && <><a href="/sobre">Sobre a Duhelo</a> · </>}
-              <a href="/#contato">Contato</a> · <a href="/politica-de-privacidade">Política de privacidade</a>
+              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> ·{" "}
+              <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
+            </p>
+            <p>
+              <a href="/#contato">Localização</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a> ·{" "}
+              <a href="/politica-de-privacidade">Política de privacidade</a>
             </p>
           </div>
         </footer>

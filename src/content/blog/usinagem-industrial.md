@@ -7,6 +7,7 @@ description: "Entenda quando usar torneamento, fresamento, furação, mandrilame
 category: "Manutenção e recuperação"
 keyword: "usinagem industrial"
 service: usinagem-cnc-torno-fresamento
+coverAlt: "Bancada com peças de diferentes operações de usinagem"
 ---
 
 A usinagem industrial remove material para produzir superfícies, furos e encaixes com as dimensões exigidas pela aplicação. Torneamento, fresamento e furação estão entre os processos mais usados. Mandrilamento e retificação também podem entrar na sequência quando a peça exige controle específico do diâmetro interno, da geometria ou do acabamento.

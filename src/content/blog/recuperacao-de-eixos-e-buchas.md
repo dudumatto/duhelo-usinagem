@@ -8,6 +8,7 @@ category: "Manutenção e recuperação"
 keyword: "recuperação de eixos e buchas"
 description: "Entenda o que avaliar para decidir entre recuperar ou refazer eixos e buchas desgastados. Veja quais dados enviar para orçamento."
 service: "recuperacao-de-eixos-e-buchas"
+coverAlt: "Eixo desmontado com bucha marcada pelo uso"
 ---
 
 A recuperação de eixos e buchas pode fazer sentido quando o desgaste está localizado e existe uma forma viável de restabelecer o encaixe exigido pela máquina. A decisão depende das medidas, do material, da condição do componente e da peça com que ele trabalha.

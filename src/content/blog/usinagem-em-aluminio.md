@@ -4,14 +4,15 @@ date: "2026-11-11"
 title: "Usinagem em alumínio: principais cuidados"
 seoTitle: "Usinagem em alumínio: principais cuidados | Duhelo"
 description: "Entenda como liga, fixação, cavacos e acabamento afetam peças usinadas em alumínio e quais dados enviar para pedir orçamento."
-category: Guias
+category: "Materiais"
 keyword: usinagem em alumínio
 service: pecas-sob-medida
+coverAlt: "Peça de alumínio de parede fina com bolsões fresados"
 ---
 
 Na usinagem em alumínio, os principais cuidados são identificar a liga e a têmpera, apoiar a peça de modo a limitar deformações e retirar os cavacos da região de corte. Também é preciso combinar as dimensões finais e o acabamento quando a peça será revestida ou anodizada. Esses cuidados afetam desde uma bucha torneada até uma placa fresada com bolsões e paredes finas.
 
-Para pedir orçamento, envie o desenho ou a amostra, a quantidade e a aplicação. Informe se a peça vai trabalhar sob carga, perto de umidade ou em contato com outro metal. Se a liga já estiver especificada, informe a designação completa. Se a peça atual estiver gasta e o material for desconhecido, envie fotos da montagem e diga quais superfícies precisam manter o encaixe.
+O ambiente também influencia a escolha do material. Uma peça que trabalha sob carga, perto de umidade ou em contato com outro metal pode ter requisitos diferentes de uma tampa leve ou de um dispositivo de bancada.
 
 ## Por que a liga e a têmpera importam?
 
@@ -33,7 +34,7 @@ Rotação, avanço, lubrificação e refrigeração são definidos em conjunto. 
 
 ## Como descrever a peça para o orçamento?
 
-Em um pedido de [peça sob medida](/pecas-sob-medida), informe dimensões externas, espessuras, furos e roscas, com destaque para superfícies que encaixam ou vedam. Identifique o arquivo e a revisão do desenho. Se tiver um modelo 3D, mande também as exigências que ele pode não representar, como tolerâncias, acabamento e instruções para remover rebarbas de arestas específicas.
+Em um pedido de [peça sob medida](/pecas-sob-medida), informe a quantidade, a aplicação e a designação da liga, se conhecida. No desenho, identifique a revisão, dimensões, espessuras, furos e roscas. Se tiver um modelo 3D, inclua as exigências de tolerância, acabamento e remoção de rebarbas que ele pode deixar em aberto.
 
 Para peças anodizadas ou revestidas, combine quais dimensões valem na condição final. Um furo de encaixe ou uma rosca pode exigir proteção de superfície ou outra preparação antes do acabamento, conforme a especificação. Se o pedido começa por uma amostra usada, informe os pontos em que há riscos, folgas ou perda de material para orientar a avaliação do que precisa ser reproduzido.
 

@@ -7,6 +7,7 @@ description: "Saiba quando pedir usinagem de precisão, como indicar tolerância
 category: Usinagem de precisão
 keyword: usinagem de precisão
 service: usinagem-de-precisao
+coverAlt: "Buchas de precisão e desenho de corte técnico"
 ---
 
 A usinagem de precisão é necessária quando pequenas variações de tamanho, forma ou posição podem impedir a montagem, alterar o funcionamento ou comprometer a troca de uma peça. Isso acontece, por exemplo, em um eixo que recebe um rolamento, em uma flange que precisa vedar ou em um dispositivo que posiciona componentes para uma operação repetida.

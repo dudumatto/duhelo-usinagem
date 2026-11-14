@@ -4,10 +4,17 @@ import { Logo } from "./components/Logo";
 import { WhatsAppIcon } from "./components/WhatsAppIcon";
 import { MobileCtaBar } from "./components/MobileCtaBar";
 import { ContactActions } from "./components/ContactActions";
+import { PostCards } from "./components/PostCards";
+import { ServiceCards } from "./components/ServiceCards";
+import { featuredPosts } from "./blogPosts";
+import { Photo } from "./components/Photo";
+import { landings } from "./serviceLandings";
 import {
   BRAND,
   CITY,
   EMAIL,
+  EMAIL_COMPOSE_URL,
+  FULL_ADDRESS,
   HOME_WHATSAPP_MESSAGE,
   MAPS_LINK,
   MATERIALS,
@@ -25,39 +32,6 @@ import {
 } from "./content";
 
 const YEAR = new Date().getFullYear();
-
-function Photo({
-  name,
-  alt,
-  sizes,
-  priority = false,
-  position,
-  className,
-}: {
-  name: string;
-  alt: string;
-  sizes: string;
-  priority?: boolean;
-  position?: string;
-  className?: string;
-}) {
-  const base = `/images/opt/${name}`;
-  return (
-    <picture className={className}>
-      <source type="image/webp" srcSet={`${base}-480.webp 480w, ${base}-800.webp 800w, ${base}-1200.webp 1200w`} sizes={sizes} />
-      <img
-        src={`/images/${name}.jpg`}
-        alt={alt}
-        width={1200}
-        height={799}
-        loading={priority ? "eager" : "lazy"}
-        decoding={priority ? "sync" : "async"}
-        {...(priority ? { fetchpriority: "high" } : {})}
-        style={position ? { objectPosition: position } : undefined}
-      />
-    </picture>
-  );
-}
 
 function Zone({ letter }: { letter: string }) {
   return (
@@ -150,7 +124,7 @@ export default function App() {
                   Envie o desenho ou a foto da peça para pedir orçamento pelo WhatsApp.
                 </p>
                 <div className="hero-actions">
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" data-cta-event="whatsapp_click" data-cta-position="hero">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" data-cta-event="whatsapp_click" data-cta-position="hero" data-drawing-cta="">
                     <WhatsAppIcon />
                     Enviar desenho pelo WhatsApp
                   </a>
@@ -245,14 +219,25 @@ export default function App() {
                 </li>
               ))}
             </ol>
-            <p className="section-lead">
-              Páginas dedicadas:{" "}
-              <a href="/usinagem-de-precisao" className="text-link">usinagem de precisão</a> ·{" "}
-              <a href="/usinagem-cnc-torno-fresamento" className="text-link">torneamento CNC e fresamento</a> ·{" "}
-              <a href="/pecas-sob-medida" className="text-link">peças sob medida</a> ·{" "}
-              <a href="/recuperacao-de-eixos-e-buchas" className="text-link">recuperação de eixos e buchas</a> ·{" "}
-              <a href="/usinagem-santa-barbara-doeste" className="text-link">usinagem em Santa Bárbara d'Oeste</a>.
-            </p>
+            <section id="paginas-dedicadas" className="content-width dedicated-pages" aria-labelledby="dedicated-title">
+              <h2 id="dedicated-title">Explore nossos serviços</h2>
+              <p>Conheça os processos, as aplicações e o que preparar para pedir um orçamento.</p>
+              <ServiceCards items={landings.filter((landing) => landing.indexable !== false)} />
+              <a className="btn btn-index catalog-action" href="/blog#servicos">
+                Conheça todos os serviços<ArrowRight className="icon" aria-hidden="true" />
+              </a>
+            </section>
+          </section>
+
+          <section id="blog" className="zone-section home-blog" aria-labelledby="home-blog-title">
+            <div className="content-width">
+              <h2 id="home-blog-title">Blog de usinagem</h2>
+              <p className="section-lead">Guias para escolher uma oficina, especificar uma peça e planejar a recuperação.</p>
+              <PostCards posts={featuredPosts} showCover />
+              <a className="btn btn-primary catalog-action" href="/blog">
+                Ver blog e serviços<ArrowRight className="icon" aria-hidden="true" />
+              </a>
+            </div>
           </section>
 
           {/* C — Notas gerais / orçamento */}
@@ -375,6 +360,7 @@ export default function App() {
               <div className="contact-main">
                 <h2 id="cta-title">Envie seu desenho, foto ou amostra</h2>
                 <p>A Duhelo avalia material, quantidade, aplicação e medidas críticas e retorna com orientação técnica e orçamento.</p>
+                <p>Atendemos <a className="text-link" href="/usinagem-santa-barbara-doeste">Santa Bárbara d'Oeste</a>, <a className="text-link" href="/usinagem-americana">Americana</a> e região. Para outras cidades do estado de São Paulo, combine a logística no orçamento.</p>
                 <ContactActions message={HOME_WHATSAPP_MESSAGE} position="end" />
               </div>
               <address className="contact-cells">
@@ -385,7 +371,7 @@ export default function App() {
                   <strong>{PHONE_DISPLAY}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
-                <a href={`mailto:${EMAIL}`} className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
+                <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Mail className="icon" aria-hidden="true" /> E-mail
                   </span>
@@ -396,7 +382,7 @@ export default function App() {
                   <span className="cell-label">
                     <MapPin className="icon" aria-hidden="true" /> Localização
                   </span>
-                  <strong>{CITY}</strong>
+                  <strong>{FULL_ADDRESS}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
               </address>
@@ -416,7 +402,7 @@ export default function App() {
               <a href="/blog">Blog de usinagem</a> · <a href="/sobre">Sobre a Duhelo</a>
             </p>
             <p>
-              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`} data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
+              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
             </p>
             <p className="footer-legal">
               © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}

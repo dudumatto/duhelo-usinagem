@@ -7,17 +7,16 @@ import { landings } from "./app/serviceLandings";
 
 export { allRoutePaths, SITE_URL };
 
-const analyticsDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
-const expectedDomain = new URL(SITE_URL).hostname.replace(/^www\./, "");
-if (analyticsDomain && analyticsDomain !== expectedDomain) {
-  throw new Error(`VITE_PLAUSIBLE_DOMAIN deve ser ${expectedDomain} para ativar a medição.`);
+const measurementId = import.meta.env.VITE_GA_ID?.trim();
+if (measurementId && !/^G-[A-Z0-9]+$/.test(measurementId)) {
+  throw new Error("VITE_GA_ID deve ser um ID de medição GA4 no formato G-XXXXXXXXXX.");
 }
 
 const pageDates: Record<string, string> = {
-  "/": "2026-11-11",
-  "/blog": "2026-11-11",
+  "/": "2026-11-14",
+  "/blog": "2026-11-14",
   "/sobre": "2026-11-11",
-  "/politica-de-privacidade": "2026-11-11",
+  "/politica-de-privacidade": "2026-11-14",
 };
 const blogLastModified = posts.reduce((latest, post) => post.updated > latest ? post.updated : latest, pageDates["/blog"]);
 
@@ -30,6 +29,7 @@ type RouteMeta = {
 };
 
 export function routeMeta(route = "/"): RouteMeta {
+  if (route === "/404") return { title: "Página não encontrada | Duhelo Usinagem", description: "Volte ao início, veja os serviços de usinagem ou fale com a Duhelo.", indexable: false };
   if (route.startsWith("/servicos/")) {
     const slug = route.replace("/servicos/", "");
     const s = services.find((x) => x.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
@@ -37,7 +37,7 @@ export function routeMeta(route = "/"): RouteMeta {
   }
   const landing = landings.find((l) => `/${l.slug}` === route);
   if (landing) return { title: landing.title, description: landing.description, indexable: landing.indexable, lastModified: landing.lastModified };
-  if (route === "/blog") return { title: "Blog de usinagem | Duhelo Usinagem", description: blogDescription, lastModified: blogLastModified };
+  if (route === "/blog") return { title: "Serviços e blog de usinagem | Duhelo", description: blogDescription, lastModified: blogLastModified };
   if (route === "/sobre") return { title: ABOUT_TITLE, description: ABOUT_DESCRIPTION, lastModified: pageDates[route] };
   if (route === "/politica-de-privacidade") return { title: "Política de privacidade | Duhelo Usinagem", description: "Saiba como a Duhelo Usinagem trata seus dados pessoais e como exercer seus direitos de privacidade.", lastModified: pageDates[route] };
   if (route.startsWith("/blog/")) {
@@ -54,11 +54,12 @@ export function render(route = "/") {
 }
 
 export function renderHead(route = "/") {
+  if (route === "/404") return "";
   const json = JSON.stringify(structuredDataFor(route)).replace(/</g, "\u003c");
   const feed = route === "/blog" || route.startsWith("/blog/")
     ? '<link rel="alternate" type="application/rss+xml" title="Blog da Duhelo Usinagem" href="/blog/feed.xml">'
     : "";
-  const analytics = analyticsDomain ? `<meta name="duhelo-analytics-domain" content="${expectedDomain}">` : "";
+  const analytics = measurementId ? `<meta name="duhelo-ga-id" content="${measurementId}">` : "";
   return `<link rel="describedby" href="/llms.txt">${feed}${analytics}<script type="application/ld+json">${json}</script>`;
 }
 

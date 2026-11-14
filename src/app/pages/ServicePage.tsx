@@ -1,4 +1,4 @@
-import { BRAND, CITY, EMAIL, PHONE_DISPLAY, WHATSAPP_LINK, services } from "../content";
+import { BRAND, CITY, EMAIL, EMAIL_COMPOSE_URL, PHONE_DISPLAY, WHATSAPP_LINK, services } from "../content";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 
@@ -44,7 +44,7 @@ export function ServicePage({ slug }: { slug: string }) {
           <Logo className="logo logo-footer" />
           <div className="footer-text">
             <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
-            <p><a href={`tel:+5519982731890`}>{PHONE_DISPLAY}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><a href={`tel:+5519982731890`}>{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer">{EMAIL}</a></p>
           </div>
         </footer>
       </div>

@@ -1,62 +1,57 @@
-import { Fragment } from "react";
-import { blogCategories, blogDescription, formatPostDate, posts } from "../blogPosts";
-import { ContactActions } from "../components/ContactActions";
+import { blogCategories, blogDescription, posts } from "../blogPosts";
 import { ContentLayout } from "../components/ContentLayout";
+import { ContentQuote } from "../components/ContentQuote";
+import { PostCards } from "../components/PostCards";
+import { ServiceCards } from "../components/ServiceCards";
+import { landings } from "../serviceLandings";
+import { Rss } from "lucide-react";
 
 export function BlogIndex() {
   const whatsappMessage = "Olá, vi o blog da Duhelo e gostaria de solicitar um orçamento de usinagem.";
-  const middleCategoryIndex = Math.ceil(blogCategories.length / 2) - 1;
 
   return (
     <ContentLayout activePage="blog" whatsappMessage={whatsappMessage}>
-      <section className="zone-section" aria-labelledby="blog-title">
-        <div className="blog-width">
-          <h1 id="blog-title" className="blog-title">Blog da Duhelo Usinagem</h1>
-          <p className="section-lead blog-summary">{blogDescription}</p>
-          <nav className="blog-categories" aria-label="Categorias do blog">
+      <header className="content-section content-hero catalog-intro">
+        <div className="content-width">
+          <h1>Serviços e blog de usinagem</h1>
+          <p className="section-lead">{blogDescription}</p>
+          <div className="catalog-actions">
+            <a className="btn btn-primary" href="#servicos">Conheça nossos serviços</a>
+            <a className="btn btn-ghost" href="#artigos">Ver artigos</a>
+            <a className="btn btn-ghost" href="/blog/feed.xml">
+              <Rss className="icon" aria-hidden="true" /> Acompanhar pelo RSS
+            </a>
+          </div>
+        </div>
+      </header>
+      <section id="servicos" className="content-section" aria-labelledby="catalog-services">
+        <div className="content-width">
+          <h2 id="catalog-services">Serviços da Duhelo</h2>
+          <ServiceCards items={landings} />
+        </div>
+      </section>
+      <section id="artigos" className="content-section content-panel catalog-intro" aria-labelledby="catalog-articles">
+        <div className="content-width">
+          <h2 id="catalog-articles">Artigos de usinagem</h2>
+          <nav className="blog-categories" aria-label="Assuntos do blog">
             <ul>
               {blogCategories.map((category) => (
-                <li key={category.slug}><a className="text-link" href={`#${category.slug}`}>{category.label}</a></li>
+                <li key={category.slug}><a className="btn btn-ghost" href={`#${category.slug}`}>{category.label}</a></li>
               ))}
             </ul>
           </nav>
-          <a href="/blog/feed.xml" className="text-link">Acompanhar pelo RSS</a>
+          <p className="catalog-image-note">O blog usa imagens ilustrativas de processos e componentes.</p>
         </div>
       </section>
-      {blogCategories.map((category, index) => (
-        <Fragment key={category.slug}>
-          <section id={category.slug} className="zone-section blog-category" aria-labelledby={`categoria-${category.slug}`}>
-            <div className="blog-width">
-              <h2 id={`categoria-${category.slug}`}>{category.label}</h2>
-              <ul className="blog-cards">
-                {posts.filter((post) => post.category === category).map((post) => (
-                  <li key={post.slug}>
-                    <article className="blog-card">
-                      <h3><a className="text-link" href={`/blog/${post.slug}`}>{post.title}</a></h3>
-                      <p>{post.description}</p>
-                      <p className="blog-meta"><time dateTime={post.date}>{formatPostDate(post.date)}</time> · {post.readingMinutes} min de leitura</p>
-                    </article>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-          {index === middleCategoryIndex && (
-            <section className="zone-section blog-cta" aria-labelledby="blog-cta-middle">
-              <div className="blog-width">
-                <h2 id="blog-cta-middle">Precisa fabricar uma peça sob medida?</h2>
-                <ContactActions message={whatsappMessage} position="middle" />
-              </div>
-            </section>
-          )}
-        </Fragment>
+      {blogCategories.map((category) => (
+        <section key={category.slug} id={category.slug} className="content-section" aria-labelledby={`categoria-${category.slug}`}>
+          <div className="content-width">
+            <h2 id={`categoria-${category.slug}`}>{category.label}</h2>
+            <PostCards posts={posts.filter((post) => post.category === category)} showCover />
+          </div>
+        </section>
       ))}
-      <section className="zone-section blog-cta" aria-labelledby="blog-cta-end">
-        <div className="blog-width">
-          <h2 id="blog-cta-end">Orçamento de usinagem ou recuperação</h2>
-          <ContactActions message={whatsappMessage} position="end" />
-        </div>
-      </section>
+      <ContentQuote title="Orçamento de usinagem ou recuperação" message={whatsappMessage} />
     </ContentLayout>
   );
 }

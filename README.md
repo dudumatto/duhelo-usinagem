@@ -4,7 +4,7 @@ Site: https://www.duhelousinagem.com.br/
 
 Vite e React geram HTML estático no build (`scripts/prerender.mjs`). O conteúdo e os links de contato funcionam diretamente no HTML. Um script local pequeno registra a origem de campanha e os cliques dos CTAs no navegador. Veja a [convenção de UTM](docs/utm.md).
 
-A [medição opcional com Plausible](docs/analytics.md) é habilitada no build de produção pela variável `VITE_PLAUSIBLE_DOMAIN`. Confira a política de privacidade em `/politica-de-privacidade` antes da ativação.
+A [medição com GA4](docs/analytics.md) pode ser habilitada no build de produção pela variável `VITE_GA_ID`. A tag só carrega após aceite. Confira a política de privacidade em `/politica-de-privacidade` antes da ativação.
 
 ## Comandos
 
@@ -31,7 +31,7 @@ npm run build:assets # regenera WebP, favicons, logo sem fundo e og-image.jpg (r
 | robots / llms / manifest / 404 | `public/` |
 | Texto da página Sobre | `src/app/pages/AboutPage.tsx` |
 
-O build gera `dist/sitemap.xml` com as rotas canônicas indexáveis. A página de Americana está disponível em `/usinagem-americana/` para revisão e usa `noindex` até a confirmação do atendimento na cidade. O `lastmod` dos artigos vem do Markdown. O índice do blog usa a data mais recente entre a sua própria revisão e as dos artigos. Para mudanças significativas na home, no índice do blog, na página Sobre ou na política de privacidade, atualize `pageDates` em `src/entry-server.tsx`. Nas páginas de serviço, atualize `lastModified` no registro correspondente em `src/app/serviceLandings.ts` ou `src/app/localLandings.ts`. Use a data real da mudança em `AAAA-MM-DD`.
+O build gera `dist/sitemap.xml` com as rotas canônicas indexáveis, incluindo Santa Bárbara d'Oeste e Americana. O build também gera `dist/404.html` com o layout do site. O `lastmod` dos artigos vem do Markdown. O índice do blog usa a data mais recente entre a sua própria revisão e as dos artigos. Para mudanças significativas na home, no índice do blog, na página Sobre ou na política de privacidade, atualize `pageDates` em `src/entry-server.tsx`. Nas páginas de serviço, atualize `lastModified` no registro correspondente em `src/app/serviceLandings.ts` ou `src/app/localLandings.ts`. Use a data real da mudança em `AAAA-MM-DD`.
 
 Os artigos do blog usam `slug`, `title`, `seoTitle`, `description`, `date`, `category`, `keyword` e `service` no cabeçalho YAML. Use datas entre aspas em `AAAA-MM-DD`, preencha `updated` ao revisar um artigo e mantenha o `slug` ao mudar o título. O corpo começa com dois parágrafos e usa `##` para as entradas do índice. A listagem fica em `/blog` e o build gera o RSS em `/blog/feed.xml`.
 

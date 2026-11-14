@@ -3,7 +3,7 @@
 ## Dados para conferir antes do cadastro
 
 - [ ] Compare os dados do site com os cadastros da empresa. Use **Duhelo Usinagem**, **(19) 98273-1890**, **Santa Bárbara d’Oeste — SP** e o endereço canônico com `www`. [Site da Duhelo](https://www.duhelousinagem.com.br/)
-- [ ] Confirme os dados que dependem da operação e do perfil existente. [CONFIRMAR: endereço completo e CEP, se o endereço pode ser exibido, horários, se há atendimento presencial na oficina e se há visitas ou entregas a clientes]. [CONFIRMAR: cidades efetivamente atendidas, incluindo Americana].
+- [ ] Compare o endereço e o CEP informados no site com o Perfil da Empresa. Confirme se o endereço pode ser exibido no perfil, os horários, se há atendimento presencial na oficina, se há visitas ou entregas a clientes e as cidades efetivamente atendidas, incluindo Americana.
 - [ ] Separe fotos reais da oficina, dos equipamentos e de peças autorizadas para divulgação. Prepare uma descrição curta com fabricação sob desenho ou amostra, torneamento CNC, fresamento e recuperação de peças desgastadas.
 
 ## Perfil da Empresa no Google

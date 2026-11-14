@@ -1,13 +1,16 @@
 import { Marked } from "marked";
 import { landings } from "./serviceLandings";
+import { getBlogCover } from "./blogCovers";
 
 export const blogCategories = [
   { slug: "usinagem-de-precisao", label: "Usinagem de precisão" },
   { slug: "cnc-e-fresamento", label: "CNC e fresamento" },
   { slug: "manutencao-e-recuperacao", label: "Manutenção e recuperação" },
+  { slug: "materiais", label: "Materiais" },
+  { slug: "atendimento-regional", label: "Atendimento regional" },
   { slug: "guias", label: "Guias" },
 ] as const;
-export const blogDescription = "Guias sobre usinagem sob desenho ou amostra, fabricação de peças e recuperação para manutenção industrial.";
+export const blogDescription = "Conheça os serviços da Duhelo em Santa Bárbara d’Oeste e leia guias de usinagem, fabricação e manutenção para Americana e região.";
 
 type Category = (typeof blogCategories)[number];
 type MarkdownPost = { data: Record<string, unknown>; content: string };
@@ -23,11 +26,10 @@ export type Post = {
   description: string;
   keyword: string;
   service: (typeof landings)[number];
+  cover: ReturnType<typeof getBlogCover>;
   headings: PostHeading[];
   readingMinutes: number;
-  introHtml: string;
-  bodyStartHtml: string;
-  bodyEndHtml: string;
+  html: string;
 };
 
 const rawPosts = import.meta.glob<MarkdownPost>("../content/blog/*.md", {
@@ -103,18 +105,13 @@ function parsePost(filename: string, { data, content }: MarkdownPost): Post {
   if (heading?.type !== "heading" || heading.depth !== 2 || intro.filter((token) => token.type === "paragraph").length < 2) {
     throw new Error(`${filename}: abra o artigo com dois parágrafos antes do primeiro H2.`);
   }
-  const introHtml = markdown.parser(intro);
-  const body = tokens.slice(firstHeading);
-  const sectionStarts = body.flatMap((token, index) => token.type === "heading" && token.depth === 2 ? [index] : []);
-  const middle = sectionStarts[Math.ceil(sectionStarts.length / 2)] ?? body.length;
-  const bodyStartHtml = markdown.parser(body.slice(0, middle));
-  const bodyEndHtml = markdown.parser(body.slice(middle));
-  const html = introHtml + bodyStartHtml + bodyEndHtml;
+  const html = markdown.parser(tokens);
   const text = html.replace(/<[^>]+>/g, " ").replace(/&(?:#x27|#39|apos);/g, "'").replace(/&[#a-z\d]+;/gi, " ");
   const wordCount = [...words.segment(text)].filter((segment) => segment.isWordLike).length;
 
   return {
-    slug, date, updated, category, service, headings, introHtml, bodyStartHtml, bodyEndHtml,
+    slug, date, updated, category, service, headings, html,
+    cover: getBlogCover(slug, field("coverAlt")),
     title: field("title"),
     seoTitle: field("seoTitle", 60),
     description: field("description", 155),
@@ -133,6 +130,16 @@ if (new Set(posts.map((post) => post.slug)).size !== posts.length) {
 export function getPost(slug: string) {
   return posts.find((post) => post.slug === slug);
 }
+
+export const featuredPosts = [
+  "usinagem-perto-de-mim",
+  "usinagem-para-empresas-de-americana",
+  "fresamento-de-pecas",
+].map((slug) => {
+  const post = getPost(slug);
+  if (!post) throw new Error(`Artigo em destaque ausente: ${slug}`);
+  return post;
+});
 
 export function getRelatedPosts(post: Post) {
   const relevance = (other: Post) => Number(other.category === post.category) * 2 + Number(other.service === post.service);

@@ -7,6 +7,7 @@ description: "Veja como um centro de usinagem reúne fresamento, furação e out
 category: CNC e fresamento
 keyword: centro de usinagem
 service: usinagem-cnc-torno-fresamento
+coverAlt: "Bloco usinado com furos, bolsão e faces em ângulo"
 ---
 
 Um centro de usinagem é uma máquina-ferramenta com comando numérico computadorizado, ou CNC, que executa operações como fresamento, furação e abertura de roscas, normalmente com troca automática de ferramentas. Serve para fabricar peças que combinam faces, cavidades, contornos e furos, como bases de montagem, corpos de dispositivos e suportes industriais.
@@ -35,7 +36,7 @@ Uma face inclinada pode ser acessível com uma preparação específica em uma m
 
 Informe quando o projeto ou o contrato exigir uma rota de fabricação específica. Nos demais casos, envie o desenho e descreva o que deve ser preservado no componente. Um suporte com alojamentos em faces adjacentes pode ter uma exigência de posição entre os furos. Marque essa relação no desenho e confirme como ela será verificada. Se uma peça única saiu de catálogo, fotos da montagem ajudam a identificar faces que precisam ser acessadas na fabricação.
 
-Para avaliar as opções de [torneamento CNC e fresamento](/usinagem-cnc-torno-fresamento), envie desenho ou amostra, material, dimensões gerais, tolerâncias e quantidade. Informe também se existe uma peça piloto para aprovar e se o lote deve se repetir. A proposta pode considerar etapas em máquinas diferentes, como torneamento do corpo cilíndrico de uma flange e operações de furação ou fresamento para os detalhes fora do eixo central.
+Uma proposta de [torneamento CNC e fresamento](/usinagem-cnc-torno-fresamento) pode prever etapas em máquinas diferentes. Em uma flange, por exemplo, o corpo cilíndrico pode ser torneado e os detalhes fora do eixo central podem passar por furação ou fresamento. Ao cotar um lote, informe se haverá recorrência ou aprovação de uma peça piloto.
 
 ## Perguntas frequentes
 

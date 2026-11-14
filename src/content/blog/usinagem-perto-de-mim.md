@@ -4,18 +4,19 @@ date: "2026-11-11"
 title: "Usinagem perto de mim: como escolher uma empresa confiável"
 seoTitle: "Usinagem perto de mim: como escolher uma empresa confiável"
 description: "Compare oficinas de usinagem pelo tipo de peça, pelas medidas de encaixe e pelo que o orçamento inclui. Saiba o que enviar para cotar."
-category: "Guias"
+category: "Atendimento regional"
 keyword: "usinagem perto de mim"
 service: "usinagem-de-precisao"
+coverAlt: "Peças sob medida ao lado de um desenho de referência"
 ---
 
-Ao buscar por “usinagem perto de mim”, escolha uma oficina capaz de fabricar ou recuperar o tipo de peça que você precisa e de combinar como serão verificadas as medidas de encaixe. Para começar a conversa, diga se você tem um desenho técnico, uma amostra preservada ou apenas a peça gasta. Essas referências mudam o que a oficina consegue avaliar antes de cotar.
+Ao buscar por “usinagem perto de mim”, escolha uma oficina que trabalhe com o tipo de peça de que você precisa. Antes de fechar o pedido, combine como serão verificadas as medidas que definem o encaixe.
 
 A proximidade ajuda quando é preciso apresentar a amostra, conferir um conjunto ou combinar a retirada da peça. A Duhelo Usinagem fica em Santa Bárbara d’Oeste, SP, e trabalha com [usinagem de precisão sob desenho ou amostra](/usinagem-de-precisao) e recuperação de componentes. Para comparar propostas, envie a mesma referência, a quantidade e as condições de uso a cada oficina.
 
 ## A oficina faz o tipo de serviço que você precisa?
 
-Uma bucha para reposição, um lote de pinos e um eixo com desgaste pedem informações diferentes. Na bucha, descreva o encaixe no alojamento e a passagem do eixo. No lote de pinos, informe a quantidade inicial e se haverá novos pedidos. No eixo usado, fotografe o assento do rolamento, a área desgastada e as regiões preservadas. Se houver outra peça igual em bom estado, mencione que ela pode servir de referência.
+Uma bucha para reposição, um lote de pinos e um eixo com desgaste exigem avaliações diferentes. Na bucha, importam o encaixe no alojamento e a passagem do eixo. No lote de pinos, a repetibilidade ajuda a manter o mesmo encaixe. No eixo usado, verificar o assento do rolamento e as regiões preservadas ajuda a dimensionar o desgaste.
 
 Pergunte quais operações entram na proposta. Uma flange pode precisar de torneamento no diâmetro e de furação em torno do centro. Uma bucha pode exigir um rasgo lateral. Algumas medidas dependem de como a peça será fixada para realizar essas operações. Explique o que a peça precisa fazer e deixe a oficina avaliar o processo adequado à geometria.
 

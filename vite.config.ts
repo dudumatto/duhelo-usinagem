@@ -26,16 +26,49 @@ export default defineConfig(({ isPreview }) => ({
       },
     },
     {
+      name: "dev-blog-rss",
+      configureServer(server) {
+        server.middlewares.use(async (request, response, next) => {
+          const url = new URL(request.url ?? "/", "http://localhost");
+          if (url.pathname !== "/blog/feed.xml" || (request.method !== "GET" && request.method !== "HEAD")) return next();
+          try {
+            const { renderBlogFeed } = await server.ssrLoadModule("/src/entry-server.tsx");
+            const rss = renderBlogFeed();
+            response.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.end(request.method === "HEAD" ? undefined : rss);
+          } catch (error) {
+            next(error);
+          }
+        });
+      },
+    },
+    {
       name: "preview-prerendered-routes",
       configurePreviewServer(server) {
         const dist = path.resolve(server.config.root, server.config.build.outDir);
-        server.middlewares.use((request, _response, next) => {
+        server.middlewares.use((request, response, next) => {
           const url = new URL(request.url ?? "/", "http://localhost");
+          if (url.pathname === "/blog/feed.xml") {
+            response.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
+          }
           if (/^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*$/.test(url.pathname)) {
             const indexFile = path.join(dist, url.pathname.slice(1), "index.html");
             if (existsSync(indexFile)) request.url = `${url.pathname}/index.html${url.search}`;
           }
           next();
+        });
+        return () => server.middlewares.use(async (request, response, next) => {
+          if ((request.method !== "GET" && request.method !== "HEAD") ||
+              !request.headers.accept?.includes("text/html")) return next();
+          try {
+            const html = await readFile(path.join(dist, "404.html"));
+            response.statusCode = 404;
+            response.setHeader("Content-Type", "text/html; charset=utf-8");
+            response.end(request.method === "HEAD" ? undefined : html);
+          } catch (error) {
+            next(error);
+          }
         });
       },
     },

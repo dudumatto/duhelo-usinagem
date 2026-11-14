@@ -8,6 +8,7 @@ category: "CNC e fresamento"
 keyword: "usinagem convencional e CNC"
 description: "Compare comando manual e CNC. Entenda o que pesa na escolha para fabricar uma peça única, recuperar um componente ou produzir um lote."
 service: "usinagem-cnc-torno-fresamento"
+coverAlt: "Peças com geometrias simples e complexas lado a lado"
 ---
 
 Na usinagem convencional, o operador comanda diretamente os movimentos da máquina. Na usinagem CNC, um programa define trajetórias e operações que o comando executa. Nos dois casos, a fabricação depende da ferramenta, da fixação, do material e da interpretação do desenho.

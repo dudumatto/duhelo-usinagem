@@ -1,11 +1,19 @@
+import type { PhotoSource } from "./components/Photo";
+
 export const BRAND = "Duhelo Usinagem";
+export const LEGAL_NAME = "Duhelo Usinagem Ferramentaria e Manutencao LTDA";
+export const CNPJ = "35.615.776/0001-09";
 export const SITE_URL = "https://www.duhelousinagem.com.br/";
 export const PHONE_DISPLAY = "(19) 98273-1890";
 export const PHONE_E164 = "+5519982731890";
 export const EMAIL = "duhelousinagem@gmail.com";
+export const EMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`;
 export const CITY_NAME = "Santa Bárbara d'Oeste";
 export const CITY_REGION = "SP";
 export const CITY = `${CITY_NAME} - ${CITY_REGION}`;
+export const STREET_ADDRESS = "R. São Jerônimo, 241 - Jardim Sao Camilo";
+export const POSTAL_CODE = "13455-814";
+export const FULL_ADDRESS = `${STREET_ADDRESS}, ${CITY}, ${POSTAL_CODE}`;
 export const MAPS_LINK = "https://maps.app.goo.gl/SHM2J7MtngiJCkLA8";
 export const ABOUT_TITLE = `Sobre a ${BRAND}`;
 export const ABOUT_DESCRIPTION = `A ${BRAND}, em ${CITY}, fabrica peças sob desenho ou amostra e recupera componentes para manutenção industrial.`;
@@ -19,13 +27,23 @@ export const WHATSAPP_LINK = whatsappUrl();
 
 export const MATERIALS = ["Aço carbono", "Aço inox", "Alumínio", "Bronze", "Latão", "UHMW", "Nylon"];
 
+export const precisionPhoto: PhotoSource = {
+  name: "card-servicos-cnc",
+  alt: "Duas buchas de aço usinadas sob medida com rasgo de chaveta, sobre bancada escura",
+};
+
+export const cncPhoto: PhotoSource = {
+  name: "card-fabricacao-metal",
+  alt: "Lote de eixos, buchas e pinos de aço usinados em CNC organizados sobre a bancada",
+};
+
 export type Service = {
   item: number;
   title: string;
   summary: string;
   description: string;
   notes: string[];
-  photo?: { name: string; alt: string; position?: string };
+  photo?: PhotoSource;
 };
 
 export const services: Service[] = [
@@ -36,10 +54,7 @@ export const services: Service[] = [
     description:
       "Fabricamos peças sob medida a partir de desenho técnico ou amostra, inclusive peças únicas fora de catálogo. Para iniciar o orçamento, envie a referência da peça e as medidas disponíveis.",
     notes: ["Peças especiais e únicas", "Controle dimensional"],
-    photo: {
-      name: "card-servicos-cnc",
-      alt: "Duas buchas de aço usinadas sob medida com rasgo de chaveta, sobre bancada escura",
-    },
+    photo: precisionPhoto,
   },
   {
     item: 2,
@@ -48,10 +63,7 @@ export const services: Service[] = [
     description:
       "Serviços de torneamento CNC e fresamento para peças industriais. Informe a quantidade, as medidas críticas e o acabamento necessário para o orçamento do lote.",
     notes: ["Torno CNC", "Fresamento", "Lotes com padrão"],
-    photo: {
-      name: "card-fabricacao-metal",
-      alt: "Lote de eixos, buchas e pinos de aço usinados em CNC organizados sobre a bancada",
-    },
+    photo: cncPhoto,
   },
   {
     item: 3,
@@ -168,5 +180,6 @@ export const navLinks = [
   ["Orçamento", "#orcamento"],
   ["Estrutura", "#estrutura"],
   ["Dúvidas", "#duvidas"],
+  ["Blog", "#blog"],
   ["Contato", "#contato"],
 ] as const;

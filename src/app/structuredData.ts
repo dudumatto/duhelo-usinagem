@@ -1,4 +1,4 @@
-import { ABOUT_DESCRIPTION, ABOUT_TITLE, BRAND, CITY, CITY_NAME, CITY_REGION, EMAIL, MAPS_LINK, PHONE_E164, SITE_URL, faqs, services } from "./content";
+import { ABOUT_DESCRIPTION, ABOUT_TITLE, BRAND, CITY, CITY_NAME, CITY_REGION, CNPJ, EMAIL, LEGAL_NAME, MAPS_LINK, PHONE_E164, POSTAL_CODE, SITE_URL, STREET_ADDRESS, faqs, services } from "./content";
 import { getPost } from "./blogPosts";
 import { landings } from "./serviceLandings";
 
@@ -6,20 +6,24 @@ const business = {
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}#business`,
   name: BRAND,
+  legalName: LEGAL_NAME,
+  taxID: CNPJ,
   url: SITE_URL,
   telephone: PHONE_E164,
   email: EMAIL,
   address: {
     "@type": "PostalAddress",
+    streetAddress: STREET_ADDRESS,
     addressLocality: CITY_NAME,
     addressRegion: CITY_REGION,
+    postalCode: POSTAL_CODE,
     addressCountry: "BR",
   },
-  areaServed: {
-    "@type": "City",
-    name: CITY_NAME,
-    containedInPlace: { "@type": "State", name: "São Paulo" },
-  },
+  areaServed: [
+    { "@type": "City", name: CITY_NAME },
+    { "@type": "City", name: "Americana" },
+    { "@type": "State", name: "São Paulo" },
+  ],
 };
 
 /** JSON-LD para o Google: empresa local + serviços, site e perguntas frequentes. */

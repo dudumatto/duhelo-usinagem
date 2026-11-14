@@ -13,7 +13,7 @@ if (import.meta.env.DEV) {
       ]);
       const m = routerMod.matchRoute(window.location.pathname);
       const { createRoot } = await import("react-dom/client");
-      createRoot(root).render(m ? m.render() : <App />);
+      createRoot(root).render((m ?? routerMod.matchRoute("/404"))?.render() ?? <App />);
     } catch (err) {
       console.error("Erro ao renderizar no dev:", err);
       const { default: App } = await import("./app/App");

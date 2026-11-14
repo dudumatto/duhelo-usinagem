@@ -8,6 +8,7 @@ updated: "2026-11-11"
 category: "Guias"
 keyword: "o que é usinagem"
 service: "pecas-sob-medida"
+coverAlt: "Bloco bruto ao lado de uma peça usinada"
 ---
 
 Usinagem é a fabricação ou modificação de uma peça pela remoção controlada de material. No torneamento, no fresamento e na furação, uma ferramenta de corte retira material para produzir formas e dimensões definidas. Um tarugo pode virar um eixo com diâmetros diferentes ao longo do comprimento, e um bloco pode ganhar uma face plana e furos para montar em um equipamento.

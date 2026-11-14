@@ -35,6 +35,9 @@ for (const route of allRoutePaths) {
   html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${canonical}$2`);
   html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${canonical}$2`);
   html = html.replace("<!--app-html-->", () => appHtml).replace("<!--app-head-->", () => renderHead(route));
+  if (route === "/404") {
+    html = html.replace(/\s*<link rel="canonical"[^>]*>/, "").replace(/\s*<meta property="og:url"[^>]*>/, "");
+  }
   // remove script tag + file
   const scriptTag = /\s*<script type="module" crossorigin src="\/assets\/([^"]+\.js)"><\/script>/;
   const match = html.match(scriptTag);
@@ -47,6 +50,10 @@ for (const route of allRoutePaths) {
   if (cssMatch) {
     const css = await readFile(path.join(dist, "assets", cssMatch[1]), "utf8");
     html = html.replace(cssTag, () => `<style>${css}</style>`);
+  }
+  if (route === "/404") {
+    await writeFile(path.join(dist, "404.html"), html);
+    continue;
   }
   const outDir = route === "/" ? dist : path.join(dist, route.replace(/^\//, ""));
   await mkdir(outDir, { recursive: true });

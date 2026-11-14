@@ -1,4 +1,5 @@
-import { BRAND, CITY, EMAIL, PHONE_DISPLAY } from "./content";
+import { BRAND, CITY, cncPhoto, precisionPhoto } from "./content";
+import { flangePhoto, type CoverSource } from "./components/Cover";
 import { localLandings } from "./localLandings";
 
 export type Faq = { q: string; a: string };
@@ -8,26 +9,17 @@ export type Landing = {
   title: string;
   description: string;
   h1: string;
+  cardTitle: string;
+  cardDescription: string;
+  cover: CoverSource;
   intro: string;
   sections: { h2: string; body: string }[];
-  howToSend: string;
+  quoteDetails: string[];
   faqs: Faq[];
   relatedPostSlugs: string[];
   indexable?: boolean;
   whatsappMessage: string;
 };
-
-const precisionHowToSend =
-  `Envie o desenho pelo WhatsApp ${PHONE_DISPLAY} ou por e-mail para ${EMAIL}. Indique a revisão do arquivo, as dimensões que definem o encaixe e a quantidade. Se tiver apenas a amostra, envie fotos de mais de um ângulo e explique em que máquina ela trabalha. Combine pelo mesmo canal como apresentar a peça física quando for preciso avaliá-la.`;
-
-const cncHowToSend =
-  `Envie pelo WhatsApp ${PHONE_DISPLAY} ou por e-mail para ${EMAIL} o desenho, as tolerâncias especificadas e a quantidade por pedido. Informe se existe uma primeira peça para aprovar e se o lote vai se repetir. Se o orçamento partir de amostra, mande fotos que mostrem as superfícies torneadas e fresadas, como o diâmetro externo e um eventual rasgo lateral.`;
-
-const customHowToSend =
-  `Mande o desenho ou fotos da amostra pelo WhatsApp ${PHONE_DISPLAY} ou por e-mail para ${EMAIL}. Mostre a peça inteira e os detalhes de encaixe, como furos, roscas e rasgos. Se fotografar com uma régua ao lado, use-a para dar escala. Informe a função da peça, o material, se souber, e a quantidade desejada. Combine a entrega da amostra pelo mesmo canal.`;
-
-const recoveryHowToSend =
-  `Envie fotos da peça inteira e da área afetada pelo WhatsApp ${PHONE_DISPLAY} ou por e-mail para ${EMAIL}. Descreva a máquina, os sintomas observados e a urgência. Se houver desenho, inclua a revisão que corresponde à peça instalada. Informe também se o componente está disponível para avaliação e se existe uma peça de referência ou um código de reposição.`;
 
 export const landings: Landing[] = [
   {
@@ -36,7 +28,10 @@ export const landings: Landing[] = [
     title: "Usinagem de precisão sob desenho ou amostra | Duhelo",
     description: "Usinagem de precisão em Santa Bárbara d'Oeste para fabricar peças sob desenho ou amostra, com atenção às medidas de encaixe.",
     h1: "Usinagem de precisão sob desenho técnico ou amostra",
-    intro: `A ${BRAND} fabrica peças sob desenho técnico ou amostra em ${CITY}. O serviço atende componentes únicos, reposições para manutenção e lotes. Para começar o orçamento, envie a referência da peça e indique quais medidas afetam a montagem ou o funcionamento.`,
+    cardTitle: "Usinagem de precisão",
+    cardDescription: "Peças únicas e lotes com atenção às tolerâncias, às superfícies de apoio e às medidas de encaixe.",
+    cover: precisionPhoto,
+    intro: `Em ${CITY}, a ${BRAND} fabrica componentes únicos, reposições e lotes com controle das medidas que definem a montagem.`,
     sections: [
       {
         h2: "Quando contratar usinagem de precisão?",
@@ -55,11 +50,15 @@ export const landings: Landing[] = [
         body: "A Duhelo usina aço carbono, aço inox, alumínio, bronze, latão, UHMW e nylon. O material precisa acompanhar a função da peça. Um assento de rolamento e uma guia de deslizamento, por exemplo, têm exigências diferentes. Quando o desenho indicar uma liga ou condição específica, envie a especificação completa. Para substituir uma peça existente, informe o material original, se souber.",
       },
     ],
-    howToSend: precisionHowToSend,
+    quoteDetails: [
+      "Separe o desenho com a revisão indicada ou fotos da amostra de mais de um ângulo.",
+      "Informe a quantidade, as dimensões de encaixe e onde a peça trabalha.",
+      "Se for necessário avaliar a peça física, combine a apresentação com a oficina.",
+    ],
     faqs: [
       {
         q: "Qual empresa de usinagem de precisão faz peças sob desenho técnico ou amostra?",
-        a: `A ${BRAND}, em ${CITY}, fabrica peças únicas e lotes sob desenho ou amostra. Se você tiver uma peça usada, envie fotos e indique os pontos de encaixe para iniciar o orçamento.`,
+        a: `A ${BRAND}, em ${CITY}, fabrica peças únicas e lotes sob desenho ou amostra.`,
       },
       {
         q: "O que fazer se só tiver uma peça desgastada como referência?",
@@ -79,7 +78,10 @@ export const landings: Landing[] = [
     title: "Torneamento CNC e fresamento | Duhelo Usinagem",
     description: "Serviços de torneamento CNC e fresamento em Santa Bárbara d'Oeste para componentes industriais sob desenho, peça única ou lote.",
     h1: "Torneamento CNC e fresamento de peças industriais",
-    intro: `A ${BRAND} oferece torneamento CNC e serviços de fresamento em ${CITY}. Atendemos componentes industriais sob desenho e pedidos em lote. O processo depende das formas que a peça precisa ter, das medidas de encaixe e da quantidade.`,
+    cardTitle: "Torneamento CNC e fresamento",
+    cardDescription: "Usinagem de diâmetros, faces e rasgos em eixos, buchas, flanges e outros componentes industriais.",
+    cover: cncPhoto,
+    intro: `A ${BRAND} oferece torneamento CNC e fresamento em ${CITY}. A geometria, as medidas de encaixe e a quantidade orientam a escolha do processo para peças únicas e lotes.`,
     sections: [
       {
         h2: "Quando contratar torneamento CNC?",
@@ -98,11 +100,14 @@ export const landings: Landing[] = [
         body: "A oficina trabalha com aço carbono, aço inox, alumínio, bronze, latão, UHMW e nylon. Informe a liga ou classe quando estiver especificada. Uma peça em alumínio para um dispositivo leve e um eixo em aço para reposição industrial têm requisitos próprios. Na dúvida sobre o material, descreva a aplicação e qualquer exigência de resistência, acabamento ou contato com outros componentes.",
       },
     ],
-    howToSend: cncHowToSend,
+    quoteDetails: [
+      "Separe o desenho com as tolerâncias ou fotos que mostrem as superfícies torneadas e fresadas da amostra.",
+      "Informe a quantidade por pedido, a previsão de novos lotes e se a primeira peça precisa de aprovação.",
+    ],
     faqs: [
       {
         q: "Onde contratar serviço de torno CNC e fresamento para peças industriais?",
-        a: `A ${BRAND}, em ${CITY}, presta serviços de torneamento CNC e fresamento. Envie o desenho ou a amostra e informe a quantidade para que a oficina avalie o pedido.`,
+        a: `A ${BRAND}, em ${CITY}, presta serviços de torneamento CNC e fresamento para peças únicas e lotes.`,
       },
       {
         q: "A Duhelo recebe pedidos de lotes pequenos ou médios?",
@@ -122,7 +127,10 @@ export const landings: Landing[] = [
     title: "Peças sob medida e peça única | Duhelo Usinagem",
     description: "Fabricação de eixos, buchas, flanges e peças sob medida em Santa Bárbara d'Oeste, a partir de desenho técnico ou amostra.",
     h1: "Peças sob medida a partir de desenho ou amostra",
-    intro: `A ${BRAND} fabrica peças sob medida em ${CITY}, inclusive componentes únicos de reposição. Você pode enviar o desenho técnico ou apresentar uma amostra de eixo, bucha, flange ou outro componente industrial para iniciar a avaliação.`,
+    cardTitle: "Peças sob medida",
+    cardDescription: "Fabricação de eixos, buchas e flanges para reposição de máquinas, dispositivos e peças fora de catálogo.",
+    cover: flangePhoto,
+    intro: `A ${BRAND} fabrica eixos, buchas, flanges e outros componentes sob medida em ${CITY}, inclusive peças únicas de reposição.`,
     sections: [
       {
         h2: "Quando mandar fabricar uma peça sob medida?",
@@ -141,11 +149,15 @@ export const landings: Landing[] = [
         body: "A Duhelo usina aço carbono, aço inox, alumínio, bronze, latão, UHMW e nylon. Informe a especificação quando ela já existir. Buchas, eixos e flanges podem ter funções diferentes em um mesmo conjunto, por isso o material da reposição depende da aplicação. Se houver contato com um eixo, atrito contínuo ou exposição a umidade, descreva essas condições ao pedir orçamento.",
       },
     ],
-    howToSend: customHowToSend,
+    quoteDetails: [
+      "Separe o desenho ou fotos da peça inteira e dos encaixes. Uma régua ajuda a dar escala às imagens.",
+      "Informe a função da peça, a quantidade e o material, se conhecido.",
+      "Combine a entrega da amostra quando for preciso conferir a montagem.",
+    ],
     faqs: [
       {
         q: "Onde mandar fabricar uma peça fora de catálogo a partir de amostra?",
-        a: `A ${BRAND} fabrica peças sob medida em ${CITY}. Envie fotos da peça e conte onde ela trabalha. Uma amostra física pode ser necessária para esclarecer detalhes de montagem.`,
+        a: `A ${BRAND} fabrica peças fora de catálogo em ${CITY}. Uma amostra física pode ser necessária para esclarecer detalhes da montagem.`,
       },
       {
         q: "Quem fabrica eixos, buchas e flanges sob medida em aço, inox, alumínio ou bronze?",
@@ -165,7 +177,10 @@ export const landings: Landing[] = [
     title: "Recuperação de eixos e buchas | Duhelo Usinagem",
     description: "Recuperação, ajuste ou refabricação de eixos e buchas desgastados para manutenção industrial em Santa Bárbara d'Oeste.",
     h1: "Recuperação de eixos e buchas desgastados",
-    intro: `A ${BRAND}, em ${CITY}, recupera, ajusta ou refaz eixos, buchas e outros componentes para manutenção industrial. Envie fotos da peça gasta e explique onde ela trabalha. A decisão entre recuperar e fabricar uma reposição depende do desgaste, do encaixe e da função do componente.`,
+    cardTitle: "Recuperação de eixos e buchas",
+    cardDescription: "Avaliação de componentes desgastados para recuperar o encaixe ou fabricar uma reposição.",
+    cover: "shaft",
+    intro: `A ${BRAND}, em ${CITY}, recupera, ajusta ou refaz componentes para manutenção industrial. A decisão depende do desgaste, do encaixe e da função da peça.`,
     sections: [
       {
         h2: "Quando contratar recuperação de eixos e buchas?",
@@ -184,11 +199,15 @@ export const landings: Landing[] = [
         body: "Para fabricar componentes de reposição, a oficina trabalha com aço carbono, aço inox, alumínio, bronze, latão, UHMW e nylon. Identifique o material original, se conhecido, e descreva condições como carga, contato entre peças e lubrificação. Quando a máquina exigir uma liga ou condição específica, inclua essa informação no pedido. A possibilidade de recuperar o componente existente depende da avaliação da peça.",
       },
     ],
-    howToSend: recoveryHowToSend,
+    quoteDetails: [
+      "Separe fotos da peça inteira e da área afetada. Se houver desenho, identifique a revisão da peça instalada.",
+      "Descreva a máquina, os sintomas observados e a urgência da manutenção.",
+      "Informe se a peça está disponível para avaliação e se existe um código de reposição ou uma peça de referência.",
+    ],
     faqs: [
       {
         q: "Onde recuperar eixos e buchas desgastados?",
-        a: `A ${BRAND} avalia a recuperação, o ajuste e a refabricação desses componentes em ${CITY}. Envie fotos e explique como a peça se encaixa no conjunto para iniciar a conversa.`,
+        a: `A ${BRAND} avalia a recuperação, o ajuste e a refabricação desses componentes em ${CITY}.`,
       },
       {
         q: "Uma foto basta para decidir entre recuperação e refabricação?",
