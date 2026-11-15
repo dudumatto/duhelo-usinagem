@@ -5,10 +5,9 @@ import { WhatsAppIcon } from "./components/WhatsAppIcon";
 import { MobileCtaBar } from "./components/MobileCtaBar";
 import { ContactActions } from "./components/ContactActions";
 import { PostCards } from "./components/PostCards";
-import { ServiceCards } from "./components/ServiceCards";
+import { HeaderNav } from "./components/HeaderNav";
 import { featuredPosts } from "./blogPosts";
 import { Photo } from "./components/Photo";
-import { landings } from "./serviceLandings";
 import {
   BRAND,
   CITY,
@@ -88,15 +87,13 @@ export default function App() {
           <a href="#topo" className="header-brand" aria-label={`${BRAND} - início`}>
             <Logo className="logo logo-header" />
           </a>
-          <nav aria-label="Navegação principal" className="header-nav">
-            <ul>
+          <HeaderNav>
               {navLinks.map(([label, href]) => (
                 <li key={href}>
                   <a href={href}>{label}</a>
                 </li>
               ))}
-            </ul>
-          </nav>
+          </HeaderNav>
           <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" data-cta-event="whatsapp_click" data-cta-position="header">
             <WhatsAppIcon />
             <span>Orçamento</span>
@@ -219,23 +216,15 @@ export default function App() {
                 </li>
               ))}
             </ol>
-            <section id="paginas-dedicadas" className="content-width dedicated-pages" aria-labelledby="dedicated-title">
-              <h2 id="dedicated-title">Explore nossos serviços</h2>
-              <p>Conheça os processos, as aplicações e o que preparar para pedir um orçamento.</p>
-              <ServiceCards items={landings.filter((landing) => landing.indexable !== false)} />
-              <a className="btn btn-index catalog-action" href="/blog#servicos">
-                Conheça todos os serviços<ArrowRight className="icon" aria-hidden="true" />
-              </a>
-            </section>
           </section>
 
           <section id="blog" className="zone-section home-blog" aria-labelledby="home-blog-title">
             <div className="content-width">
-              <h2 id="home-blog-title">Blog de usinagem</h2>
-              <p className="section-lead">Guias para escolher uma oficina, especificar uma peça e planejar a recuperação.</p>
+              <h2 id="home-blog-title">Guias de usinagem de precisão</h2>
+              <p className="section-lead">Saiba como pedir orçamento sob desenho, amostra ou peça gasta e quando vale recuperar um componente.</p>
               <PostCards posts={featuredPosts} showCover />
               <a className="btn btn-primary catalog-action" href="/blog">
-                Ver blog e serviços<ArrowRight className="icon" aria-hidden="true" />
+                Explorar guias e serviços de usinagem<ArrowRight className="icon" aria-hidden="true" />
               </a>
             </div>
           </section>
@@ -371,7 +360,7 @@ export default function App() {
                   <strong>{PHONE_DISPLAY}</strong>
                   <ArrowUpRight className="icon cell-arrow" aria-hidden="true" />
                 </a>
-                <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
+                <a href={EMAIL_COMPOSE_URL} className="contact-cell" data-cta-event="email_click" data-cta-position="contact_cell">
                   <span className="cell-label">
                     <Mail className="icon" aria-hidden="true" /> E-mail
                   </span>
@@ -402,7 +391,7 @@ export default function App() {
               <a href="/blog">Blog de usinagem</a> · <a href="/sobre">Sobre a Duhelo</a>
             </p>
             <p>
-              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
+              <a href={`tel:${PHONE_E164}`} data-cta-event="call_click" data-cta-position="footer">{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} data-cta-event="email_click" data-cta-position="footer">{EMAIL}</a>
             </p>
             <p className="footer-legal">
               © {YEAR} {BRAND}. Todos os direitos reservados. ·{" "}

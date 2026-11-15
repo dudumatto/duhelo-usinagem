@@ -15,7 +15,7 @@ function Defs({ id }: { id: string }) {
   );
 }
 
-/** Flange em duas vistas (frontal + corte A-A) com cotas. As linhas se desenham ao carregar. */
+/** Flange em duas vistas (frontal + corte A-A) com cotas. */
 export function FlangeDrawing({ animated = true }: { animated?: boolean }) {
   const id = `flange-${useId()}`;
   const holes = [
@@ -25,7 +25,7 @@ export function FlangeDrawing({ animated = true }: { animated?: boolean }) {
     [218, 228],
   ];
   return (
-    <svg className={animated ? "drawing drawing-animated" : "drawing"} viewBox="0 0 520 330" role="img" aria-labelledby={`${id}-title`}>
+    <svg className="drawing" data-animate-drawing={animated ? "" : undefined} viewBox="0 0 520 330" role="img" aria-labelledby={`${id}-title`}>
       <title id={`${id}-title`}>Desenho técnico ilustrativo de um flange em vista frontal e corte, com cotas de diâmetro e espessura</title>
       <Defs id={id} />
 

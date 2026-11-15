@@ -9,7 +9,7 @@ await mkdir(OUT, { recursive: true });
 
 const photos = ["card-servicos-cnc", "card-usinagem-customizada", "card-fabricacao-metal"];
 for (const name of photos) {
-  for (const w of [480, 800, 1200]) {
+  for (const w of [480, 640, 800, 1200]) {
     await sharp(`${SRC}/${name}.jpg`).resize({ width: w }).webp({ quality: 74 }).toFile(`${OUT}/${name}-${w}.webp`);
   }
 }
@@ -32,6 +32,9 @@ const logo = await knockoutWhite(`${SRC}/duhelo-logo.png`);
 const logoBuf = await logo.png().toBuffer();
 await sharp(logoBuf).trim().resize({ height: 160 }).png({ compressionLevel: 9, palette: true }).toFile(`${OUT}/duhelo-logo.png`);
 await sharp(logoBuf).trim().resize({ height: 160 }).webp({ quality: 90, alphaQuality: 90 }).toFile(`${OUT}/duhelo-logo.webp`);
+for (const width of [80, 160]) {
+  await sharp(`${OUT}/duhelo-logo.webp`).resize({ width }).webp({ quality: 82 }).toFile(`${OUT}/duhelo-logo-${width}.webp`);
+}
 
 // Símbolo (engrenagens) para favicons: a metade superior do logo.
 const symbol = await sharp(logoBuf).extract({ left: 0, top: 0, width: 500, height: 285 }).png().toBuffer();

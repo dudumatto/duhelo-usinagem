@@ -1,6 +1,7 @@
 import { BRAND, CITY, EMAIL, EMAIL_COMPOSE_URL, PHONE_DISPLAY, WHATSAPP_LINK, services } from "../content";
 import { Logo } from "../components/Logo";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
+import { HeaderNav } from "../components/HeaderNav";
 
 const slugify = (s: string) =>
   s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -13,7 +14,12 @@ export function ServicePage({ slug }: { slug: string }) {
       <header className="site-header">
         <div className="header-inner">
           <a href="/" className="header-brand" aria-label={`${BRAND} - início`}><Logo className="logo logo-header" /></a>
-          <nav aria-label="Navegação principal" className="header-nav"><ul><li><a href="/">Início</a></li><li><a href="/#servicos">Serviços</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contato">Contato</a></li></ul></nav>
+          <HeaderNav>
+            <li><a href="/">Início</a></li>
+            <li><a href="/#servicos">Serviços</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/#contato">Contato</a></li>
+          </HeaderNav>
           <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm"><WhatsAppIcon /><span>Orçamento</span></a>
         </div>
       </header>
@@ -44,7 +50,7 @@ export function ServicePage({ slug }: { slug: string }) {
           <Logo className="logo logo-footer" />
           <div className="footer-text">
             <p><strong>{BRAND}</strong> · Usinagem, ferramentaria e manutenção industrial em {CITY}.</p>
-            <p><a href={`tel:+5519982731890`}>{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer">{EMAIL}</a></p>
+            <p><a href={`tel:+5519982731890`}>{PHONE_DISPLAY}</a> · <a href={EMAIL_COMPOSE_URL}>{EMAIL}</a></p>
           </div>
         </footer>
       </div>
