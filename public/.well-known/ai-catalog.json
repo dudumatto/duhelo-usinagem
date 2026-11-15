@@ -1,0 +1,15 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:duhelousinagem.com.br:skill:orientar-orcamento",
+      "displayName": "Orientar orçamento de usinagem na Duhelo",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://www.duhelousinagem.com.br/.well-known/skills/orientar-orcamento/SKILL.md",
+      "representativeQueries": [
+        "Como cotar usinagem de precisão sob desenho ou amostra na Duhelo?",
+        "O que preparar para pedir a recuperação de uma peça gasta em Santa Bárbara d’Oeste ou Americana?"
+      ]
+    }
+  ]
+}

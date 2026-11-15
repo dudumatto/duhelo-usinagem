@@ -16,7 +16,7 @@ export function ContentQuote({ title, message, children }: {
         </div>
         <div className="content-quote-actions">
           <ContactActions label="Pedir orçamento pelo WhatsApp" message={message} position="end" />
-          <a href={EMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" data-cta-event="email_click" data-cta-position="end">{EMAIL}</a>
+          <a href={EMAIL_COMPOSE_URL} data-cta-event="email_click" data-cta-position="end">{EMAIL}</a>
         </div>
       </div>
     </section>

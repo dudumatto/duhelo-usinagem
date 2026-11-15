@@ -207,5 +207,31 @@
   document.addEventListener("click", recordClick);
   document.addEventListener("auxclick", recordClick);
 
+  const menu = document.querySelector(".header-menu");
+  if (menu) {
+    const summary = menu.querySelector("summary");
+    document.addEventListener("click", (event) => {
+      if (!menu.open || !(event.target instanceof Element)) return;
+      if (!menu.contains(event.target) || event.target.closest("a")) menu.open = false;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.open) return;
+      menu.open = false;
+      summary.focus();
+    });
+  }
+
+  const drawing = document.querySelector("[data-animate-drawing]");
+  if (drawing && !window.matchMedia("(min-width: 1024px)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.25) return;
+      drawing.classList.add("drawing-animated");
+      observer.disconnect();
+    }, { threshold: 0.25 });
+    observer.observe(drawing);
+  }
+
   if (measurementEnabled) showConsent();
 })();

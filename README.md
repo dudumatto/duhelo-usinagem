@@ -10,7 +10,7 @@ A [medição com GA4](docs/analytics.md) pode ser habilitada no build de produç
 
 ```bash
 npm install
-npm run dev          # desenvolvimento em http://localhost:5173
+npm run dev          # HTML renderizado no servidor em http://localhost:5173; recarregue após editar
 npm run build        # gera dist/ (HTML pré-renderizado + CSS embutido)
 npm run preview      # serve dist/ em http://localhost:4173
 npm run analytics:check # testa o contrato dos eventos sem tráfego externo

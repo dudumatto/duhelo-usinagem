@@ -20,7 +20,7 @@ export function ServiceLandingPage({ landing }: { landing: Landing }) {
         <div className="content-width">
           <nav className="content-breadcrumb" aria-label="Caminho da página">
             <a href="/" className="text-link">Início</a><span aria-hidden="true">/</span>
-            <a href="/#paginas-dedicadas" className="text-link">Serviços</a>
+            <a href="/#servicos" className="text-link">Serviços</a>
           </nav>
           <div className="content-hero-grid">
             <div>
